@@ -19,7 +19,7 @@ This repository contains notebooks on energy storage systems (related parts: Sup
 
 ### _Why Pluto?_  
 -  allows literate and reactive programming. [Pluto's presentation video, at the JuliaCon 2020 conference, July 2020. Duration: 24min.](https://youtu.be/IAF8DjrQSSk)
-- *Pluto* one year later. [uliaCon 2021 Conference, July 2021. Duration: 27min.](https://youtu.be/HiI4jgDyDhY)
+- *Pluto* one year later. [JuliaCon 2021 Conference, July 2021. Duration: 27min.](https://youtu.be/HiI4jgDyDhY)
 - **_Pluto notebooks_** are *Julia* files, which you can then import as if you had been programming in a regular editor all along or in an integrated development environment (IDE) such as Visual Studio, Atom...
 - opinion article: [A Guide to Building Reactive Notebooks for Scientific Computing With Julia and Pluto.jl](https://medium.com/swlh/a-guide-to-building-reactive-notebooks-for-scientific-computing-with-julia-and-pluto-jl-1a2c0c455d51)
 
