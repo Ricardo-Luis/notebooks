@@ -224,7 +224,7 @@ md"""
 
 # ╔═╡ d97ab7e4-ba29-4e9d-8669-4ad5d8b65c6b
 md"""
-### What Is C-rate? 💻
+### What is C-rate? 💻
 """
 
 # ╔═╡ a4e06819-4037-48ff-abb6-1318ba11ce73
