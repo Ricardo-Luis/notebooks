@@ -8,7 +8,7 @@ This repository contains notebooks on energy storage systems (related parts: Sup
 **_Pluto_** is an interactive computing environment for the _Julia_ programming language that uses a web browser (recommended: Mozilla Firefox or Google Chrome). It allows combining _Julia_ code and computational results with text, mathematical expressions, images, etc., in an interconnected and interactive way with the user. Updating a piece of code automatically reruns all the pieces affected by that change.
 
 ## Installation of _Julia_ and _Pluto_
-- video and written versions to install _Julia_ ang _Pluto_: [First-time setup: Install Julia & Pluto](https://computationalthinking.mit.edu/Spring21/installation/)
+- video and written versions to install _Julia_ and _Pluto_: [First-time setup: Install Julia & Pluto](https://computationalthinking.mit.edu/Spring21/installation/)
 - opinion article: [First Steps #5: Pluto.jl 🎈](https://www.juliafordatascience.com/first-steps-5-pluto/)
 
 ## Additional information
