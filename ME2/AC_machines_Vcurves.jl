@@ -18,6 +18,7 @@ end
 begin
 	using PlutoUI # user-interface do Pluto.jl
 	using Plots   # Julia package para gráficos 
+
 end
 
 # ╔═╡ c0e4d750-b9a4-11eb-2e0c-edaeaaf3f36a
@@ -61,6 +62,9 @@ begin
 	H1, H2, H4, H3
 end
 
+# ╔═╡ 66de4e49-ede7-44d1-b7b4-49ecb3ec2e53
+
+
 # ╔═╡ 3d8c7f7e-e765-41d9-8191-aef5e52984fc
 md"""
 ## b) Curvas "V"  💻
@@ -92,6 +96,12 @@ $$I=\frac{1}{X_s}E_0-\frac{1}{X_s}U \quad\mathrm{para} \quad\varphi = -90°$$
 $$I=-\frac{1}{X_s}E_0+\frac{1}{X_s}U \quad\mathrm{para} \quad\varphi = +90°$$
 
 """
+
+# ╔═╡ 19822397-18c5-4a88-bac1-f3adbfd2b235
+#begin
+#	p2 = contour(c_cosφ)
+#	plot(p2)
+#end
 
 # ╔═╡ 594360d4-9bb8-4756-8f40-a5f0f9555aba
 md"""
@@ -138,57 +148,67 @@ end
 
 # ╔═╡ 41eac123-fa10-42c3-a801-8fb5f7bce7ae
 begin
-
-		# eixos: kW, kVAr
+# eixos: kW, kVAr
 	plot([0+j(0), 400+j(0)], 
-		label="eixo de potência reactiva (VAr)", arrow=:head, linecolor=:black, 			linewidth=2)
+		label="eixo de potência reactiva (VAr)", arrow=:head,
+		linecolor=:black, linewidth=2)
 	plot!([200-j(200), 200+j(200)],
-		label="eixo de potência activa (W)", arrow=:head, linestyle=:dash, 					linecolor=:black, linewidth=2)
-	
-	K=3
-	plot!([0, U_], arrow=:closed, legend=:bottomright, label="U∠0°", linewidth=2, linecolor=:blue)
-	plot!([0, K*I_], arrow=:closed, label="I∠φ", linewidth=2, linecolor=:red)
-	plot!([U_, U_+j(Xₛ)*I_], arrow=:closed, label="XₛI∠(φ+90°)", linewidth=2, linecolor=:purple)
-	plot!([0, E₀_], arrow=:closed,minorticks=5, label="E₀∠δ", linewidth=2,
-		  ylims=(-200,200), xlims=(0,400),size=(600,600) )
-	
+		label="eixo de potência activa (W)", arrow=:head,
+		linestyle=:dash, linecolor=:black, linewidth=2)
 
+# diagrama vectorial de tensões
+	K=3 # para tornar a corrente visível na escala de tensões
+	plot!([0, U_], arrow=:closed, 
+		legend=:bottomright, label="U∠0°", linewidth=2, linecolor=:blue)
+	plot!([0, K*I_], arrow=:closed, 
+		label="I∠φ", linewidth=2, linecolor=:red)
+	plot!([U_, U_+j(Xₛ)*I_], arrow=:closed, 
+		label="XₛI∠(φ+90°)", linewidth=2, linecolor=:purple)
+	plot!([0, E₀_], arrow=:closed,
+		minorticks=5, label="E₀∠δ", linewidth=2,
+		ylims=(-200,200), xlims=(0,400),size=(600,600) )
 	
-	# lugar geométrico de Q constante
+# lugar geométrico de Q constante
 	φ_locus=-90:1:90
 	φ_locus=deg2rad.(φ_locus)
 	I=abs(I_)
 	φ=atan(-Q/(P+0.001))
 	Isinφ_Qlocus_=K*I*cos.(φ_locus).+j(K*I*sin(φ))
-	plot!(z2*Isinφ_Qlocus_, linestyle=:dash, linecolor=:blue, label="linha Isinφ constante")
+	plot!(z2*Isinφ_Qlocus_, 
+		linestyle=:dash, linecolor=:blue, label="linha Isinφ constante")
 	δ_locus=0:1:90
 	δ_locus=deg2rad.(δ_locus)
 	E₀=abs(E₀_)
 	δ=angle(E₀_)
 	E₀Q_locus_=E₀*cos(δ).+j.(E₀*sin.(δ_locus))
-	plot!(z2*E₀Q_locus_, linestyle=:dashdot, linecolor=:blue, label="linha de E₀cosδ constante")
+	plot!(z2*E₀Q_locus_,
+		linestyle=:dashdot, linecolor=:blue, label="linha de E₀cosδ constante")
 	
-	# lugar geométrico de P constante
+# lugar geométrico de P constante
 	Isinφ_Plocus_=K*I*cos(φ).+j(K*I*sin.(φ_locus))
-	plot!(z1*Isinφ_Plocus_, linestyle=:dash, label="linha de Icosφ constante", linecolor=:red)
+	plot!(z1*Isinφ_Plocus_, 
+		linestyle=:dash, label="linha de Icosφ constante", linecolor=:red)
 	E₀P_locus_=E₀.*cos.(δ_locus).+j(E₀*sin(δ))
-	plot!(z1*E₀P_locus_, linestyle=:dashdot, linecolor=:red, label="linha de E₀sinδ constante")
+	plot!(z1*E₀P_locus_, 
+		linestyle=:dashdot, linecolor=:red, label="linha de E₀sinδ constante")
 end
 
 # ╔═╡ d2ed65c3-24e3-42ee-ac6e-f743ef4b584d
 begin
+	#import GR
 	Pᵥ=[0, 5, 10, 15, 20]
 	Qᵥ=[-20, -15, -10, -5, 0, 5, 10, 15, 20]
+	#Iᵥcosφ, Iᵥsinφ
 	Iᵥcosφ=Pᵥ.*1e3./(3U)
 	Iᵥsinφ=transpose(Qᵥ.*1e3./(3U))
-	#Iᵥcosφ, Iᵥsinφ
+	
 	#Inicialização de matrizes:
 	Iᵥ_=zeros(ComplexF64, 5, 9)
 	E₀₁_=zeros(ComplexF64, 5, 9)
 	Iᵥ=zeros(5,9)
 	φᵥ=zeros(5,9)
 	P₁=zeros(5,9)
-	#c_cosφ=zeros(5,9)
+	c_cosφ=zeros(5,9)
 	E₀₁=zeros(5,9)
 	#δᵥ=zeros(5,9)
 	for l in 1:5
@@ -204,7 +224,9 @@ begin
 			#δᵥ[l,c]=rad2deg(δᵥ[l,c])
 		end
 	end
-	plot(E₀₁[1,:],Iᵥ[1,:], legend=:bottomright, label="P=0kW", linewidth=2, xlabel = "E₀(V)", ylabel="I(A)",)	
+	plot(E₀₁[1,:],Iᵥ[1,:],
+		legend=:bottomright, label="P=0kW", linewidth=2, 
+		xlabel = "E₀(V)", ylabel="I(A)",)	
 	plot!(E₀₁[2,:],Iᵥ[2,:], label="P=5kW", linewidth=2)
 	plot!(E₀₁[3,:],Iᵥ[3,:], label="P=10kW", linewidth=2)
 	plot!(E₀₁[4,:],Iᵥ[4,:], label="P=15kW", linewidth=2)
@@ -218,7 +240,7 @@ md"""
 """
 
 # ╔═╡ e4374691-885a-487e-bee5-dac9092dd567
-TableOfContents(title="📚 Índice, Exercício 2")
+TableOfContents(title="📚 Índice, Exercício sobre curvas V")
 
 # ╔═╡ 995e0deb-8044-4cd8-b802-0bda0ce093e3
 md"""
@@ -1155,12 +1177,14 @@ version = "0.9.1+5"
 # ╟─9b3e08e0-7207-4099-96e4-c6e1e9892a1f
 # ╟─159419d5-0555-43a0-8320-9cb51e0b05ba
 # ╠═fb03a3aa-f94b-4b73-a21b-f05bc548dd9d
-# ╟─41eac123-fa10-42c3-a801-8fb5f7bce7ae
 # ╟─df708c4d-443b-4190-b72d-779c4e1e1bb1
+# ╟─41eac123-fa10-42c3-a801-8fb5f7bce7ae
+# ╟─66de4e49-ede7-44d1-b7b4-49ecb3ec2e53
 # ╟─3d8c7f7e-e765-41d9-8191-aef5e52984fc
 # ╟─db0fc7c2-9e8c-415f-95c1-686dbfc56347
 # ╟─6a1ee842-a2f1-4810-83d7-5ce931c47891
 # ╟─d2ed65c3-24e3-42ee-ac6e-f743ef4b584d
+# ╟─19822397-18c5-4a88-bac1-f3adbfd2b235
 # ╟─594360d4-9bb8-4756-8f40-a5f0f9555aba
 # ╟─1b4d9fbd-be46-416a-a1fe-163f5a0b37a3
 # ╟─5db1fd70-0bf9-462b-b6d3-bfc3ed8890cb
