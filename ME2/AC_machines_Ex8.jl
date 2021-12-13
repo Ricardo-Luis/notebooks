@@ -439,7 +439,7 @@ md"""
 
 *Notebook* realizado em linguagem de programação *Julia* versão $(version) para a unidade curricular de Máquinas Elétricas 2 (ISEL\LEE).   
 
-Tempo de cálculo do *notebook* (1ª execução): até cerca de 5 min.  
+Tempo de cálculo do *notebook* (1ª execução): até cerca de 4 min.  
 
 **Ricardo Luís** (Professor Adjunto, ISEL\DEEEA\GDME) \
 ISEL, 13/Dez/2021
