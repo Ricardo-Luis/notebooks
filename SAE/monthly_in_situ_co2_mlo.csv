@@ -1,6 +1,4 @@
   Yr, Mn,    Date,      Date,     CO2,seasonally,        fit,  seasonally,      CO2, seasonally
-    ,   ,        ,          ,        ,  adjusted,           ,adjusted fit,   filled,adjusted filled
-    ,   ,   Excel,          ,   [ppm],    [ppm] ,      [ppm],    [ppm],       [ppm],    [ppm]
 1958,1,21200,1958.0411,-99.99,-99.99,-99.99,-99.99,-99.99,-99.99
 1958,2,21231,1958.126,-99.99,-99.99,-99.99,-99.99,-99.99,-99.99
 1958,3,21259,1958.2027,315.71,314.43,316.2,314.91,315.71,314.43
