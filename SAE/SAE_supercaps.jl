@@ -37,11 +37,11 @@ html"""
 
 # ╔═╡ 091302e0-949a-4919-a6f3-ea4e8d52a14b
 md"""
-[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/me2/blob/main/notebooks/AC/me2-tp-maq-ac-ex1.jl)
-""";
+[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/SAE/SAE_supercaps.jl)
+"""
 
 # ╔═╡ 263a38bb-bda2-4e49-901b-1e8d5e7b72ed
-html"<button onclick='present()'>present</button>"
+html"<button onclick='present()'>present</button>";
 
 # ╔═╡ ed50c37f-a647-434c-a198-23e27453ebf8
 md"""
@@ -456,53 +456,20 @@ begin
 end
 
 # ╔═╡ 272262dc-a656-495e-b768-3eb563159438
-CSV.write("$partnumber.$DChType.csv", sol)
+CSV.write("$(partnumber).$(Ns)S$(Nₚ)P.$DChType.csv", sol)
 
-# ╔═╡ f8e60cbc-303e-4ebf-9b49-51ab5cdff921
+# ╔═╡ c387fc71-03bc-4c5a-90cb-9d443f884d0b
 md"""
-### Summary of results
-
-|Input         | Output    | Comments                  |
-|:-------------|:----------|:--------------------------|
-|τ = 2π        | $(P)      | The real circle constant! |
-|ω = τ .* f    | $(I)      | Angular frequency         |
+### Final remark
 """
 
-# ╔═╡ e290c641-49e8-4b60-a13c-e6c6b0f7d8bd
-begin
-	Uᵢₙₜₑᵣₚ=Spline1D(sol[t],sol[ESS.u])
-	Uₜᵢₘₑ=Uᵢₙₜₑᵣₚ([0, 10])
-	
-	Iᵢₙₜₑᵣₚ=Spline1D(sol[t],sol[ESS.i])
-	Iₜᵢₘₑ=Iᵢₙₜₑᵣₚ([10])
+# ╔═╡ 7bf05574-27b7-438a-8fb0-73c57d7d8940
+md"""
+With the use of numerical simulation the base equations of the supercapacitor bank can be used to predict the discharge curve, without be necessary to determine the analytical solution for output voltage and current. The reference [^7], presents an exemple of analytical solution, so you can compare both approaches. 
+"""
 
-	Iₜᵢₘₑ, Uₜᵢₘₑ
-end
+# ╔═╡ bbee54ab-0cf8-4765-a88e-7aa584269c66
 
-# ╔═╡ 89495e6b-8ba6-4700-8f9b-f7feb3e3c919
-begin
-	ESR_drop=Uₜᵢₘₑ[1]-Uₜᵢₘₑ[2]
-	ESR_drop=round(ESR_drop, digits=1)
-end
-
-# ╔═╡ 681fe0ba-9f65-41d4-919f-5672a43cab48
-begin
-	Eₜₒₜₐₗ=0.5*Cₜ*(Uₜᵢₘₑ[1]^2-Uₜᵢₘₑ[2]^2)/1000
-	Eₜₒₜₐₗ=round(Eₜₒₜₐₗ, digits=1)					# kJ
-	EₜₒₜWh=Eₜₒₜₐₗ*1000/3600 						# Wh
-end
-
-# ╔═╡ d296eee5-4dcb-4532-8e7b-b3e844ee1902
-
-
-# ╔═╡ dff78d8a-2d90-4bbc-98b7-7a769a33b1b3
-
-
-# ╔═╡ 322a7394-645c-4f57-b6ce-9175a8feedc4
-
-
-# ╔═╡ 4ae6ac0c-361c-4ece-ac3b-6ed956175132
-Uₜᵢₘₑ[1]^2
 
 # ╔═╡ 4312d0e3-8941-4f89-82b5-8cae6f45b82c
 md"""
@@ -565,6 +532,11 @@ md"""
 [^6] $(DOI("10.1109/PES.2008.4596576"))
 """
 
+# ╔═╡ 8ed07cb3-e6a8-48f9-88db-7e170f81336c
+md"""
+[^7] $(DOI("10.1016/j.est.2021.102998"))
+"""
+
 # ╔═╡ 644e335c-4082-46d5-9dfb-678333bdeef0
 md"""
 ## Main reference 
@@ -576,20 +548,16 @@ md"""
 >Petar J. Grbovic, Ultra-Capacitors in Power Conversion Systems: Analysis, Modeling and Design in Theory and Practice, John Wiley & Sons Ltd, 2014.
 """
 
-# ╔═╡ 76fd752a-cfad-4ad7-9737-9a2bcf5fbbfc
+# ╔═╡ 0d0a3ca1-05b7-49ff-b626-34bef83b61f1
+md"""
+## Suggested reading
+"""
 
-
-# ╔═╡ cca3ebae-6168-4104-936f-085313cefc4b
-
-
-# ╔═╡ a4729155-72c0-4a5c-a3ab-aa7ad6df1c4c
-
-
-# ╔═╡ 5dd33e76-4e75-448e-82ba-d7de4486ce30
-
-
-# ╔═╡ 70ae11fa-d927-4edd-83ee-57ec1976cc26
-
+# ╔═╡ aa55275b-7dd7-44e4-9934-51bcc2ac6867
+md"""
+$(DOI("10.1109/IPEMC.2012.6258933")) 
+DOI: [10.1109/IPEMC.2012.6258933](https://doi.org/10.1109/IPEMC.2012.6258933)
+"""
 
 # ╔═╡ e843d554-ba60-47e2-89e2-af8fcaa7f039
 md"""
@@ -609,7 +577,7 @@ md"""
 md"""
 ## _Julia packages_
 *Links to package help*: \
-[PlutoUI](https://juliahub.com/docs/PlutoUI/abXFp/0.7.6/), [ShortCodes](https://github.com/hellemo/ShortCodes.jl), [DifferentialEquations](https://diffeq.sciml.ai/dev/index.html), [Plots](https://docs.juliaplots.org/stable/), [LinearAlgebra](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/), [CSV](https://csv.juliadata.org/stable/), [DataFrames](https://dataframes.juliadata.org/stable/).
+[PlutoUI](https://juliahub.com/docs/PlutoUI/abXFp/0.7.6/), [ShortCodes](https://github.com/hellemo/ShortCodes.jl), [ModelingToolkit](https://mtk.sciml.ai/dev/), [DifferentialEquations](https://diffeq.sciml.ai/dev/index.html), [Plots](https://docs.juliaplots.org/stable/), [CSV](https://csv.juliadata.org/stable/), [Dierckx](https://github.com/kbarbary/Dierckx.jl).
 """
 
 # ╔═╡ cdc488c5-61b3-4866-8400-49c5864b0df4
@@ -628,7 +596,7 @@ md"""
 
 This notebook is designed in Julia programming language version $(version) for the Energy Storage Systems MSc. course (ISEL\MEE) \
 **Ricardo Luís** (Adjunct Professor, ISEL\DEEEA\GDME) \
-ISEL, 26/May/2022
+ISEL, 27/May/2022
 """
 
 # ╔═╡ cc60d8df-064c-46d1-b17f-127032ce392f
@@ -2519,9 +2487,9 @@ version = "0.9.1+5"
 """
 
 # ╔═╡ Cell order:
-# ╠═c66dc937-2e1b-4bb0-b8fc-97a5d9cc485a
-# ╠═091302e0-949a-4919-a6f3-ea4e8d52a14b
-# ╠═263a38bb-bda2-4e49-901b-1e8d5e7b72ed
+# ╟─c66dc937-2e1b-4bb0-b8fc-97a5d9cc485a
+# ╟─091302e0-949a-4919-a6f3-ea4e8d52a14b
+# ╟─263a38bb-bda2-4e49-901b-1e8d5e7b72ed
 # ╟─ed50c37f-a647-434c-a198-23e27453ebf8
 # ╟─7db72bb3-0ed4-4d12-bfab-db2c12552f5f
 # ╟─0b4ee969-2d06-405e-b24d-a6e955557a03
@@ -2549,7 +2517,7 @@ version = "0.9.1+5"
 # ╟─07af98a7-0769-4780-80d6-a33aecc7301b
 # ╟─7bb83342-ef77-4738-85d9-d5a18380684b
 # ╟─43874665-ef28-44a6-971f-5cbda4567751
-# ╠═51008493-4370-4c50-8df0-129698875d95
+# ╟─51008493-4370-4c50-8df0-129698875d95
 # ╟─1d6dd49f-9edb-4a0d-b211-eb372f8f2762
 # ╟─19ca1edd-4ebd-47b7-a0e5-32bd045e5efe
 # ╠═633d6f23-291e-409a-abc2-544bc32848f8
@@ -2582,17 +2550,12 @@ version = "0.9.1+5"
 # ╟─d6212081-d1ac-4e64-9f5e-0deaa78e3d77
 # ╟─d723e05d-dd59-44b9-8297-9dee9eb19587
 # ╠═272262dc-a656-495e-b768-3eb563159438
-# ╟─f8e60cbc-303e-4ebf-9b49-51ab5cdff921
-# ╠═e290c641-49e8-4b60-a13c-e6c6b0f7d8bd
-# ╠═89495e6b-8ba6-4700-8f9b-f7feb3e3c919
-# ╠═681fe0ba-9f65-41d4-919f-5672a43cab48
-# ╠═d296eee5-4dcb-4532-8e7b-b3e844ee1902
-# ╠═dff78d8a-2d90-4bbc-98b7-7a769a33b1b3
-# ╠═322a7394-645c-4f57-b6ce-9175a8feedc4
-# ╠═4ae6ac0c-361c-4ece-ac3b-6ed956175132
+# ╟─c387fc71-03bc-4c5a-90cb-9d443f884d0b
+# ╟─7bf05574-27b7-438a-8fb0-73c57d7d8940
+# ╟─bbee54ab-0cf8-4765-a88e-7aa584269c66
 # ╟─4312d0e3-8941-4f89-82b5-8cae6f45b82c
 # ╟─557542c5-2a91-4272-b090-0a35957368c3
-# ╠═2c7337e4-80a2-4aa4-a37f-35834eae2367
+# ╟─2c7337e4-80a2-4aa4-a37f-35834eae2367
 # ╟─7621cc4d-be38-46bd-af44-d6fa2e730e0f
 # ╟─998dac46-928f-4fa7-97fa-ca743a56dd3d
 # ╟─2f627e25-531c-4de9-b2e3-92d6724b02e8
@@ -2600,13 +2563,11 @@ version = "0.9.1+5"
 # ╟─42683e87-4ca4-43d3-a8db-f242e41f538e
 # ╟─1ea29dc7-d1f6-46cf-9b0e-d6e969c00524
 # ╟─6c091a31-25d2-4944-87db-87cd4b009f3c
+# ╟─8ed07cb3-e6a8-48f9-88db-7e170f81336c
 # ╟─644e335c-4082-46d5-9dfb-678333bdeef0
 # ╟─5d1ba97d-7e81-413e-9a50-a43ef9d07d30
-# ╠═76fd752a-cfad-4ad7-9737-9a2bcf5fbbfc
-# ╠═cca3ebae-6168-4104-936f-085313cefc4b
-# ╠═a4729155-72c0-4a5c-a3ab-aa7ad6df1c4c
-# ╠═5dd33e76-4e75-448e-82ba-d7de4486ce30
-# ╠═70ae11fa-d927-4edd-83ee-57ec1976cc26
+# ╟─0d0a3ca1-05b7-49ff-b626-34bef83b61f1
+# ╟─aa55275b-7dd7-44e4-9934-51bcc2ac6867
 # ╟─e843d554-ba60-47e2-89e2-af8fcaa7f039
 # ╠═d4d2e24e-cb8f-4df5-8982-666e1bda7b5d
 # ╟─85799f92-c29c-40b9-b38f-51a0ab94e080
