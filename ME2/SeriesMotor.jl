@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ ef7d6793-a4a7-41b6-82ce-0bd3157d19e8
-ThreeColumn(md"`SeriesMotor.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/Compound.GEN.Ex4.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`SeriesMotor.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/SeriesMotor.jl)", md"`Last update: 27·09·2022`")
 
 # ╔═╡ e111a3c8-c915-4863-bc0a-39310de2f19b
 begin
@@ -56,7 +56,7 @@ md"""
 """
 
 # ╔═╡ 8cf2189b-a1fb-454f-a5bb-8c2caa1b6532
-(Pᵤₙ, Uₙ, nₙ, ηₙ, nₘₐₓ, nmag)=(12e3, 250, 1400, 80, 2400, 1500);
+(Pᵤₙ, Uₙ, nₙ, ηₙ, nₘₐₓ, nmag) = (12e3, 250, 1400, 80, 2400, 1500);
 
 # ╔═╡ 7b358be8-59b1-4494-8c48-d842b10c5912
 md"""
@@ -66,8 +66,8 @@ $(nₘₐₓ)rpm, tem a seguinte característica magnética obtida a $(nmag)rpm:
 
 # ╔═╡ b099a590-b481-4748-bf4b-b6be08e958ea
 begin
-	Iₑₓ=[10, 20, 30, 40, 50, 60, 70, 80]
-	E₀=[80.0, 140, 190, 225, 250, 270, 285, 295]
+	Iₑₓ = [10, 20, 30, 40, 50, 60, 70, 80]
+	E₀ = [80.0, 140, 190, 225, 250, 270, 285, 295]
 	Iₑₓ, E₀
 end;
 
@@ -377,7 +377,7 @@ $\textbf{\color{green}{Lic. em Engenharia Eletrotécnica }}$", md"$\text{ Máqui
 md"""
 *Notebook* realizado em linguagem de computação científica Julia versão $(version).
 
-**_Time to first plot_**: até cerca de 2.1 min.
+**_Time to first plot_**: até cerca de 1.5 min.
 
 **Computador**: Intel® Core™ i5-6300U CPU @ 2.40GHz; 20GB RAM.
 """
@@ -1376,7 +1376,7 @@ version = "0.9.1+5"
 """
 
 # ╔═╡ Cell order:
-# ╠═ef7d6793-a4a7-41b6-82ce-0bd3157d19e8
+# ╟─ef7d6793-a4a7-41b6-82ce-0bd3157d19e8
 # ╟─e111a3c8-c915-4863-bc0a-39310de2f19b
 # ╟─cb222c9e-120e-4300-8306-2e863a0e1898
 # ╟─37ef79eb-cef5-458e-8994-14bdcc885478
@@ -1432,7 +1432,7 @@ version = "0.9.1+5"
 # ╟─68cfd587-9683-464b-b716-b07ee8fdb795
 # ╠═eb4f8227-3010-445a-bc26-1fee616643b6
 # ╟─7bf02db4-e6e7-4490-b336-69fc2b1ace62
-# ╠═375384d8-3408-4508-ba6b-b7001561de0d
+# ╟─375384d8-3408-4508-ba6b-b7001561de0d
 # ╟─a31b15bc-e58f-46ed-a25c-bf55e746130a
 # ╠═28388c27-6679-41eb-818b-fed0420d1484
 # ╟─6b94605a-2c18-4605-b1a0-af997a3c67d9

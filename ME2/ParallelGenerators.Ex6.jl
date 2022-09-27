@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ a4cc4ad7-04fd-41cf-b6a9-8cdede20b8af
-ThreeColumn(md"`ParallelGenerators.Ex6.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/Compound.GEN.Ex4.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`ParallelGenerators.Ex6.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/ParallelGenerators.Ex6.jl)", md"`Last update: 27·09·2022`")
 
 # ╔═╡ 7fdb306c-0729-40bb-bfc7-2ce826fe936b
 begin
@@ -229,7 +229,7 @@ $\textbf{\color{green}{Lic. em Engenharia Eletrotécnica }}$", md"$\text{ Máqui
 md"""
 *Notebook* realizado em linguagem de computação científica Julia versão $(version).
 
-**_Time to first plot_**: até cerca de 2.1 min.
+**_Time to first plot_**: até cerca de 2.0 min.
 
 **Computador**: Intel® Core™ i5-6300U CPU @ 2.40GHz; 20GB RAM.
 """
@@ -1252,7 +1252,7 @@ version = "0.9.1+5"
 # ╟─3c605565-784f-4ee7-8ff6-0ff77eff34f8
 # ╠═f06ea9e2-b9ed-4f8f-9278-9441cd270ca5
 # ╟─15a21bc0-7fcf-4af9-a8f6-693e2dec05ad
-# ╠═93f0c834-6b63-494e-829f-181066732a3b
+# ╟─93f0c834-6b63-494e-829f-181066732a3b
 # ╟─5be44370-93ed-4bd7-82eb-9dc50d78ffc6
 # ╠═b15f8fa6-04c9-425c-865b-013f06113bcb
 # ╟─6554ac49-0f3d-409e-a6a8-d0d6515087b3

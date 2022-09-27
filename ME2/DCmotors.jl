@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ e227c53c-28a1-4d09-bf05-ba24236f613a
-ThreeColumn(md"`DCmotors.Ex7.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/Compound.GEN.Ex4.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`DCmotors.Ex7.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/DCmotors.jl)", md"`Last update: 27·09·2022`")
 
 # ╔═╡ c27a02b0-2646-4ef2-87a7-668a428ebd98
 begin
@@ -438,15 +438,15 @@ end
 
 # ╔═╡ e648310c-8172-4cf0-ab72-f40229ba2577
 begin
-	Uexc=240
-	Iex₅=Uexc/(Rc1+Rd)
-	E₀₅=E₀_int1(Iex₅) #fem para excitação separada
-	kϕ₀₅=E₀₅/nmag
-	ΔEᵢᵢ=ΔE_int(I)
-	n₅=(Ui.-(Rᵢ+Rad)*I.+ΔEᵢᵢ)./kϕ₀₅
-	E₅=Ui.-(Rᵢ+Rad)*I
-	ω₅=2π.*n₅/60
-	Td₅=(E₅./ω₅).*Ii
+	Uexc = 240
+	Iex₅ = Uexc /(Rc1 + Rd)
+	E₀₅ = E₀_int1(Iex₅) 				#fem para excitação separada
+	kϕ₀₅ = E₀₅ / nmag
+	ΔEᵢᵢ = ΔE_int(I)
+	n₅ = (Ui .- (Rᵢ + Rad) *I .+ ΔEᵢᵢ) ./ kϕ₀₅
+	E₅ = Ui .- (Rᵢ + Rad) * I
+	ω₅ = 2π .* n₅ / 60
+	Td₅ = (E₅ ./ ω₅) .* Ii
 end;
 
 # ╔═╡ 4919a95d-cd66-401c-af76-6155087462a3
@@ -505,7 +505,7 @@ $\textbf{\color{green}{Lic. em Engenharia Eletrotécnica }}$", md"$\text{ Máqui
 md"""
 *Notebook* realizado em linguagem de computação científica Julia versão $(version).
 
-**_Time to first plot_**: até cerca de 2.1 min.
+**_Time to first plot_**: até cerca de 1.6 min.
 
 **Computador**: Intel® Core™ i5-6300U CPU @ 2.40GHz; 20GB RAM.
 """
