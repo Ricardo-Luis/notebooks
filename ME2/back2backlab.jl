@@ -21,7 +21,7 @@ begin
 end
 
 # ╔═╡ 1aceb22f-57fe-4428-bbd7-3410a10e269e
-ThreeColumn(md"`back2backlab.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-tp-maq-dc-ex2.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`back2backlab.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/back2backlab.jl)", md"`Last update: 27·09·2022`")
 
 # ╔═╡ 0c910bbe-9eb7-46cc-81c1-f9ccd460976b
 begin
