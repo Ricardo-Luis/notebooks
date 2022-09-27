@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ 1f9f4012-1be5-42a4-8d56-949d783e6518
-ThreeColumn(md"`Separ.Shunt.GEN.Ex2.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-tp-maq-dc-ex2.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`Separ.Shunt.GEN.Ex2.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/Separ.Shunt.GEN.Ex2.jl)", md"`Last update: 27·09·2022`")
 
 # ╔═╡ 5277a02b-2fd9-49b6-958f-3c6d53d3e433
 begin
