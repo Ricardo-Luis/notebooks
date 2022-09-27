@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ a1307fbd-12bb-43b0-9ea9-e92cef5039a7
-ThreeColumn(md"`Compound.GEN.Ex4.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-tp-maq-dc-ex2.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`Compound.GEN.Ex4.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/Compound.GEN.Ex4.jl)", md"`Last update: 27·09·2022`")
 
 # ╔═╡ 1eb82190-f1d8-4716-84ca-e8242952d6cb
 begin
