@@ -1,13 +1,13 @@
 ### A Pluto.jl notebook ###
-# v0.19.11
+# v0.19.12
 
 #> [frontmatter]
-#> URL = "https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/me2-p-maq-dc-back2back.jl"
+#> URL = "https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/back2backlab.jl"
 #> title = "Ensaio back-to-back"
 #> tags = ["DC machines"]
-#> "to cite the work, use" = "Ricardo Luís. (2022). Documentos computacionais sobre Máquinas Elétricas II [ coleção de notebooks de suporte a Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: https://ricardo-luis.github.io/me2"
+#> "to cite the work, use" = "Ricardo Luís. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção de notebooks de suporte a Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: https://ricardo-luis.github.io/me2"
 #> description = "Análise de potências, perdas e rendimento de máquinas DC"
-#> date = "2022-09-06"
+#> date = "2022-09-29"
 
 using Markdown
 using InteractiveUtils
@@ -21,7 +21,7 @@ begin
 end
 
 # ╔═╡ 1aceb22f-57fe-4428-bbd7-3410a10e269e
-ThreeColumn(md"`back2backlab.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/back2backlab.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`back2backlab.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/back2backlab.jl)", md"`Last update: 29·09·2022`")
 
 # ╔═╡ 0c910bbe-9eb7-46cc-81c1-f9ccd460976b
 begin
@@ -248,7 +248,7 @@ md"""
 \
 2. Ligar rede DC do Lab. de Máq. Elétricas e na bancada de ensaio $(U_{rede}=220\rm{V})$. Ligar o interruptor, $\rm IF1$, fazendo arrancar o motor DC;
 \
-3. Diminuir suavemente o reóstato de arranque até ao valor mínimo, $(0\ohm)$;
+3. Diminuir suavemente o reóstato de arranque até ao valor mínimo, $(0\Omega)$;
 \
 4. Ajustar a velocidade do grupo motor-gerador DC através do reostato de campo do motor para a velocidade nominal, $(n=1500\rm{rpm})$;
 \
@@ -418,7 +418,6 @@ end
 
 # ╔═╡ 6a7b7432-cb54-445a-aa39-33a13fb958ba
 md"""
-**REPRESENTAR UM NÓ!!!**
 Aplicando a lei dos nós, ao nó $\textbf 1$ apresentado no esquema de ligações, [^Fig_2_1], verifica-se que as correntes medidas: $I$, $I_l^G$ e $I_l^M$, não verificam plenamente a 1ª lei de Kirchhoff, devido a diferenças de aferição entre os amperímetros utilizados, sendo o erro absoluto máximo das correntes medidas nesse nó de $(Kirchhoffₘₐₓ)A, ao longo do ensaio. 
 """
 
@@ -440,13 +439,10 @@ md"""
 Na figura seguinte apresenta-se um diagrama representativo do balanço de potências relativo ao ensaio *back-to-back*:
 """
 
-# ╔═╡ 0d8c4c17-1294-47ca-a993-c31099ef4640
-html"""
-<iframe frameborder="0" style="width:110%;height:600px;" src="https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=FlowPower_b2b.png#R7Vpbb5swFP41aN3DJMBcksflUjZplbp216fIBYdYdXBknCbdr58NhnBtkolQrSIPqfPZHBt%2F3znHnKKB6XrvMbhZ3dAAEc3Ug70GZpppuiNTfEvgOQVsd5wCIcNBChkH4B7%2FQQrUFbrFAYpLAzmlhONNGfRpFCGflzDIGN2Vhy0pKc%2B6gSGqAfc%2BJHX0Jw74SqGGrh86PiEcrtTUI1t1PED%2FMWR0G6n5NBMsk0%2FavYa5rRSIVzCguxRKTIC5BqaMUp621vspInJrs21L57lu6c3XzVDET7nAvfv9dRzhR%2B9HDH4tkfVlfn%2F3ASj2niDZouw%2BktXy52yHxMI3srkkaP9R7rgGJigKVHPmExjH2Bfgiq%2BJAAzRjDmjj%2FmGAoEsMSFTSihLjGZbBSb121B3hoISceqmPETXiLNnMWB3oCvjZFUgKsMYIpDjpzLdUKkmzM3lM9xSLFZi6krg40yoSt9OZjczEdMt85G6qrj%2FFUO2c8QQhyxEvGZINAq3fYASes%2Bh2hio7onqqiHX6pdqczxQfR7VwOmIasc2TqJa7DN8LgzbyAFx%2B4JFPmpecdvCahdkKztoLV1Dt8pzBuWdqzy7G%2BWZbsXQpYPMkE%2BOUF3N%2BJ0FmZqhC1NtuAPVPVFdNWT1fEoc4vcRpg27I6aB%2BcpOPcTvI1QfZehfnbp3qoen%2FGPx264elnv26nOfB6rzZAu%2B6OnesBp0JDBrs9DcCdfcmQC%2Ff06xmsI42vMm%2FWR6iWiEKhJSECQ4jKQIhXqQwCdPiHHsQ%2FJRdaxxEMhpJrsV5uh%2BA305547BjcCSGh2S96VL8zTiqgppyt95Wc54SaZyQrR%2FUahZr1URgA7S3wUhG26DkqtCKYq2FBDOZs1uYe12sdXsuZdwtiBJ839iLsAM%2BRxTaQbBOFkhZfiPGAaJuqYDQs1KaLBMu0boqIHPvMLdPaFNh7SUUOGG8EH6oT2%2FOfB686Z47chRQc1R9dd21NFL4RWJ7cyJvVtg2bpS%2FH74nIzYqwHvxZe4dPK9DGumQ%2BRuPjDRCnmyjYMuqrqwQMXfrbou8uzbjy6ayrmSuMy7wSyP35P%2FK%2Fuewqm8pnCm1MXn%2BvpCMcB57Rhgth2xbheB4nou%2Fgq3fie8utX%2FweybGm9PxcpCKPvXyJcD3po%2BOtCB7R4%2FtOX5oR8dNJXcklwgWZVsXkk6zck1ej%2BQ2kjqqPLUnf2DvOTcRp%2BkZpnlSIL38gTvXRUCe9HFveYU7w0p%2FqQUX6mn2w1HP9BUbbicMkCDMoYKzTmvT%2FxrMc7uuRgHWoso0oGHyH5KZK88krvg1SN7e40lUBF9%2FkIsz45r3nBcO4V%2Fp%2FpqQ8Ox3ez12A7aSzJbdWz%2FJls1dsGsVLR5exU4RjlUQ4xRRyW51pdhigJwGvg3x%2BcLQPw8vKSZJoHDi7Bg%2Fhc%3D"></iframe>
-"""
-
 # ╔═╡ 8358d4e1-09c2-4467-b0fa-26fc9a882e9c
-
+html"""
+<iframe frameborder="0" style="width:100%;height:573px;" src="https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1#R7VpZb6M6FP416HYeRgLMkj5OlnJHupU67Wz3KXLBIVYdHDlOk86vHxtswtokI0I1FXlInWP7ePm%2Bs3CKASarfcDgenlLI0QM24z2Bpgatu2PbPEtBS%2BZwPHMTBAzHGUi6yB4wL%2BQEuphWxyhTWkgp5RwvC4LQ5okKOQlGWSM7srDFpSUV13DGNUEDyEkdekPHPGlklqmeej4F%2BF4qZYeuarjEYZPMaPbRK1n2GCRfrLuFcx1ZYLNEkZ0l4lSFWBmgAmjlGet1X6CiLxafW3ZOjctvfm%2BGUr4KRP8%2B%2F%2B%2FXCf4Kfi%2BAT8XyPlv9nD%2FESj0niHZIn2OdLf8Rd%2BQ2PhaNhcE7T%2FJGzfAGCWRak5DAjcbHArhkq%2BIEFiiueGMPuUXCoRkgQmZUEJZqlRfFRjXj6FOhqIScOpQAaIrxNmLGLA7wKUxWRaA0jKGCOT4uQw3VKyJc3X5CncUi53YpiL4tSaq4ren9WoVG7plIVKzivdfUeR6RxRxyGLEa4pEo3DsgyiF9xyorQHqnqCuKvKdfqG2rweoz4MaeB1B7bnWSVCLe4YvhWFrOWDTvmERj5p33Lax2gS9swPXsj10yzxvYN65zHO7YZ7tVxRd2skM8eQI1NWI35mTqSm6MNSWP0DdE9RVRU7PWeLgv48gbbkdIQ3sNzbqwX8fgfooQn9q1L1DPTzlH%2FPfbjVZ7tmqz30eqK6jN3zR7N5yGngkZM56bvhjbvhTIfz2OZPVGMbRnjfxR%2FMloQmqUEiJIMFxIkko2IOEfPyMGMchJJ9UxwpHkVxmvFtijh7WMJRr7hhcC1lao0PyXKZUTxOuqpC2%2FJ2X5azXaCoXRPtXiap7nQoBTJD9LhDZ8huYXCVKkbQlh3A2am4LanfzreHOghSzOUmbfxNyEWYo5JhKNQhu0h1Shn%2BJYZCoOR0Aaldcg2O7NUBHDXjmFe7uAW1K0jJAhRnCR2mH7uz2gOvtu8K1I0MFNUM139pQR6%2B5VySuMwf2fo5l60rh%2B%2FFzOmKvBnwQX2Lq%2BFtZbNgekbf5yEQr5uk1Dryo8sIBFXt36rzIo28%2FvGgq50rgtHWDae6%2Fx39X9D0FUzmnkFOa4nNzcyEf4L21D7DbUqy7eaSwnom%2Fwqz%2FEVbdav9g%2BlWNdydiZzGU%2FSsUygHvjR8d8MD1jydteXzohwdNJbc0FkhUJZpXEk57fIM%2BDKA2gjqqPHXrf5CXjNvqE1QdWY4E%2BCAP8MFVwbEXTTxoDvHBEOJPCvGVerrbkPqBpmrD5ZgBGpgxVGjOeX3iT4txbs%2FFONBaRJEGPHj2Uzx75ZHcB2%2Fu2dtrLJHy6LNXfLlO14IhXTsFf6%2F6akND2m73mraD9pLMVqXtX2Wrhi6Yloo2768CxyiHaog16qgk1%2FoyTJEAXgP%2B9vX5BBA%2FDy9pZkHg8CIsmP0G"></iframe>
+"""
 
 # ╔═╡ 66ada8ac-6556-4d18-9cf3-cbdbf3f9bc69
 md"""
@@ -528,8 +524,18 @@ md"""
 - Cálulo da potência útil do motor:
 """
 
+# ╔═╡ f7e7769e-9be0-41bb-900b-9034db833a5b
+md"""
+A potência útil do motor pode ser calculada vista do lado gerador, correspondendo à sua potência mecânica (potência absorvida):
+"""
+
 # ╔═╡ ad8fdc0f-4059-4bec-98a5-8b38b5a17fd0
 Pᵤᴹ¹ = U * Iₗᴳ + pₑₓᴳ + pⱼᴳ + pᵣₒₜ
+
+# ╔═╡ 7c45e9f8-de6b-4bf8-aa91-5b23a47f5d02
+md"""
+Visto do lado do motor:
+"""
 
 # ╔═╡ 5d25244c-7d05-43af-a6a5-69fdb52a253e
 Pᵤᴹ² = U * Iₗᴹ - pₑₓᴹ - pⱼᴹ - pᵣₒₜ
@@ -538,7 +544,13 @@ Pᵤᴹ² = U * Iₗᴹ - pₑₓᴹ - pⱼᴹ - pᵣₒₜ
 begin
 	dif = Pᵤᴹ¹ - Pᵤᴹ² 			# diferença na fórmula de cálculo
 	difₘₐₓ = maximum(dif)		# diferença máxima
-end
+	difₘₐₓ = round(difₘₐₓ, digits=1)
+end;
+
+# ╔═╡ 29c9a3a5-73a1-4daa-b492-178b97917258
+md"""
+A diferença de resultados deve-se a diferenças de aferição da aparelhagem de medida. A difereça absoluta no cálculo da potência útil do motor, não excede os $(difₘₐₓ) W, o que é bastante aceitável, considerando a potência nominal do motor ensaiado.
+"""
 
 # ╔═╡ 6f801fcc-ac53-4a91-a37b-1b35118f8b86
 
@@ -1204,10 +1216,10 @@ uuid = "c87230d0-a227-11e9-1b43-d7ebe4e7570a"
 version = "0.4.1"
 
 [[deps.FFMPEG_jll]]
-deps = ["Artifacts", "Bzip2_jll", "FreeType2_jll", "FriBidi_jll", "JLLWrappers", "LAME_jll", "Libdl", "Ogg_jll", "OpenSSL_jll", "Opus_jll", "Pkg", "Zlib_jll", "libaom_jll", "libass_jll", "libfdk_aac_jll", "libvorbis_jll", "x264_jll", "x265_jll"]
-git-tree-sha1 = "ccd479984c7838684b3ac204b716c89955c76623"
+deps = ["Artifacts", "Bzip2_jll", "FreeType2_jll", "FriBidi_jll", "JLLWrappers", "LAME_jll", "Libdl", "Ogg_jll", "OpenSSL_jll", "Opus_jll", "PCRE2_jll", "Pkg", "Zlib_jll", "libaom_jll", "libass_jll", "libfdk_aac_jll", "libvorbis_jll", "x264_jll", "x265_jll"]
+git-tree-sha1 = "74faea50c1d007c85837327f6775bea60b5492dd"
 uuid = "b22a6f82-2f65-5046-a5b2-351ab43fb4e5"
-version = "4.4.2+0"
+version = "4.4.2+2"
 
 [[deps.FileWatching]]
 uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
@@ -1654,6 +1666,11 @@ version = "1.3.2+0"
 git-tree-sha1 = "85f8e6578bf1f9ee0d11e7bb1b1456435479d47c"
 uuid = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 version = "1.4.1"
+
+[[deps.PCRE2_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "efcefdf7-47ab-520b-bdef-62a2eaa19f15"
+version = "10.40.0+0"
 
 [[deps.PCRE_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -2288,7 +2305,6 @@ version = "1.4.1+0"
 # ╟─1931180b-424d-43ba-af25-61e84faf0eaf
 # ╟─7e48b1e0-b66c-4773-9189-b72e931b8520
 # ╟─df08b5c7-d63b-430d-8869-a994ed85b73c
-# ╟─0d8c4c17-1294-47ca-a993-c31099ef4640
 # ╟─8358d4e1-09c2-4467-b0fa-26fc9a882e9c
 # ╟─66ada8ac-6556-4d18-9cf3-cbdbf3f9bc69
 # ╟─01e08f32-9f91-41f9-b022-ad877864a784
@@ -2305,8 +2321,11 @@ version = "1.4.1+0"
 # ╟─361b5bbe-2fcd-4f96-8488-c52d9b2dbea5
 # ╠═863fe345-3a98-46d6-9112-78ee18635ffe
 # ╟─bf4807d5-6fbb-43bc-9be3-475b2ad6e0f6
+# ╟─f7e7769e-9be0-41bb-900b-9034db833a5b
 # ╠═ad8fdc0f-4059-4bec-98a5-8b38b5a17fd0
+# ╟─7c45e9f8-de6b-4bf8-aa91-5b23a47f5d02
 # ╠═5d25244c-7d05-43af-a6a5-69fdb52a253e
+# ╟─29c9a3a5-73a1-4daa-b492-178b97917258
 # ╠═901eaef2-2cff-4131-b19c-b43a88b35b34
 # ╟─6f801fcc-ac53-4a91-a37b-1b35118f8b86
 # ╟─076bd182-885d-4808-ba4a-9d125cd09957
