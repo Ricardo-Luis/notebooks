@@ -30,7 +30,7 @@ begin
 end
 
 # ╔═╡ 248787ea-0744-46de-831b-ed8854f20e18
-ThreeColumn(md"`StandAloneSynGen.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/StandAloneSynGen.jl)", md"`Last update: 06·10·2022`")
+ThreeColumn(md"`StandAloneSynGen.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/StandAloneSynGen.jl)", md"`Last update: 07·10·2022`")
 
 # ╔═╡ 2caa945b-d36c-4473-900f-824e0599f140
 begin
@@ -87,8 +87,16 @@ md"""
 # ╔═╡ 8da1cb6d-5f5a-49b1-9ab8-9a00d229b519
 (Sₙ, Uₙ, f, n, RΩ) = (390e3, 1250, 50, 750, 0.144)
 
+# ╔═╡ f52ee282-219a-4e7d-b1b6-faa4eff673f2
+
+
 # ╔═╡ 7c501e84-f881-4329-b709-e3832595727e
 
+
+# ╔═╡ db6deedc-de66-43e6-955c-b4a949cd659f
+md"""
+(**Fonte:** exercício modificado do problema 9 de [^Male04])
+"""
 
 # ╔═╡ 0a44521c-58b4-47d3-968c-d345799e42bb
 md"""
@@ -103,8 +111,8 @@ A resistência medida aos bornes corresponde à resistência entre fases, por co
 
 # ╔═╡ 46318b60-7480-44f8-94bc-10f69a425d54
 begin
-	R=3*RΩ/2
-	R=round(R, digits=3)
+	R = 3*RΩ/2
+	R = round(R, digits=3)
 end
 
 # ╔═╡ 90712d40-b1a5-445e-a1da-af62ecab7e59
@@ -114,8 +122,8 @@ O efeito pelicular da corrente, faz aumentar a resistência do condutor, pois em
 
 # ╔═╡ 638d41c0-4a34-4a30-9928-ba88507334af
 begin
-	Rₛ=R*1.2
-	Rₛ=round(Rₛ, digits=3)
+	Rₛ = R*1.2
+	Rₛ = round(Rₛ, digits=3)
 end
 
 # ╔═╡ 9649494f-8378-459f-b079-d0566f2af8fb
@@ -483,6 +491,19 @@ $$\overline{I}=\frac{I_L}{\sqrt{3}}∠φ \quad$$ e $$\quad \overline{U}=U_c∠0�
 # ╔═╡ db9572b9-50ea-438d-a82d-6befe3aa8d59
 
 
+# ╔═╡ b4c5bcd1-830b-49d5-ad25-df89de14d59a
+md"""
+# Bibliografia
+"""
+
+# ╔═╡ a66b3097-edb2-40e2-affa-071ea2ebb82f
+md"""
+[^Male04]:  Malea, J.M., Balaguer, E.F., Problemas resueltos de máquinas eléctricas rotativas, Publicações da Universidade de Jaume I, Espanha, 2004.
+"""
+
+# ╔═╡ bb7446cf-a972-4f68-83d6-07bc19ebc93d
+
+
 # ╔═╡ b870ec10-686b-4de1-99a7-abba19cd1fa4
 md"""
 # Anexo
@@ -498,17 +519,37 @@ md"""
 ### Fasores (notação polar): $$∠$$  
 """
 
+# ╔═╡ 8829fefc-cd9f-47b7-9425-15cf584ebfc5
+md"""
+Em programação *Julia* os números complexos são apresentados na forma retangular, como por exemplo: `2+3im`, sendo `im` a representação da unidade imaginária, ou seja:  
+"""
+
+# ╔═╡ 06fef836-2c59-46d7-98dc-4b8846dab554
+√(-1 + 0im) 	# para o símbolo de raíz quadrada "√", escrever: \sqrt + tecla [TAB]
+
+# ╔═╡ 87846a7a-3926-42e0-a547-0c934ab4da25
+2+3im - 3+2im
+
+# ╔═╡ f95adced-2cf0-41c6-9448-789ca40f195b
+md"""
+Em engenharia eletrotécnica é usual utilizar `j` para designar a unidade imaginária. Assim pode-se redifinir:
+"""
+
+# ╔═╡ b1ced633-5f0c-4333-9788-e858cf5e0f3f
+j = Base.im 		 # unidade imaginária definida na biblioteca de base do Julia
+
+# alternativa:
+# j(x) = (x)*im   # pode-se definir uma função j(x), sendo x a quantidade imaginária, mas a mesma tem de ficar entre parênteses.
+
 # ╔═╡ 8dad7471-4cbb-4f36-a692-7dc05f7c4fcc
 md"""
-Em programação *Julia* os números complexos são apresentados na forma retangular, como por exemplo: $$2+3im$$, sendo $$im$$ a representação da unidade imaginária, ou seja, $$im=\sqrt{-1}$$.  
+Por outro lado, a utilização de fasores, ou seja, a representação de números complexos na forma polar, através do símbolo `∠` para a designação do ângulo do vetor, é também comummente utilizada em eletrotecnia, não sendo uma forma nativa na linguagem *Julia* para designar números complexos.
 
-Em engenharia eletrotécnica é comum a utilização de fasores, ou seja, os números complexos serem representados na forma polar, utilizando o símbolo "$$∠$$" para a designação do ângulo do vetor, algo que não é nativo na linguagem *Julia*.
-
-No entanto, em *Julia* é possível atribuir a símbolos, valores ou funções. Assim, ao símbolo "$$∠$$" atribuí-se a forma polar de um número complexo na forma $$(módulo)∠(argumento)$$ com o $$argumento$$ em graus, utilizando a seguinte instrução:
+No entanto, em *Julia* é possível atribuir a símbolos, valores ou funções. Assim, ao símbolo `∠` atribuí-se a forma polar de um número complexo na forma `módulo∠(argumento)` com o `argumento` em graus, utilizando a seguinte instrução:
 """
 
 # ╔═╡ 2702f2c6-c0ab-4be9-a6ec-03b970994432
-∠(x) = cis(deg2rad(x))
+∠(θ) = cis(deg2rad(θ))   # para fazer o símbolo "∠", escrever: \angle + tecla [TAB]
 
 # ╔═╡ ae01b249-cb76-43ae-9938-f489b93cc0ea
 begin
@@ -612,8 +653,8 @@ begin
 	E₀ₘ = abs(E⃗₀ₘ)								# módulo do vetor da FEM
 	
 	# interpolação da característica magnética para a FEM calculada:
-	iₑₓ_E₀ₘ=i_E₀(E₀ₘ)
-	iₑₓ_E₀ₘ=round(iₑₓ_E₀ₘ, digits=1)
+	iₑₓ_E₀ₘ = i_E₀(E₀ₘ)
+	iₑₓ_E₀ₘ = round(iₑₓ_E₀ₘ, digits=1)
 end;
 
 # ╔═╡ 94260acb-1a29-4de8-b46e-a1c440460847
@@ -621,26 +662,34 @@ md"""
 Calculando a FEM por resolução da equação vetorial de $$\overline{E}_0$$, obtém-se a corrente de campo, $$I_{exc}$$, consultando a característica magnética do alternador, obtendo-se, $$I_{exc}=$$ $iₑₓ_E₀ₘ A
 """
 
+# ╔═╡ adde59ee-56ad-4761-a0ca-784df430c824
+md"""
+A função `cis` corresponde à [Fórmula de Euler](https://pt.wikipedia.org/wiki/F%C3%B3rmula_de_Euler): $\quad e^{j\theta}=\cos\theta+j\sin\theta\quad$ aplicada à análise de números complexos.
+"""
+
 # ╔═╡ 2c052f02-7797-4b3e-ade2-1ffd38119bef
 md"""
-Assim torna-se possível a representação de fasores.
+Assim, torna-se possível a representação de fasores.
 Exemplos:
 """
 
 # ╔═╡ 6f871dfe-8c9e-48f4-88b1-2f581d997f95
 begin
-	I⃗ = 24∠(60)
+	I⃗ = 24∠(60)					# para representar o símbolo de vetor: \vec + [TAB]
 	I⃗ = round(I⃗, digits=1)
 end
 
 # ╔═╡ a4a8c395-ffde-46f1-997c-e92fd74e2e65
 begin
 	I⃗ₐ = 10∠(-45);
-	Iₐ = abs(I⃗ₐ)
+	Iₐ = abs(I⃗ₐ)			
 	ϕₐ = angle(I⃗ₐ)
 	ϕₐ = rad2deg(ϕₐ)
-	I⃗ₐ,Iₐ, ϕₐ
+	I⃗ₐ, Iₐ, ϕₐ
 end
+
+# ╔═╡ 5082e227-dc30-41ee-8010-bcacafd522a0
+
 
 # ╔═╡ a0f9fb43-765a-46c6-b1fc-dc0805d4ebc1
 md"""
@@ -651,33 +700,36 @@ md"""
 md"""
 A biblioteca *Julia* [`Plots`](http://docs.juliaplots.org/latest/), que tem sido utilizada nos diversos *notebooks* para realização de gráficos, reconhece nativamente números complexos, representando-os num plano de Argand, também conhecido como plano complexo.
 
-Assim, a utilização do plano de Argand para representação gráfica de grandezas vetoriais é realizado indicando cada vetor por um segmento de reta na forma $$[origem, destino]$$, em que a $$origem$$ e $$destino$$ são números complexos (em qualquer das suas formas: retangular, polar ou exponencial). A instrução `arrow` permite colocar o afixo do número complexo do lado desejado:
+Assim, a utilização do plano de Argand para representação gráfica de grandezas vetoriais é realizado indicando cada vetor por um segmento de reta na forma `[origem, destino]`, em que a `origem` e `destino` são números complexos (em qualquer das suas formas: retangular, polar ou exponencial). A instrução `arrow` permite colocar o afixo do número complexo do lado desejado:
 """
 
 # ╔═╡ 7544f034-d014-484d-90f5-9d6b4c842858
 begin
-	Kₐ=1 # factor de escala para a corrente
+	Kₐ = 1 # factor de escala para a corrente
 	plot([0, Kₐ*I⃗ₐ], arrow=:closed, label="I⃗ₐ")
 	plot!([0, 40∠(0)], arrow=:closed, label="U∠0°", legend=:bottomright,
 		 #size=(500,500), ylims=(-40,10), xlims=(0,50) # Correcção das dimensões
 	)
 end
 
+# ╔═╡ 228a010d-2ddb-4766-a2b7-84e8783378b6
+
+
 # ╔═╡ 872c685b-fdbb-48d9-8e96-7982a7ca1faa
 md"""
-### Função trigonométrica "arco cosseno"
+### Funções trigonométricas
 """
 
 # ╔═╡ 865f7200-9032-49c2-a31c-b717c8d44607
 md"""
-Apenas para chamar a atenção que as funções trigonométricas em *Julia* são executadas considerando os ângulos na unidade de radiano:
+As funções trigonométricas em *Julia* são executadas seguindo o Sistema Internacional de Unidades, por conseguinte, os ângulos vêm na unidade radiano:
 """
 
 # ╔═╡ 553a05a9-904a-454b-b4be-0049dcd2d04d
-cosϕ₁=0.8
+cosϕ₁ = 0.8
 
 # ╔═╡ 59117354-7977-4a2d-8869-a91f7f3ae102
-ϕ₁=acos(cosϕ₁)*180/π
+ϕ₁ = acos(cosϕ₁)*180/π
 
 # ╔═╡ 390c6eb7-4013-413c-921a-bfec6b3d2728
 md"""
@@ -686,9 +738,9 @@ ou alternativamente utilizando a instrução: `rad2deg`:
 
 # ╔═╡ 4f6d7663-987e-4a44-ab21-f772ae2add74
 begin
-	cosϕ₂=0.8 
-	ϕ₂=acos(cosϕ₂)
-	ϕ₂=rad2deg(ϕ₂)
+	cosϕ₂ = 0.8 
+	ϕ₂ = acos(cosϕ₂)
+	ϕ₂ = rad2deg(ϕ₂)
 end
 
 # ╔═╡ 2c8d6083-a00e-4dba-8dfb-82d02ead0d44
@@ -733,9 +785,9 @@ md"""
 # ╔═╡ 52b53482-b8e2-469f-b85a-ae06d52b66a0
 md"""
 !!! info
-	No índice deste *notebook*, os tópicos assinalados com "💻" requerem a participação do estudante.
-
 	O tópico assinado com "📌" deve ser analisado previamente para melhor compreensão dos códigos em linguagem de programação científica *Julia* apresentados no *notebook*.
+	
+	No índice deste *notebook*, os tópicos assinalados com "💻" requerem a participação do estudante.
 """
 
 # ╔═╡ 88b36341-02ed-4043-8a9f-672340bf194f
@@ -1747,7 +1799,9 @@ version = "0.9.1+5"
 # ╠═99485bd5-46b8-425b-8974-6056c903b062
 # ╟─82ddc4f5-e411-48da-abab-cc2029ee02f0
 # ╠═8da1cb6d-5f5a-49b1-9ab8-9a00d229b519
+# ╠═f52ee282-219a-4e7d-b1b6-faa4eff673f2
 # ╟─7c501e84-f881-4329-b709-e3832595727e
+# ╟─db6deedc-de66-43e6-955c-b4a949cd659f
 # ╟─0a44521c-58b4-47d3-968c-d345799e42bb
 # ╟─b90f442f-41aa-485b-b0f0-170e282c028c
 # ╠═46318b60-7480-44f8-94bc-10f69a425d54
@@ -1817,17 +1871,28 @@ version = "0.9.1+5"
 # ╟─94260acb-1a29-4de8-b46e-a1c440460847
 # ╠═1645c653-c4e6-45af-969c-440981b30bd0
 # ╟─db9572b9-50ea-438d-a82d-6befe3aa8d59
+# ╟─b4c5bcd1-830b-49d5-ad25-df89de14d59a
+# ╟─a66b3097-edb2-40e2-affa-071ea2ebb82f
+# ╟─bb7446cf-a972-4f68-83d6-07bc19ebc93d
 # ╟─b870ec10-686b-4de1-99a7-abba19cd1fa4
 # ╟─6a1038a4-81c8-450b-a91e-d0018570b760
 # ╟─7279e904-53dc-47dc-9cfd-05ca94824c31
+# ╟─8829fefc-cd9f-47b7-9425-15cf584ebfc5
+# ╠═06fef836-2c59-46d7-98dc-4b8846dab554
+# ╠═87846a7a-3926-42e0-a547-0c934ab4da25
+# ╟─f95adced-2cf0-41c6-9448-789ca40f195b
+# ╠═b1ced633-5f0c-4333-9788-e858cf5e0f3f
 # ╟─8dad7471-4cbb-4f36-a692-7dc05f7c4fcc
 # ╠═2702f2c6-c0ab-4be9-a6ec-03b970994432
+# ╟─adde59ee-56ad-4761-a0ca-784df430c824
 # ╟─2c052f02-7797-4b3e-ade2-1ffd38119bef
 # ╠═6f871dfe-8c9e-48f4-88b1-2f581d997f95
 # ╠═a4a8c395-ffde-46f1-997c-e92fd74e2e65
+# ╟─5082e227-dc30-41ee-8010-bcacafd522a0
 # ╟─a0f9fb43-765a-46c6-b1fc-dc0805d4ebc1
 # ╟─de1ba39b-e455-4639-b619-f6c628af8a3e
 # ╠═7544f034-d014-484d-90f5-9d6b4c842858
+# ╟─228a010d-2ddb-4766-a2b7-84e8783378b6
 # ╟─872c685b-fdbb-48d9-8e96-7982a7ca1faa
 # ╟─865f7200-9032-49c2-a31c-b717c8d44607
 # ╠═553a05a9-904a-454b-b4be-0049dcd2d04d
