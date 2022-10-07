@@ -501,19 +501,14 @@ md"""
 # ╔═╡ bb7446cf-a972-4f68-83d6-07bc19ebc93d
 
 
-# ╔═╡ b870ec10-686b-4de1-99a7-abba19cd1fa4
-md"""
-# Anexo
-"""
-
 # ╔═╡ 6a1038a4-81c8-450b-a91e-d0018570b760
 md"""
-## 📌 Números complexos em computação científica `Julia` 
+# 📌 Números complexos em computação científica `Julia` 
 """
 
 # ╔═╡ 7279e904-53dc-47dc-9cfd-05ca94824c31
 md"""
-### Fasores (notação polar): $$∠$$  
+## Fasores (notação polar): $$∠$$  
 """
 
 # ╔═╡ 8829fefc-cd9f-47b7-9425-15cf584ebfc5
@@ -690,7 +685,7 @@ end
 
 # ╔═╡ 872c685b-fdbb-48d9-8e96-7982a7ca1faa
 md"""
-### Funções trigonométricas
+## Funções trigonométricas
 """
 
 # ╔═╡ 865f7200-9032-49c2-a31c-b717c8d44607
@@ -726,7 +721,7 @@ O mesmo raciocínio aplica-se a outras funções trigonométricas: `sin`, `asin`
 
 # ╔═╡ a0f9fb43-765a-46c6-b1fc-dc0805d4ebc1
 md"""
-### Plano de Argand
+## Plano de Argand
 """
 
 # ╔═╡ de1ba39b-e455-4639-b619-f6c628af8a3e
@@ -1870,7 +1865,6 @@ version = "0.9.1+5"
 # ╟─b4c5bcd1-830b-49d5-ad25-df89de14d59a
 # ╟─a66b3097-edb2-40e2-affa-071ea2ebb82f
 # ╟─bb7446cf-a972-4f68-83d6-07bc19ebc93d
-# ╟─b870ec10-686b-4de1-99a7-abba19cd1fa4
 # ╟─6a1038a4-81c8-450b-a91e-d0018570b760
 # ╟─7279e904-53dc-47dc-9cfd-05ca94824c31
 # ╟─8829fefc-cd9f-47b7-9425-15cf584ebfc5
