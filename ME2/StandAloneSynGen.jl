@@ -253,7 +253,7 @@ md"""
 # ╔═╡ f68a29b1-64c3-466b-987b-0c66b8385af3
 md"""
  $$I(\rm A):$$ $(@bind I₂ PlutoUI.Slider(0:1:1.4*Iₙ, default=Iₙ,show_value=true))
-$$\quad\quad\quad \varphi(\degree) \to \cos \varphi$$ $(@bind phi₂ PlutoUI.Slider(-90:1:90, default=-30, show_value=true))
+$$\quad\quad\quad \varphi(°) \to \cos \varphi$$ $(@bind phi₂ PlutoUI.Slider(-90:1:90, default=-30, show_value=true))
 """
 
 # ╔═╡ e934fad8-c4fe-4e7f-bc64-e1c3f3e52460
@@ -416,7 +416,7 @@ Por simplificação na análise, admite-se que os efeitos da variação, quer da
 
 # ╔═╡ 95aedd7b-68fd-49fc-aa2d-ef5852d20c72
 md"""
- $$\varphi(\degree) \to \cos \varphi$$  $(@bind phi₇ PlutoUI.Slider(-90:1:90, default=60, show_value=true))
+ $$\varphi(°) \to \cos \varphi$$  $(@bind phi₇ PlutoUI.Slider(-90:1:90, default=60, show_value=true))
 """
 
 # ╔═╡ c6f94497-b544-417f-a479-f6558be1edc7
@@ -434,7 +434,7 @@ A corrente de campo, $$I_{exc}$$, afeta a FEM e também o valor da reatância s�
 
 # ╔═╡ 42845857-b6d5-415f-abb8-072977e8c3db
 md"""
- $$I_{exc}(\rm A)$$ $(@bind Iexc PlutoUI.Slider(11.5:0.5:33.5, default=33.5,show_value=true)) $$\quad\quad\quad \varphi(\degree) \to \cos\varphi$$ $(@bind phi₆ PlutoUI.Slider(-90:1:90, default=30, show_value=true))
+ $$I_{exc}(\rm A)$$ $(@bind Iexc PlutoUI.Slider(11.5:0.5:33.5, default=33.5,show_value=true)) $$\quad\quad\quad \varphi(°) \to \cos\varphi$$ $(@bind phi₆ PlutoUI.Slider(-90:1:90, default=30, show_value=true))
 """
 
 # ╔═╡ 8f85182b-136d-42f2-b900-d234f2d52739
