@@ -90,12 +90,9 @@ md"""
 # ╔═╡ f52ee282-219a-4e7d-b1b6-faa4eff673f2
 
 
-# ╔═╡ 7c501e84-f881-4329-b709-e3832595727e
-
-
 # ╔═╡ db6deedc-de66-43e6-955c-b4a949cd659f
 md"""
-(**Fonte:** exercício modificado do problema 9 de [^Male04])
+(**Fonte:** exercício modificado do problema 9 de [^Malea2004])
 """
 
 # ╔═╡ 0a44521c-58b4-47d3-968c-d345799e42bb
@@ -498,7 +495,7 @@ md"""
 
 # ╔═╡ a66b3097-edb2-40e2-affa-071ea2ebb82f
 md"""
-[^Male04]:  Malea, J.M., Balaguer, E.F., Problemas resueltos de máquinas eléctricas rotativas, Publicações da Universidade de Jaume I, Espanha, 2004.
+[^Malea2004]:  Malea, J.M., Balaguer, E.F., Problemas resueltos de máquinas eléctricas rotativas, Publicações da Universidade de Jaume I, Espanha, 2004.
 """
 
 # ╔═╡ bb7446cf-a972-4f68-83d6-07bc19ebc93d
@@ -1800,7 +1797,6 @@ version = "0.9.1+5"
 # ╟─82ddc4f5-e411-48da-abab-cc2029ee02f0
 # ╠═8da1cb6d-5f5a-49b1-9ab8-9a00d229b519
 # ╠═f52ee282-219a-4e7d-b1b6-faa4eff673f2
-# ╟─7c501e84-f881-4329-b709-e3832595727e
 # ╟─db6deedc-de66-43e6-955c-b4a949cd659f
 # ╟─0a44521c-58b4-47d3-968c-d345799e42bb
 # ╟─b90f442f-41aa-485b-b0f0-170e282c028c
