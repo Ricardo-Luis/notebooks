@@ -688,30 +688,6 @@ begin
 	I⃗ₐ, Iₐ, ϕₐ
 end
 
-# ╔═╡ 5082e227-dc30-41ee-8010-bcacafd522a0
-
-
-# ╔═╡ a0f9fb43-765a-46c6-b1fc-dc0805d4ebc1
-md"""
-### Plano de Argand
-"""
-
-# ╔═╡ de1ba39b-e455-4639-b619-f6c628af8a3e
-md"""
-A biblioteca *Julia* [`Plots`](http://docs.juliaplots.org/latest/), que tem sido utilizada nos diversos *notebooks* para realização de gráficos, reconhece nativamente números complexos, representando-os num plano de Argand, também conhecido como plano complexo.
-
-Assim, a utilização do plano de Argand para representação gráfica de grandezas vetoriais é realizado indicando cada vetor por um segmento de reta na forma `[origem, destino]`, em que a `origem` e `destino` são números complexos (em qualquer das suas formas: retangular, polar ou exponencial). A instrução `arrow` permite colocar o afixo do número complexo do lado desejado:
-"""
-
-# ╔═╡ 7544f034-d014-484d-90f5-9d6b4c842858
-begin
-	Kₐ = 1 # factor de escala para a corrente
-	plot([0, Kₐ*I⃗ₐ], arrow=:closed, label="I⃗ₐ")
-	plot!([0, 40∠(0)], arrow=:closed, label="U∠0°", legend=:bottomright,
-		 #size=(500,500), ylims=(-40,10), xlims=(0,50) # Correcção das dimensões
-	)
-end
-
 # ╔═╡ 228a010d-2ddb-4766-a2b7-84e8783378b6
 
 
@@ -747,6 +723,30 @@ end
 md"""
 O mesmo raciocínio aplica-se a outras funções trigonométricas: `sin`, `asin`, `tan`, `atan`, ...
 """
+
+# ╔═╡ 5082e227-dc30-41ee-8010-bcacafd522a0
+
+
+# ╔═╡ a0f9fb43-765a-46c6-b1fc-dc0805d4ebc1
+md"""
+### Plano de Argand
+"""
+
+# ╔═╡ de1ba39b-e455-4639-b619-f6c628af8a3e
+md"""
+A biblioteca *Julia* [`Plots`](http://docs.juliaplots.org/latest/), que tem sido utilizada nos diversos *notebooks* para realização de gráficos, reconhece nativamente números complexos, representando-os num plano de Argand, também conhecido como plano complexo.
+
+Assim, a utilização do plano de Argand para representação gráfica de grandezas vetoriais é realizado indicando cada vetor por um segmento de reta na forma `[origem, destino]`, em que a `origem` e `destino` são números complexos (em qualquer das suas formas: retangular, polar ou exponencial). A instrução `arrow` permite colocar o afixo do número complexo do lado desejado:
+"""
+
+# ╔═╡ 7544f034-d014-484d-90f5-9d6b4c842858
+begin
+	Kₐ = 1 # factor de escala para a corrente
+	plot([0, Kₐ*I⃗ₐ], arrow=:closed, label="I⃗ₐ")
+	plot!([0, 40∠(0)], arrow=:closed, label="U∠0°", legend=:bottomright,
+		 #size=(500,500), ylims=(-40,10), xlims=(0,50) # Correcção das dimensões
+	)
+end
 
 # ╔═╡ 249d4cdb-a1dd-4314-9799-63332d8b6da4
 
@@ -1888,10 +1888,6 @@ version = "0.9.1+5"
 # ╟─2c052f02-7797-4b3e-ade2-1ffd38119bef
 # ╠═6f871dfe-8c9e-48f4-88b1-2f581d997f95
 # ╠═a4a8c395-ffde-46f1-997c-e92fd74e2e65
-# ╟─5082e227-dc30-41ee-8010-bcacafd522a0
-# ╟─a0f9fb43-765a-46c6-b1fc-dc0805d4ebc1
-# ╟─de1ba39b-e455-4639-b619-f6c628af8a3e
-# ╠═7544f034-d014-484d-90f5-9d6b4c842858
 # ╟─228a010d-2ddb-4766-a2b7-84e8783378b6
 # ╟─872c685b-fdbb-48d9-8e96-7982a7ca1faa
 # ╟─865f7200-9032-49c2-a31c-b717c8d44607
@@ -1900,6 +1896,10 @@ version = "0.9.1+5"
 # ╟─390c6eb7-4013-413c-921a-bfec6b3d2728
 # ╠═4f6d7663-987e-4a44-ab21-f772ae2add74
 # ╟─2c8d6083-a00e-4dba-8dfb-82d02ead0d44
+# ╟─5082e227-dc30-41ee-8010-bcacafd522a0
+# ╟─a0f9fb43-765a-46c6-b1fc-dc0805d4ebc1
+# ╟─de1ba39b-e455-4639-b619-f6c628af8a3e
+# ╠═7544f034-d014-484d-90f5-9d6b4c842858
 # ╟─249d4cdb-a1dd-4314-9799-63332d8b6da4
 # ╟─65f2c812-bf9f-4909-8032-90e683b6a1bc
 # ╟─319dce21-8655-4f72-8b8d-1f5f934416b5
