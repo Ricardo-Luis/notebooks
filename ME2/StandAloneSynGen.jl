@@ -508,7 +508,7 @@ md"""
 
 # ╔═╡ 6a1038a4-81c8-450b-a91e-d0018570b760
 md"""
-## 📌 Números complexos em computação científica *Julia* 
+## 📌 Números complexos em computação científica `Julia` 
 """
 
 # ╔═╡ 7279e904-53dc-47dc-9cfd-05ca94824c31
@@ -518,7 +518,7 @@ md"""
 
 # ╔═╡ 8829fefc-cd9f-47b7-9425-15cf584ebfc5
 md"""
-Em programação *Julia* os números complexos são apresentados na forma retangular, como por exemplo: `2+3im`, sendo `im` a representação da unidade imaginária, ou seja:  
+Em programação `Julia` os números complexos são apresentados na forma retangular, como por exemplo: `2+3im`, sendo `im` a representação da unidade imaginária, ou seja:  
 """
 
 # ╔═╡ 06fef836-2c59-46d7-98dc-4b8846dab554
@@ -540,9 +540,9 @@ j = Base.im 		 # unidade imaginária definida na biblioteca de base do Julia
 
 # ╔═╡ 8dad7471-4cbb-4f36-a692-7dc05f7c4fcc
 md"""
-Por outro lado, a utilização de fasores, ou seja, a representação de números complexos na forma polar, através do símbolo `∠` para a designação do ângulo do vetor, é também comummente utilizada em eletrotecnia, não sendo uma forma nativa na linguagem *Julia* para designar números complexos.
+Por outro lado, a utilização de fasores, ou seja, a representação de números complexos na forma polar, através do símbolo `∠` para a designação do ângulo do vetor, é também comummente utilizada em eletrotecnia, não sendo uma forma nativa na linguagem `Julia` para designar números complexos.
 
-No entanto, em *Julia* é possível atribuir a símbolos, valores ou funções. Assim, ao símbolo `∠` atribuí-se a forma polar de um número complexo na forma `módulo∠(argumento)` com o `argumento` em graus, utilizando a seguinte instrução:
+No entanto, em `Julia` é possível atribuir a símbolos, valores ou funções. Assim, ao símbolo `∠` atribuí-se a forma polar de um número complexo na forma `módulo∠(argumento)` com o `argumento` em graus, utilizando a seguinte instrução:
 """
 
 # ╔═╡ 2702f2c6-c0ab-4be9-a6ec-03b970994432
@@ -695,7 +695,7 @@ md"""
 
 # ╔═╡ 865f7200-9032-49c2-a31c-b717c8d44607
 md"""
-As funções trigonométricas em *Julia* são executadas seguindo o Sistema Internacional de Unidades, por conseguinte, os ângulos vêm na unidade radiano:
+As funções trigonométricas em `Julia` são executadas seguindo o Sistema Internacional de Unidades, por conseguinte, os ângulos vêm na unidade radiano:
 """
 
 # ╔═╡ 553a05a9-904a-454b-b4be-0049dcd2d04d
@@ -731,7 +731,7 @@ md"""
 
 # ╔═╡ de1ba39b-e455-4639-b619-f6c628af8a3e
 md"""
-A biblioteca *Julia* [`Plots`](http://docs.juliaplots.org/latest/), que tem sido utilizada nos diversos *notebooks* para realização de gráficos, reconhece nativamente números complexos, representando-os num plano de Argand, também conhecido como plano complexo.
+A biblioteca `Julia`, [`Plots`](http://docs.juliaplots.org/latest/), que tem sido utilizada nos diversos *notebooks* para realização de gráficos, reconhece nativamente números complexos, representando-os num plano de Argand, também conhecido como plano complexo.
 
 Assim, a utilização do plano de Argand para representação gráfica de grandezas vetoriais é realizado indicando cada vetor por um segmento de reta na forma `[origem, destino]`, em que a `origem` e `destino` são números complexos (em qualquer das suas formas: retangular, polar ou exponencial). A instrução `arrow` permite colocar o afixo do número complexo do lado desejado:
 """
@@ -755,7 +755,7 @@ md"""
 
 # ╔═╡ 319dce21-8655-4f72-8b8d-1f5f934416b5
 md"""
-Documentação das bibliotecas Julia utilizadas:  [Dierckx](https://github.com/kbarbary/Dierckx.jl), [Plots](http://docs.juliaplots.org/latest/), [PlutoUI](https://juliahub.com/docs/PlutoUI/abXFp/0.7.6/).
+Documentação das bibliotecas `Julia` utilizadas:  [Dierckx](https://github.com/kbarbary/Dierckx.jl), [Plots](http://docs.juliaplots.org/latest/), [PlutoUI](https://juliahub.com/docs/PlutoUI/abXFp/0.7.6/).
 """
 
 # ╔═╡ cb63050b-07c0-46ba-8b88-be17aeef96ac
@@ -772,7 +772,7 @@ $\textbf{\color{green}{Lic. em Engenharia Eletrotécnica }}$", md"$\text{ Máqui
 
 # ╔═╡ f7ed2338-584e-4c61-bc3c-0f307b272fc0
 md"""
-*Notebook* realizado em linguagem de computação científica Julia versão $(version).
+*Notebook* realizado em linguagem de computação científica `Julia` versão $(version).
 
 **_Time to first plot_**: até cerca de 2.4 min.
 
@@ -782,7 +782,7 @@ md"""
 # ╔═╡ 52b53482-b8e2-469f-b85a-ae06d52b66a0
 md"""
 !!! info
-	O tópico assinado com "📌" deve ser analisado previamente para melhor compreensão dos códigos em linguagem de programação científica *Julia* apresentados no *notebook*.
+	O tópico assinado com "📌" deve ser analisado previamente para melhor compreensão dos códigos em linguagem de programação científica Julia apresentados no *notebook*.
 	
 	No índice deste *notebook*, os tópicos assinalados com "💻" requerem a participação do estudante.
 """
