@@ -575,7 +575,7 @@ $\textbf{\color{green}{Lic. em Engenharia Eletrotécnica }}$", md"$\text{ Máqui
 md"""
 *Notebook* realizado em linguagem de computação científica `Julia` versão $(version).
 
-**_Time to first plot_**: até cerca de 2.4 min.
+**_Time to first plot_**: até cerca de 1.9 min.
 
 **Computador**: Intel® Core™ i5-6300U CPU @ 2.40GHz; 20GB RAM.
 """
@@ -1705,7 +1705,7 @@ version = "1.4.1+0"
 # ╟─95125cfb-d225-4e38-957f-f53d6d206db7
 # ╠═46957491-f987-44b2-aa8c-a4215fd534ec
 # ╟─1eb8a632-3fb6-4097-8ab3-2b8d474a04ea
-# ╠═9ae29ef0-1a02-486f-80e2-d39c3537b314
+# ╟─9ae29ef0-1a02-486f-80e2-d39c3537b314
 # ╟─01de0acd-c347-4864-a33b-2fca16782aed
 # ╠═cf5e9c6c-9225-401c-b903-ec0379a1979e
 # ╟─e9e1ff7c-06e8-47ee-8e84-1fd629991c03
