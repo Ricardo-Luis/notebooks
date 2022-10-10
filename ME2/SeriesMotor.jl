@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.11
+# v0.19.12
 
 using Markdown
 using InteractiveUtils
@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ ef7d6793-a4a7-41b6-82ce-0bd3157d19e8
-ThreeColumn(md"`SeriesMotor.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/SeriesMotor.jl)", md"`Last update: 27·09·2022`")
+ThreeColumn(md"`SeriesMotor.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/SeriesMotor.jl)", md"`Last update: 10·10·2022`")
 
 # ╔═╡ e111a3c8-c915-4863-bc0a-39310de2f19b
 begin
@@ -90,7 +90,7 @@ md"""
 
 # ╔═╡ 58ab2478-3e28-461a-97fb-5e50c1248931
 md"""
-As perdas mecânicas e magnéticas de uma máquina de corrente contínua,  $$p_{(mec+Fe)}$$, também designadas como perdas rotacionais, $$p_{rot}$$, têm um comportamento aproxiamadamente constante, considerando tensão de alimentação constante  e variações de velocidade não muito expressivas.\
+As perdas mecânicas e magnéticas de uma máquina de corrente contínua,  $$p_{(mec+Fe)}$$, também designadas como perdas rotacionais, $$p_{rot}$$, têm um comportamento aproximadamente constante, considerando tensão de alimentação constante  e variações de velocidade não muito expressivas.\
 Assim, genericamente, pode obter-se o resultado das perdas rotacionais a partir de ensaio em vazio do motor, ou usando os dados nominais da chapa de características.\
 
 No caso concreto do motor série, o ensaio em vazio apenas seria possível operando a máquina como gerador série, pois como poderá constatar adiante neste exercício, o motor série não pode perder a carga mecânica aplicada ao veio de rotação.
@@ -133,7 +133,7 @@ md"""
 
 # ╔═╡ d1664dac-d1c1-491a-b92e-f28470ac4f01
 md"""
-A velocidade é inversamente proporcional ao fluxo magnético, por conseguinte, se o fluxo reduzir acentuadamente conduz a velocidades de funcionamento perigosas, situação comummente designada por **embalamento do motor de corrente contínua**.
+A velocidade é inversamente proporcional ao fluxo magnético, por conseguinte, se o fluxo reduzir acentuadamente, conduz a velocidades de funcionamento perigosas, situação comummente designada por **embalamento do motor de corrente contínua**.
 
 O motor série tem na sua chapa de características uma de duas indicações para prevenir o seu embalamento do motor:
 - velocidade máxima
@@ -149,7 +149,7 @@ A obtenção da característica de velocidade do motor série permite encontrar 
 
 # ╔═╡ 77c74f69-5033-4ba9-b0d8-8c17110f477d
 md"""
-Este exercício não traz informação sobre a q.d.t. devido à reacção magnética do induzido, com excepção em regime nominal (como se verá adiante), pelo que se considera nula para os diversos valores de corrente considerados na determinação da característica de velocidade: $$\Delta E=0$$V.
+Este exercício não traz informação sobre a q.d.t. devido à reação magnética do induzido, com excepção em regime nominal (como se verá adiante), pelo que se considera nula para os diversos valores de corrente considerados na determinação da característica de velocidade: $$\Delta E=0$$V.
 
 Assim, a característica de velocidade obedece a:
 
@@ -199,7 +199,7 @@ md"""
 
 # ╔═╡ de95a620-19dc-4f7f-8cce-7cf5a4c47d14
 md"""
-Nas condições nominais, dado que se tem o conhecimento da velocidade pela leitura da chapa de caracteríticas do motor série, é possível aferir o valor da velocidade, conhecidas as q.d.t. da máquina devido aos enrolamentos indutor e induzido e valor das f.c.e.m. da máquina na situação nominal.
+Nas condições nominais, dado que se tem o conhecimento da velocidade pela leitura da chapa de caracteríticas do motor série, é possível aferir o valor da velocidade, conhecidas as quedas de tensão da máquina devido aos enrolamentos indutor e induzido e valor das FCEM da máquina na situação nominal.
 Assim, tém-se:
 """
 
@@ -213,11 +213,11 @@ $$kϕ_0=\frac{E_{0} (I_n)} {n_{mag}}$$
 
 # ╔═╡ 4f617818-ea32-4f00-a9dc-8f0e2c38525d
 begin
-	E₀ₙ = E_int(Iₙ)	# fem para Iₙ. Consultando a característica magnética
-	kϕ₀ = E₀ₙ / nmag   # kϕ₀ para Iₙ
-	E₀ₗ = kϕ₀ * nₙ     # fcem₀ para Iₙ
-	E = Uₙ - (Rᵢ + Rₛ)Iₙ  # fcem efetiva para Iₙ
-	ΔE = E₀ₗ - E
+	E₀ₙ = E_int(Iₙ)			# FEM para Iₙ. Consultando a característica magnética
+	kϕ₀ = E₀ₙ / nmag   		# kϕ₀ para Iₙ
+	Eʼ₀ = kϕ₀ * nₙ     		# FCEM para Iₙ
+	Eʼ = Uₙ - (Rᵢ + Rₛ)Iₙ  	# FCEM efetiva para Iₙ
+	ΔE = Eʼ₀ - Eʼ
 end;
 
 # ╔═╡ 04c1c186-d018-4f27-9632-005e4dd4271e
@@ -261,7 +261,7 @@ begin
 end
 
 # ╔═╡ ddcaf382-9f44-48e1-a44d-747910505e36
-Pᵤ = Uₙ * Iᵣₘ -2pᵣₒₜ;
+Pᵤ = Uₙ * Iᵣₘ - 2pᵣₒₜ;
 
 # ╔═╡ cbfdf1f5-dd00-4796-87ea-529be3934620
 md"""
@@ -277,13 +277,21 @@ md"""
 **Explicite qualitativamente a influência do reóstato de campo sobre a característica de velocidade do motor série.**
 """
 
+# ╔═╡ 2ffca9f8-0fe3-47e7-9b26-e0a5c62514a6
+md"""
+Numa máquina DC série o reostato de campo é colocado em paralelo com o enrolamento de excitação, criando um divisor de corrente que permite regular o fluxo magnético indutor:
+"""
+
+# ╔═╡ 8964d631-c3c8-4e15-a2f6-272877e7e250
+html"""
+<iframe frameborder="0" style="width:100%;height:450px;" src="https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=C%C3%B3pia%20do%20Diagrama%20sem%20nome.drawio#R7Vxbc5s4FP41ntl9MAMSNz%2FWuTQ7m%2B60aZrt9iVDjGzTYOQF7Dj99SuBwOhiLjZ2k22cmdYciYOk851zPh2UDODZYvM%2B9pbzD9hH4QDo%2FmYAzwcAjIBO%2FqWC51xgmUYumMWBn4sqgs%2FBD8SE7L7ZKvBRwnVMMQ7TYMkLJziK0CTlZF4c4ye%2B2xSH%2FFOX3gxJgs8TL5Slfwd%2BOs%2BlLnC28isUzObFkw17lLcsvKIzm0ky93z8VBHBiwE8izFO82%2BLzRkK6doV65Lfd7mjtRxYjKK0zQ1evP5y7YZJ%2FMn9Nvp%2Bc4Hx3fnQYPNYe%2BGKzZiNNn0uliDGq8hHVIsxgOOneZCiz0tvQlufiM2JbJ4uQtY8xVF66S2CkNr7NlgQ2wH9L%2FRE%2Fr3BCy9iXZihgUuukzTGj%2BXqknUZxzj10gCTzudDSLtMgzA8wyGOsxFBx6I%2FRD6LPT8g86%2B0TbNPpe08iAkwcm1U5IXlMyu3uZf0h7Y8onQyZ7MpbaZThaGXJOy7vPjMHmsUp2hTETFjvEd4gdL4mXRhrabOgME8wwRWfv20xRko%2BswrGCsA5TFoz0rVW%2BuTLwwAO8CgP97cfbq3%2F7wab2Don5nP3y6GUDI98okzsEscp3M8w5EXXmyl4y046LJs%2B1xjvGSL%2BB2l6TMzuLdKMQ8YtAnSr5Xv%2F1BVmm1a7Pp8w3RnF8%2BVi48oJvhKUcxkFVxld%2B%2B0UYJX8YTN8OLp6vbu%2Bia%2Bu72Pp%2Fpk8WF6uxoarCOdfq0pYxQSoK75WKGyC7v1Iw7IWEoIwJGrAdOAzggaOjTNEQcI2zI1p9Js8epTL56hlGkULF8OsRUYategLjIs6cNRfLEmK5wwG1IHCEj8vPYeUPgRJwFzvQecpngh%2BpTvJfMSPV4YzGjXCYoyq1ZhUqh9x%2FqkFF5U15KOZbGZ0eyjoZC4ekz7aUHkryYpjpPy270lBRsoBJtRT74NgcmZ0inSWcW3DVPh27AH31aaE1rN5kSR%2F46mTHIV4QjxBpAXTu25DX4bkcmUN9ELzt%2BpYHtjdsXdKbr8%2Fi5eJPDci%2FqIBRXTWgrLFrKDQwaPLGskICafuRQWJEWm3aDoyPHF1psBWYVf%2B6ghhopF4PtZrhKjRc4Pgba6XcURQ%2F44I6pQMygPyTpcIY8%2BCpgaHYe%2FAXREpkaCtYJG6NlHSWoEDnOZffj4Yxi1easDt3B548LRSJPZhWHKMLVtzdqNyYNCkK3imnaYstRN2bnHfNb%2Bd0Vp8VhFIMtGipViv1DIjGqzPWP%2FZ88IOGwVveiTh7mad6QDcJcbWUVU6CDzDkS9RJYPvxALICYmS1WhtMACC7VVeDBRe2SrSDnPzEqXMfpBmGUI7NW2JXypElwf5FWJLsfslODwOtsH1Ce4yL8MwpKoRsX21CjS2tdKimuT%2FXiTHJ68XkhOEncy0NwzJ4EmRTtyEjGq91zplvHSpPuAt%2FjLNfaa8ECnrbbevNVum3ygnHzKnpXk0xv3hXzuMV1DzjxQgUbR2L2FBuC2CA1hGCyTXbG0supesszrTNNgQy11iBlKDtDHspugyNzFwpuKlK%2FK%2BaWw%2F5UfSSv%2F4YUmyNbVgw4mcUaiSRS%2BcNIsCUGzK8zIwizbT7%2BsvXoPhQa9YVmgsCwWkJfFAgqgHm1ZWmxG5N0xx6lqmYS8mrXWeSF5HXBGEhe%2FbVK36tUceZsJW5SxOtY9XpkxO9vraAZSvoFQmOMERWdpI1DL9XfXvnRNzyoF1cp1cd2%2Bcr0z2L6kSjXnxa4OWqFEocjRXDjafji1jktaLam1AcK9QbHbFvIhxJPH23kQ8diSacVB78PkjaiScNbTyJ8dg0qO6mqmXjGvw1nfHlmt7N1Vr2MJIz12SGssdE1K421LTZkZp9PaAlYu%2BKOQJKuHQpZUylEV8SGFKwqa7C2OsAFqTbpjlAQ%2FGCukvsC25US5NR5Y5wrot%2FAWGeP1vnwwXR3qGgQjuxcHMGwOmENBAZ5OE3QcSLbg%2FW%2Bh7RCuLO31oPgur300E3fykqpjBzBVwWRXEOJDy6uIIbRLO5DVO9PBsUXXgOXy%2ByPYCxyHYqBxTxVp2lQY%2BqzDt6ypv5AwIVaeJR69b6m8LSHvWioHtvo5fZXK1RiymwhU5xd5nd8t7uBeNwruNTkC%2BXoZRdHe3xoKR5ycotBZ8T7nlEfeXvkhJ5odk%2ByQ09qLA5p17gvRPVAUtVucfpqGwfKuP4ubNm%2Fxco9XfSmhOuVoH8vkr7vg1Omw1b6lpjpXOXWlyW5Zj5RTrWVrhqWXH4NXW7ylbEi8XfOlZYiHOPXaUe6abm%2F5VWXKbnWuLmcBdU0H9oEQ3eOUxEGAPQ3zE4HhOM5%2BzK%2BRQvbE%2FMQB9878VDZrcUr17VDgvuTLgJxBoWOf9FCgei8NO8Wit8JU17hjQiHB7Hs4yxQzVcvDWb0VpeSzJHJRanhwbfyXKGAVTtdDAcsEwlnjgmAfWsESa%2BVAIGz9lLBUSeh1VR%2Feig97%2FsLdTy8%2B7A5orXFmNuHsDsW%2BF3kytn4bgPHvvzYgDFc4BmzJgDjW6Tz1jkV1DO10iBjuxgOLOksapXYNYspyFh0GafIW1IKsw7p8KCemPfNR1s%2BiGIZejOQhVsS0fHi%2FFoQd%2Fk2hY8mMXkUuTasXRq8EMWgCcU%2FJcK%2BknN0maL5VZNVVY1ZVOchbst1W%2BoXfDzJ%2FdmyVN5pfKOO29Lv%2FHenv7ai2%2BJbRcmuihsDjS97ewyEXcrn9Qxl59%2B1fG4EX%2FwE%3D"></iframe>
+"""
+
 # ╔═╡ 83e8d548-d212-49ec-89f4-d794c9d26c85
 md"""
-Numa máquina DC série o reostato de campo é colocado em paralelo com o enrolamento de excitação, criando um divisor de corrente que permite regular o fluxo magnético indutor. 
-
 Assim, a corrente do enrolamento série, $$I_s$$, vem dado por:
 
-$$I_s=\frac{R_{cs}}{R{cs}+R_s}I$$
+$$I_s=\frac{R_{cs}}{R_{cs}+R_s}I$$
 
 Consultando a característica magnética da máquina série para $$I_s$$ obtém-se o valor do fluxo magnético, traduzido no valor de $$kϕ$$ em (V/rpm):
 
@@ -313,7 +321,7 @@ end;
 
 # ╔═╡ 86f9c718-dd8d-46dd-930e-aff35147f214
 begin
-	R₁ = (Rcs * Rₛ) / (Rcs + Rₛ)
+	R₁ = (Rcs * Rₛ) / (Rcs + Rₛ)  			# R1 = Rs // Rcs
 	n₁ = (Uₙ .- (Rᵢ + R₁)I) ./ kϕ₁
 end;
 
@@ -1416,12 +1424,14 @@ version = "0.9.1+5"
 # ╠═ddcaf382-9f44-48e1-a44d-747910505e36
 # ╟─5931d230-68e9-4003-bf94-800fbda03e79
 # ╟─21baaeb1-a64e-4931-abd8-2efb4ec6583d
+# ╟─2ffca9f8-0fe3-47e7-9b26-e0a5c62514a6
+# ╟─8964d631-c3c8-4e15-a2f6-272877e7e250
 # ╟─83e8d548-d212-49ec-89f4-d794c9d26c85
 # ╠═0d9375fb-4b18-4c41-8f51-3e2c85af382c
 # ╟─fb887b2d-9639-499b-9f1a-9cb3a4afaf73
 # ╠═86f9c718-dd8d-46dd-930e-aff35147f214
-# ╟─adedad68-149d-45e7-8a89-4e9c93c7f08a
 # ╟─a9bab890-8171-41cc-ae1d-80fc64d7196a
+# ╟─adedad68-149d-45e7-8a89-4e9c93c7f08a
 # ╟─304dae29-66b9-4349-a3f3-7fb6f0901307
 # ╟─577bfb9d-0c76-45cd-904c-f4a92f51cbec
 # ╠═d4f4837f-0d2f-4062-b943-74cfb2803bb7
