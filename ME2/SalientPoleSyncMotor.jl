@@ -298,7 +298,7 @@ De onde resulta o valor de $$\delta_0=$$ $δ₀ °.
 
 # ╔═╡ 1ea9ab83-10c8-4d5f-8489-e9a4754e7b1b
 md"""
- $$\delta \to \delta_0 \:(\degree)$$ $(@bind δ₂ PlutoUI.Slider(δ:0.01:δ₀, default=δ,show_value=true)) 
+ $$\delta \to \delta_0 \:(°)$$ $(@bind δ₂ PlutoUI.Slider(δ:0.01:δ₀, default=δ,show_value=true)) 
  $$\quad\quad\quad\quad I_{ex} \: (\rm pu)$$ $(@bind K₂ PlutoUI.Slider(0:0.1:1, default=1, show_value=true))
 """
 
