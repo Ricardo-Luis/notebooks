@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ 8629b69e-2b73-4b4a-84aa-838174c4a846
-ThreeColumn(md"`CurvesSynGen.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/CurvesSynGen.jl)", md"`Last update: 10·10·2022`")
+ThreeColumn(md"`CurvesSynGen.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/CurvesSynGen.jl)", md"`Last update: 11·11·2022`")
 
 # ╔═╡ d37d89e1-85b0-475e-90ce-10c03845a171
 begin
@@ -109,7 +109,7 @@ begin
 		title="E₀=f(Iₑₓ)", xlabel = "Iₑₓ (A)", ylabel="Eₒ (V)", 
 		label=:none, minorticks=10, linewidth=2)
 		
-	# deslocar a recta vertical até intersectar 2300V em E₀=f(Iₑₓ): plot!([<->], ...)
+	# deslocar a reta vertical até intersectar 2300V em E₀=f(Iₑₓ): plot!([<->], ...)
 	plot!([2300], seriestype=:hline, linestyle=:dash, label=:none)
 	plot!([Iexc], seriestype=:vline, linestyle=:dash, label=:none)
 end
@@ -162,7 +162,7 @@ $$\overline{E}_0=\frac{U_n}{\sqrt3}∠0°+(R_s+jX_s)(I_n∠\varphi)$$
 
 # ╔═╡ a30977b0-751f-437d-b185-55127263b6bc
 md"""
-### Diagrama vectorial de tensões
+### Diagrama vetorial de tensões
 """
 
 # ╔═╡ c31adb10-b16b-45f3-9f06-ea5c68396dc8
@@ -227,12 +227,12 @@ md"""
 md"""
 Para a determinação do diagrama $$P$$\-$$Q$$, conhecidas também por *capability curves*, desprezam-se as perdas por efeito de Joule no estator, ou seja, $$R_s=0$$Ω.   
 
-Assim, a partir do diagrama vectorial de tensões resultante, o afixo do vector da tensão, $$\overline{U}$$, marca o início de um sistema de eixos: potência activa (ordenada) e potência reactiva(abcissa).
+Assim, a partir do diagrama vetorial de tensões resultante, o afixo do vetor da tensão, $$\overline{U}$$, marca o início de um sistema de eixos: potência ativa (ordenada) e potência reativa(abcissa).
 
-Os módulos dos vectores: $$\overline{U}$$, $$j X_s\overline{I}$$ e $$\overline{E}_0$$ são multiplicados por $$\frac{3U}{X_s}$$ para se obter uma leitura de potências $$(\mathrm{VAr}, \mathrm{W})$$. Com a máquina em regime nominal são traçados o lugar geométrico das novas grandezas, com as designações:
+Os módulos dos vetores: $$\overline{U}$$, $$j X_s\overline{I}$$ e $$\overline{E}_0$$ são multiplicados por $$\frac{3U}{X_s}$$ para se obter uma leitura de potências $$(\mathrm{VAr}, \mathrm{W})$$. Com a máquina em regime nominal são traçados o lugar geométrico das novas grandezas, com as designações:
 - limite térmico do estator (lugar geométrico de $$\overline{S}=3U\overline{I}$$);
 - limite térmico do rotor (lugar geométrico de $$\frac{3U\overline{E}_0}{X_s}-\frac{3U^2}{X_s}$$);
-- Adicionalmente coloca-se o limite mecânico do accionamento/turbina.
+- Adicionalmente coloca-se o limite mecânico do acionamento/turbina.
 
 No caso de um alternador, a área de funcionamento possível, cumprindo diversos os limites (estator, rotor, turbina), fica delimitada pelas curvas estabelecidas no diagrama P-Q, nos 1º e 2º quadrantes $$(\delta\geqslant0)$$.
 
@@ -535,7 +535,7 @@ A⃗ = (2+10j) * (10∠(60))
 
 # ╔═╡ d6db36c2-66bd-44ed-a592-6ad04a27a1e4
 md"""
-Para obtermos o módulo e argumento do vector $$\overline{A}$$ representado por `A⃗`, basta utilizar respetivamente as instruções `Julia`: `abs`, `angle`,  e ainda `rad2deg` para obter o ângulo em graus:
+Para obtermos o módulo e argumento do vetor $$\overline{A}$$ representado por `A⃗`, basta utilizar respetivamente as instruções `Julia`: `abs`, `angle`,  e ainda `rad2deg` para obter o ângulo em graus:
 """
 
 # ╔═╡ 8a763d47-faa5-4222-86c8-92262107904c
@@ -1698,7 +1698,7 @@ version = "1.4.1+0"
 # ╠═4a9d2a16-19a7-4614-9227-fe6506ee27d9
 # ╟─a7811011-589d-4279-89d2-96e07fe8a2c9
 # ╠═00acb211-8421-4103-969a-0b97e11cba49
-# ╟─d6db36c2-66bd-44ed-a592-6ad04a27a1e4
+# ╠═d6db36c2-66bd-44ed-a592-6ad04a27a1e4
 # ╠═8a763d47-faa5-4222-86c8-92262107904c
 # ╟─66d23e11-bab8-4282-a356-e27a97985a41
 # ╟─b689e21d-ff9b-412f-b195-3a3fc56b434b
