@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ 8629b69e-2b73-4b4a-84aa-838174c4a846
-ThreeColumn(md"`CurvesSynGen.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/CurvesSynGen.jl)", md"`Last update: 11·11·2022`")
+ThreeColumn(md"`CurvesSynGen.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/CurvesSynGen.jl)", md"`Last update: 14·11·2022`")
 
 # ╔═╡ d37d89e1-85b0-475e-90ce-10c03845a171
 begin
@@ -429,7 +429,7 @@ begin
 	plot!(R_locus, label="limite térmico do rotor", linewidth=2)
 	
 	# lugar geométrico da turbina (accionamento):
-	plot!([-1500e3+j*Pab, 1500e3+j*Pab], 
+	plot!([-1500e3+j*Pab*1000, 1500e3+j*Pab*1000], 
 		label="limite mecânico da turbina",	linewidth=2)
 	
 	# eixos: kW, kVAr
