@@ -173,11 +173,7 @@ md"""
 
 Se num destes modos o comportamento das lâmpadas não corresponder ao esquema implementado é necessário proceder à troca de quaisquer 2 fases.
 
-- em alternativa pode-se usar um sequencímetro, verificando à vez, em cada alternador a sua sequência de fases. Exemplo de um sequencímetro:
-
-
-![](https://i.imgur.com/nT4TxtH.jpg)
-
+- em alternativa pode-se usar um sequencímetro, verificando à vez, em cada alternador a sua sequência de fases. 
 
 """
 
