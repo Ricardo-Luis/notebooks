@@ -23,7 +23,7 @@ begin
 end
 
 # ╔═╡ e58400d8-e6d8-4293-86f3-e71e3326db68
-ThreeColumn(md"`SAE_intro.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/SAE/SAE_intro.jl)", md"`Last update: 01·03·2023`")
+ThreeColumn(md"`SAE_intro.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/SAE/SAE_intro.jl)", md"`Last update: 02·03·2023`")
 
 # ╔═╡ f2f363f7-7755-4d5d-8112-5ddd20bb5278
 md"""
@@ -88,7 +88,7 @@ md"""
 
 Sustainable Development Goals (SDGs)\
 **ENSURE ACCESS TO AFFORDABLE, RELIABLE, SUSTAINABLE AND MODERN ENERGY FOR ALL:**
-Renewable energy solutions are becoming cheaper, more reliable and more efficient every day.Our current reliance on fossil fuels is unsustainable and harmful to the planet, which is why we have to change the way we produce and consume energy. Implementing these new energy solutions as fast as possible is essential to counter climate change, one of the biggest threats to our own survival.
+Renewable energy solutions are becoming cheaper, more reliable and more efficient every day. Our current reliance on fossil fuels is unsustainable and harmful to the planet, which is why we have to change the way we produce and consume energy. Implementing these new energy solutions as fast as possible is essential to counter climate change, one of the biggest threats to our own survival.
 
 ![](https://i.imgur.com/wCrX9in.png)
 
@@ -419,7 +419,7 @@ $\textcolor{orange}{\text{absorbed solar radiation} \equiv \frac{S(1-\alpha)}{4}
 """
 
 # ╔═╡ 1bc57f89-ac95-4c14-95fd-87e66a23e314
-absorbed_solar_radiation = S*(1 - α)/4; # [W/m^2]
+absorbed_solar_radiation = S*(1 - α)/4 # [W/m^2]
 
 # ╔═╡ c50f7a49-c029-4f9c-b96b-1d2b49b48bc4
 begin
@@ -504,13 +504,13 @@ start\_temp = $(@bind start_temp Slider(0:30; show_value=true, default=14))
 """
 
 # ╔═╡ e7a5458c-e091-4fbc-80d6-278462a64805
-p2 = ODEProblem( (temp, p, t)-> (1/C) * B * (temp₀-temp), start_temp,  (0.0, 172) )
+p2 = ODEProblem( (temp, p, t)-> (1/C) * B * (temp₀-temp), start_temp,  (0.0, 173) )
 
 # ╔═╡ 798d013e-2eb7-4f57-b7a8-064533e81952
 begin
 	plot(solve(p2),       legend = false, 
 		 #background_color_inside = :black,
-		                  xlabel = "years from start",
+		                  xlabel = "years from 1850",
 	                      ylabel = "Temperature °C",
 	                      ylim = (0, 30),
 						  lw=2)
@@ -561,11 +561,11 @@ end
 begin
 	 # CO₂(t) = CO₂_PreIndust # no emissions
 	 # CO₂(t) = CO₂_PreIndust * 1.01^t # test model
-	 CO₂(t) = CO₂_PreIndust * (1+ (t/220)^3 ) 	# cubic fit
+	  CO₂(t) = CO₂_PreIndust * (1+ (t/220)^3 ) 	# cubic fit
 end
 
 # ╔═╡ 24a443bf-73c9-4aec-b40e-c7e0a054b2b6
-greenhouse_effect(CO₂(15));
+greenhouse_effect(CO₂(15))
 
 # ╔═╡ 00129a4a-1c92-4b8e-ac99-c1ac626573b8
 p3 = ODEProblem( (temp, p, t)-> (1/C) * ( B*(temp₀-temp)  + greenhouse_effect(CO₂(t))    ) , start_temp,  (0.0, 170) )
@@ -573,25 +573,22 @@ p3 = ODEProblem( (temp, p, t)-> (1/C) * ( B*(temp₀-temp)  + greenhouse_effect(
 # ╔═╡ 28cdea50-4fa5-4ea1-8ca3-178dacaa1e73
 begin
 	plot(solve(p3),       legend = false, 
-		 background_color_inside = :black,
+		 #background_color_inside = :black,
 		                  xlabel = "years from 1850",
 	                      ylabel = "Temperature °C",
 	                      ylim = (10, 20),
 						  lw=2)
-	hline!( [temp₀,temp₀] ,c=:white,ls=:dash, lw=2)
-	annotate!( 80, temp₀, text("Preindustrial Temperature = $(temp₀)°C",:bottom,color=:white))
+	hline!( [temp₀,temp₀] ,c=:red,ls=:dash, lw=2)
+	annotate!( 80, temp₀, text("Preindustrial Temperature = $(temp₀)°C",:bottom,color=:black))
 	title!("Model with CO₂")
 end
 
 # ╔═╡ 6399dfdb-0696-4ce3-a6b2-f1386a564d90
 begin
-	years = 1850:2022
+	years = 1850:2023
 	plot( years, CO₂.(years.-1850), lw=3, legend=false, xlabel = "years",
 	                      ylabel = "CO₂  [parts per million; ppm]",)
-end
-
-# ╔═╡ 68946cb7-3399-4e72-be7c-756a8b09257d
-
+end;
 
 # ╔═╡ 5a5d0860-07a6-4830-8ac8-f2eea4bbe246
 md"""
@@ -603,7 +600,7 @@ md"""
 begin
 	CO2_historical_data_url = "https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/monthly/monthly_in_situ_co2_mlo.csv"
 	
-	CO2_historical_data = CSV.read(download(CO2_historical_data_url), DataFrame, header=58, skipto=61, );
+	CO2_historical_data = CSV.read(download(CO2_historical_data_url), DataFrame, header=58, skipto=61);
 
 	first(CO2_historical_data, 11)
 end
@@ -629,7 +626,6 @@ begin
 		xlabel!("year")
 		ylabel!("CO₂ (ppm)")
 		title!("CO₂ observations and fit")
-		
 	end
 end
 
@@ -651,9 +647,9 @@ md"*Click to reveal observations of global warming* $(@bind show_obs CheckBox(de
 # ╔═╡ c957c28e-5751-4379-929d-0db265b1804f
 begin
 	T_url = "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt";
+	#T_url = "https://github.com/Ricardo-Luis/notebooks/blob/main/SAE/graph.txt"
 	T_df = CSV.read(download(T_url),DataFrame, header=false, skipto=6,delim="     ");
     # T_df = T_df[:,[1,6]]
-	
 end;
 
 # ╔═╡ 982f0a56-7dda-4894-951e-e889264c3faa
@@ -1177,10 +1173,10 @@ md"""
 md"""
 # Further readings
 
-- [Overarching Frequently Asked Questions and Answers](https://www.ipcc.ch/report/ar6/wg2/downloads/faqs/IPCC_AR6_WGII_Overaching_OutreachFAQs.pdf), IPCC Sixth Assessment Report website: [Frequently Asked Questions | Climate Change 2022: Impacts, Adaptation and Vulnerability](https://www.ipcc.ch/report/ar6/wg2/about/frequently-asked-questions)
+- [Overarching Frequently Asked Questions and Answers](https://www.ipcc.ch/report/ar6/wg2/downloads/faqs/IPCC_AR6_WGII_Overaching_OutreachFAQs.pdf), IPCC Sixth Assessment Report. Website: [Frequently Asked Questions | Climate Change 2022: Impacts, Adaptation and Vulnerability](https://www.ipcc.ch/report/ar6/wg2/about/frequently-asked-questions)
 
 
-- [Frequently Asked Questions from Chapters and Cross-Chapter Papers][https://www.ipcc.ch/report/ar6/wg2/downloads/faqs/IPCC\_AR6\_WGII\_FAQ-Brochure.pdf](about:blank), IPCC Sixth Assessment Report website: [Frequently Asked Questions | Climate Change 2022: Impacts, Adaptation and Vulnerability](https://www.ipcc.ch/report/ar6/wg2/about/frequently-asked-questions)
+- [Frequently Asked Questions from Chapters and Cross-Chapter Papers](https://www.ipcc.ch/report/ar6/wg2/downloads/faqs/IPCC\_AR6\_WGII\_FAQ-Brochure.pdf), IPCC Sixth Assessment Report. Website: [Frequently Asked Questions | Climate Change 2022: Impacts, Adaptation and Vulnerability](https://www.ipcc.ch/report/ar6/wg2/about/frequently-asked-questions)
 
 
 - Chris Mooney, Naema Ahmed, John Muysken, [How we can keep global warming below the 1.5 degrees Celsius goal - Washington Post](https://www.washingtonpost.com/climate-environment/interactive/2022/global-warming-1-5-celsius-scenarios/?itid=pr_enhanced-template_1), Dec. 1, 2022. 
@@ -1252,8 +1248,12 @@ md"""
 	In the table of contents of this notebook, the topics marked with "💻" allow user interaction. 
 """
 
-# ╔═╡ 03a0e8fb-744f-4cba-bcb6-dc28e821c43a
-
+# ╔═╡ cd6e09dd-34e7-4071-acd8-d1359ffcc952
+md"""
+Notebook made in `Julia` scientific programming language, version $(VERSION).\
+**Time to first plot**: up to 3 min.\
+**Computer**: $(Sys.cpu_info()[1].model).
+"""
 
 # ╔═╡ 2fd8141d-16ef-41fa-b778-36108bbdb767
 md"""
@@ -1269,21 +1269,12 @@ begin
 	# other stuff:
 	isel_logo="https://www.isel.pt/sites/default/files/NoPath%20-%20Copy%402x_0.png"
 	julia_logo="https://github.com/JuliaLang/julia-logo-graphics/blob/master/images/julia-logo-color.png?raw=true"
-	version=VERSION
 end;
 
 # ╔═╡ 3090cc16-913e-46ac-9fd8-a167a869baf3
 TwoColumnWideRight(md"$(Resource(isel_logo, :height => 95))", md"
 $\textbf{\color{green}{Master in Electrical Engineering}}$ 
 $\text{Energy Storage Systems}$")
-
-# ╔═╡ cd6e09dd-34e7-4071-acd8-d1359ffcc952
-md"""
-Notebook made in `Julia` scientific programming language, version $(version).
-
-**Time to first plot**: up to 1.4 min.\
-**Computer**: Intel® Core™ i5-6300U CPU @ 2.40GHz; 20GB RAM.
-"""
 
 # ╔═╡ 151a53c9-f93d-4925-9c18-c0e21e9e2265
 md"""
@@ -1295,8 +1286,8 @@ md"""
 
 This notebook is designed in `Julia` programming language for the Energy Storage Systems MSc. course (ISEL\MEE) \
 **Ricardo Luís** \
-(Adjunct Professor, ISEL\DEEEA\GDME) \
-ISEL, 01/Mar/2023
+(Adjunct Professor) \
+ISEL, 02/Mar/2023
 
 """
 
@@ -3161,7 +3152,7 @@ version = "1.4.1+0"
 # ╟─46355813-921b-49a5-b280-12e8e3dbcf13
 # ╟─948a0225-036e-4861-ad83-54e5005ee15e
 # ╠═43e71015-485a-434d-a46b-bfc97677501b
-# ╠═493195d1-4a1f-436c-ad3f-f02f0d41605e
+# ╟─493195d1-4a1f-436c-ad3f-f02f0d41605e
 # ╠═ffd12e6f-36d3-4bde-be44-44080e79dc54
 # ╟─ab3b7a43-2b62-4672-afd3-3183230b1d51
 # ╟─fdd6d5b5-4907-4ed8-9a86-191ec9014189
@@ -3193,9 +3184,8 @@ version = "1.4.1+0"
 # ╠═00129a4a-1c92-4b8e-ac99-c1ac626573b8
 # ╟─28cdea50-4fa5-4ea1-8ca3-178dacaa1e73
 # ╟─6399dfdb-0696-4ce3-a6b2-f1386a564d90
-# ╟─68946cb7-3399-4e72-be7c-756a8b09257d
 # ╟─5a5d0860-07a6-4830-8ac8-f2eea4bbe246
-# ╟─de27709d-0a13-4ac7-9039-ca3bd28bbb40
+# ╠═de27709d-0a13-4ac7-9039-ca3bd28bbb40
 # ╟─27f4e566-3d46-40df-b38e-93e7bb56dc41
 # ╟─aa41fbf6-fbdd-49e4-8d98-6e507ca6681c
 # ╠═8b53cc42-4f47-4542-ad02-339f20426cb9
@@ -3254,7 +3244,6 @@ version = "1.4.1+0"
 # ╟─e1dafd4b-250a-445c-a85b-31a931faf08e
 # ╟─e746aadb-057c-40ba-8ee0-e2a1006eae75
 # ╟─cd6e09dd-34e7-4071-acd8-d1359ffcc952
-# ╟─03a0e8fb-744f-4cba-bcb6-dc28e821c43a
 # ╟─2fd8141d-16ef-41fa-b778-36108bbdb767
 # ╠═f2fa4e71-7d70-4d77-b03c-bba49b34b431
 # ╠═18d471e7-c6d0-4073-8a31-beeb3a3f9c81
