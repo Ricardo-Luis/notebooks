@@ -14,15 +14,13 @@ macro bind(def, element)
     end
 end
 
-# ╔═╡ fad9f54d-13e7-4277-8e4d-5f61e196dd19
-using PETLION
-
 # ╔═╡ 33762cb1-d0ea-4998-81e1-361f9d11d7c8
 begin
 	using PlutoUI, PlutoTeachingTools # Pluto.jl user-interface, 
 	using ShortCodes  	# for citations and simply embed content
 	using Plots 			# for plots 
 	using ChemEquations 	# Write and balance chemical equations
+	using PETLION
 end
 
 # ╔═╡ af7c74fd-eff2-4df1-a936-1646d9c8e563
@@ -184,55 +182,15 @@ end
 # ╔═╡ 8d15c8ae-d993-45a0-b353-0a046a78bcdc
 md"""
 > Source: Data extracted from [^3].
+
+\
 """
-
-# ╔═╡ f5611798-02d3-4cb1-8f36-5c392f75b553
-
-
-# ╔═╡ f9553c9a-fb52-45d2-b0ab-256bc7b9715b
-#using MarkdownTables
-
-# ╔═╡ 1755f34b-6097-44b0-8c60-7222f586a5e3
-plco = petlion(LCO; temperature=true)
-
-# ╔═╡ 8f4f7420-d331-43ff-8c59-0ab54a91e98d
-begin
-	plco.opts.SOC = 0 # fraction ∈ [0, 1]
-	plco.opts.outputs = :all # save all the states and outputs from the simulation
-
-	plco.bounds.T_max = 40 + 273.15 # K
-	plco.bounds.V_max = 4.1 # V
-	plco.bounds.I_max = 4 # C-rate
-	plco.bounds.I_min = 1/20 # C-rate
-end
-
-# ╔═╡ f3e4b5b7-e9fb-4dd1-940a-1ffb19adb70a
-sol = simulate(plco, I=4, SOC=0, V_max=4.1, T_max=40+273.15)
-
-# ╔═╡ 5274375e-1b12-4b09-91c1-fa84220a0c1e
-simulate!(sol, plco, dT=:hold, V_max=4.1)
-
-# ╔═╡ 4bce5bb7-0c3a-46db-b30c-1a5dc0fa122b
-simulate!(sol, plco, V=:hold)
-
-# ╔═╡ 3072d222-4191-41f0-a831-3c5763cf94f3
-plot(sol, :V)
-
-# ╔═╡ d122c432-d953-438d-b8b3-97bfeb3490b1
-plot(sol, :I)
-
-# ╔═╡ 9bb1dbd0-72cf-443d-9c22-7e20aa3299c2
-plot(sol, :T)
-
-# ╔═╡ 8ab0674d-7a86-4072-a39a-a3e9f234f81e
-plot(sol, :SOC)
-
-# ╔═╡ af5c7e6a-606c-4165-aedc-cbaec144fb59
-plot(sol, :P)
 
 # ╔═╡ 7d8fa781-a382-43cb-b133-cc736c99bc3f
 md"""
 ## Lithium-ion batteries
+
+
 """
 
 # ╔═╡ 160063b4-b8b9-4dbe-b9f7-8fcafd30b6fc
@@ -407,59 +365,10 @@ md"""
 # ╔═╡ 5ef44540-fe82-4723-8bf8-a71fbf3592bd
 WebPage("http://liionbms.com/php/wp_series_parallel.php")
 
-# ╔═╡ e8443064-d700-4d19-8682-35ecbfec5d79
-md"""
-Due to security reasons, Li-ion batteries need an external protection circuit module or board (PCM/PCB) used for battery monitoring for each battery. It is not recommended to use batteries in parallel. If connected in parallel, make sure the consistency of the battery parameters (capacity, internal resistance, etc.), the other batteries in series need to have consistent parameters, otherwise, the performance of the battery pack can be much worse than the performance of a single cell. 
-"""
-
-# ╔═╡ 2e032d63-bda1-48cf-9662-15c3985f4753
-md"""
-![](https://i.imgur.com/iaOBzJA.png)
-"""
-
-# ╔═╡ af9229c1-9351-43f6-8371-1201b95bd600
-md"""
-**Li-ion battery matching criteria:** 
-- voltage difference ≤ 10 mv
-- impedance difference ≤ 5 mΩ
-- capacity difference ≤20mA 
-"""
-
-# ╔═╡ 1c27e288-76ad-4c01-82c7-81040c7c0560
-md"""
-### Two Li-ion Batteries Connected in Series
-![](https://i.imgur.com/9ZjobBQ.png)
-"""
-
-# ╔═╡ fdad11f6-9699-49e3-a0bc-d3cf55885c6c
-md"""
-### Three Lithium Batteries Connected in Series
-![](https://i.imgur.com/RbyoiTC.png)
-"""
-
-# ╔═╡ bb51b451-d77e-40af-84b4-c1c704850fc3
-md"""
-### Four Lithium Batteries Connected in Series
-![](https://i.imgur.com/S3nxgIi.png)
-
-"""
-
-# ╔═╡ 38029956-e504-4e26-af53-75756f89869f
-md"""
-### Six Lithium Batteries Connected in Series
-![](https://i.imgur.com/kPLi8XP.png)
-"""
-
-# ╔═╡ 710e59e4-a8ca-41b7-914a-54fd02501cfb
-md"""
-> Source : [Custom Lithium ion Battery Pack, 18650 Battery China Manufacturer | Large Power](https://www.large.net/)
-"""
-
-# ╔═╡ e96492ca-8042-4dcc-9a0c-1d8024070980
-
-
 # ╔═╡ 5b2b8287-2b8d-4b6d-804c-ac6c4aa6ec67
 md"""
+\
+
 ## BMS - battery management system
 ![](https://i.imgur.com/AYKj4FP.png)
 
@@ -484,6 +393,79 @@ md"""
 # ╔═╡ f9e28fc0-a9ae-4dd4-b9cb-e115b5a9d489
 WebPage("http://liionbms.com/balance/")
 
+# ╔═╡ 780483a0-1047-4a2f-8353-c24ad2c6964d
+
+
+# ╔═╡ d6138692-9cfc-490d-b1c6-2c0b92e143b9
+md"""
+\
+
+## 💻 Mathematical modelling
+
+Example using [**PETLION.jl**: Porous Electrode Theory for Li-ion batteries](https://github.com/MarcBerliner/PETLION.jl) `Julia` package.
+
+The **porous electrode model** is a mathematical model used to simulate and predict the performance of lithium-ion batteries (LIBs). It is based on relating battery performance to **internal physical and (electro)chemical processes**. This model has been used to study various internal battery properties, such as Li+ concentration and electric potential in the electrolyte and electrodes, reaction rate distribution, overpotential, and impedance. When coupled with thermal, mechanical, and aging models, it can also simulate the temperature and stress distribution inside batteries and predict degradation during battery operation, [^6].
+
+📌 In our classes, we will use equivalent circuit models for numerical simulation of secondary batteries, [^7].
+"""
+
+# ╔═╡ 1755f34b-6097-44b0-8c60-7222f586a5e3
+plco = petlion(LCO; temperature=true)
+
+# ╔═╡ 8f4f7420-d331-43ff-8c59-0ab54a91e98d
+begin
+	plco.opts.SOC = 0 # fraction ∈ [0, 1]
+	plco.opts.outputs = :all # save all the states and outputs from the simulation
+
+	plco.bounds.T_max = 40 + 273.15 # K
+	plco.bounds.V_max = 4.1 # V
+	plco.bounds.I_max = 4 # C-rate
+	plco.bounds.I_min = 1/20 # C-rate
+end
+
+# ╔═╡ f3e4b5b7-e9fb-4dd1-940a-1ffb19adb70a
+sol = simulate(plco, I=4, SOC=0, V_max=4.1, T_max=40+273.15)
+
+# ╔═╡ 5274375e-1b12-4b09-91c1-fa84220a0c1e
+simulate!(sol, plco, dT=:hold, V_max=4.1)
+
+# ╔═╡ 4bce5bb7-0c3a-46db-b30c-1a5dc0fa122b
+simulate!(sol, plco, V=:hold)
+
+# ╔═╡ 3072d222-4191-41f0-a831-3c5763cf94f3
+plot(sol, :V)
+
+# ╔═╡ d122c432-d953-438d-b8b3-97bfeb3490b1
+plot(sol, :I)
+
+# ╔═╡ 9bb1dbd0-72cf-443d-9c22-7e20aa3299c2
+plot(sol, :T)
+
+# ╔═╡ 8ab0674d-7a86-4072-a39a-a3e9f234f81e
+plot(sol, :SOC)
+
+# ╔═╡ af5c7e6a-606c-4165-aedc-cbaec144fb59
+plot(sol, :P)
+
+# ╔═╡ cc7e3dfd-923c-42d9-84bd-9b1b3c8a4df8
+
+
+# ╔═╡ 036ca349-1d4e-44a0-9b14-61a9e382705f
+md"""
+>\
+> **Main references:** \
+>
+> Davide Andrea, **Lithium-Ion Batteries and Applications: A Practical and Comprehensive Guide to Lithium-Ion Batteries and Arrays, from Toys to Towns**, Volume 1, Artech House Power Engineering Library, 2020. ISBN: 9781630817671
+>
+> Davide Andrea, **Lithium-Ion Batteries and Applications: A Practical and Comprehensive Guide to Lithium-Ion Batteries and Arrays, from Toys to Towns**, Volume 2, Artech House Power Engineering Library, 2020. ISBN: 9781630817695
+>
+> Davide Andrea, **Battery Management Systems for Large Lithium Ion Battery Packs**, Artech House Power Engineering Library, 2010. ISBN: 9781630814823
+>
+>![](https://i.imgur.com/idpjOen.png)
+>
+>\
+"""
+
 # ╔═╡ 69ecaf8e-2d20-4065-a19f-1b46fbbc16f7
 md"""
 \
@@ -495,53 +477,73 @@ md"""
 - Stationary batteries (telecom, UPS, battery banks,..). (source: [PowerTech Systems](https://www.powertechsystems.eu/home/applications/))
 ![](https://i.imgur.com/0jpPyl1.png)
 
+\
 -  Stand-alone applications (source: [PowerTech Systems](https://www.powertechsystems.eu/home/applications/))
 ![](https://i.imgur.com/GzzZV6W.png)
 
+\
 - Solar and Wind Off Grid systems (source: [PowerTech Systems](https://www.powertechsystems.eu/home/applications/))
 ![](https://i.imgur.com/8FeSmyp.png)
 
+\
 - Self-consumption (source: [ZEROhomebills](https://www.zerohomebills.com/solaredge-self-consumption-solar-battery-kits-and-packages/))
 ![](https://i.imgur.com/SZO5HaR.png)
 
+\
 - Self-sufficiency (source: [PowerTech Systems](https://www.powertechsystems.eu/home/applications/))
 ![](https://i.imgur.com/eSK8V3v.png)
 
 \
+"""
 
+# ╔═╡ 58dcd61a-ee82-4f64-bb47-6800bf676c35
+md"""
 ### Traction and E-Mobility
 
 - EV / hybrid EVs (source: [Electric vehicle battery - Wikipedia](https://en.wikipedia.org/wiki/Electric_vehicle_battery))
 ![](https://i.imgur.com/Re6JYCB.jpg)
 
-- Fast charging solutions (source: Configuration of the fast EV charging station including stationary energy storage system, [^6] ) 
+\
+- Fast charging solutions (source: Configuration of the fast EV charging station including stationary energy storage system, [^8] ) 
 ![](https://i.imgur.com/co6MGee.jpg)
 
+\
 - Marine applications (source: [e-Marine - Leclanché](https://www.leclanche.com/solutions/e-transport-solutions/e-marine/))
 ![](https://i.imgur.com/YlQ68aS.png)
 
+\
 - Electric propulsion marine (source: [PowerTech Systems](https://www.powertechsystems.eu/home/applications/))
 ![](https://i.imgur.com/Nirokcx.png)
 
+\
 - Robotics and Automated Guided Vehicles (source: [PowerTech Systems](https://www.powertechsystems.eu/home/applications/))
 ![](https://i.imgur.com/zs9CzbT.png)
 
+\
 - Heavy Duty applications. Example of an hybrid diesel electric RTG (source: [Near Zero Emissions TRANSTAINER – PACECO CORP.](https://pacecocorp.com/nze-near-zero-emissions-transtainer/))
 ![](https://i.imgur.com/QeQ3jS0.png)
 
+\
 - Industrial vehicles (source: [PowerTech Systems](https://www.powertechsystems.eu/home/applications/))
 ![](https://i.imgur.com/gDlN5u4.png)
 
+\
 - E-Mobility and last mile (source: [PowerTech Systems](https://www.powertechsystems.eu/home/applications/))
 ![](https://i.imgur.com/GoFnSor.png)
 
 \
+"""
 
+# ╔═╡ 09549211-62e8-471a-a840-d9b9be4ebf99
+md"""
 ### Portable Energy (source: [PowerTech Systems](https://www.powertechsystems.eu/home/applications/))
 ![](https://i.imgur.com/XH4hbtr.png)
 
 \
+"""
 
+# ╔═╡ 9728b7b9-b011-44b7-b6b2-cb93d5c6ce4e
+md"""
 ### Microgrids (source: [Microgrids - Powerstar](https://powerstar.com/microgrids/))
 - Railway station
 ![](https://i.imgur.com/ISfUj5a.jpg)
@@ -556,10 +558,15 @@ md"""
 ![](https://i.imgur.com/aq1sSKu.png)
 
 \
+"""
+
+# ╔═╡ 8d780a40-66ea-40d9-bae7-c1c9d5c3f63c
+md"""
 
 ### Electrical power system (generation, transport, distribution)
 ![](https://i.imgur.com/DqxxA2C.png)
 
+\
 """
 
 # ╔═╡ 011edcbc-5af4-4a03-a35f-457c8490e6aa
@@ -568,58 +575,31 @@ md"""
 # ╔═╡ f1f3eaff-448b-4810-9204-8627ae021f16
 
 
-# ╔═╡ 2e2fd384-ef35-4d7c-81d6-813642630d50
-equation = ce"LiCoO2 ⇋ Li{+} + CoO2 + e";
-
-# ╔═╡ 1e1bf5d8-636f-4ba7-aed8-2c5280e2fa95
-balance(equation)
-
 # ╔═╡ c6c06860-239f-4d01-8d86-fe7830c286d2
 md"""
 # Further reading
 """
 
-# ╔═╡ 08b11e21-0ac7-45d3-a6ea-6d75cee963ed
-DOI("10.3390/en15030674")
-
 # ╔═╡ 5da4c8df-e610-434d-8f94-b7d3e43302c9
 md"""
+$(DOI("10.3390/en15030674"))
+
 [Dr. Petar J. Grbović, Ultra-Capacitors in Power Conversion: Applications, Analysis and Design from Theory to Practice, HUAWEI Technologies Duesseldorf GmbH - ppt presentation](https://slideplayer.com/slide/5977050/)
 
 
 [A Guide to Understanding Battery Specifications, MIT Electric Vehicle Team, December 2008](https://www.web.mit.edu/evt/summary_battery_specifications.pdf)
 
-"""
-
-# ╔═╡ 6adb5ca4-2b13-4b8c-8bcc-f82557fdbeb0
-
-
-# ╔═╡ 817573c5-c16a-480e-a4a4-ee9d04da4af6
-md"""
-
 [BU-903: How to Measure State-of-charge - Battery University](https://batteryuniversity.com/article/bu-903-how-to-measure-state-of-charge)
 
 [About Batteries > How do I recycle my lead battery?](https://aboutbatteries.batterycouncil.org/How-do-I-recycle-my-lead-battery)
 
-[Li-Ion BMS - White Paper - Estimating the State Of Charge of Li-Ion batteries](http://liionbms.com/php/wp_soc_estimate.php)
-
-[SmartGauge Electronics - Peukert in depth - Advanced maths](http://www.smartgauge.co.uk/peukert_depth.html)
-
-[Battery State of Charge Determination](https://www.mpoweruk.com/soc.htm)
-
-[Designing a Battery Pack? - Battery Design](https://www.batterydesign.net/)
-
-[Battery Modelling and Simulation Solutions - Batemo GmbH](https://www.batemo.de/)
-
+\
 """
 
 # ╔═╡ f601050c-f429-4c32-b51f-2ad851b7587a
 md"""
 # References
 """
-
-# ╔═╡ 31b3a973-0ba9-4d6c-9af6-0363a4f44c15
-
 
 # ╔═╡ a1ab1557-f06c-448e-87d6-2236ef1040ad
 md"""
@@ -634,47 +614,49 @@ md"""
 [^5]: [Battery University™, Types of Lithium-ion, a free educational website about battery information](https://batteryuniversity.com/article/bu-205-types-of-lithium-ion)
 
 [^6]:
+$(DOI("10.1002/aenm.202201506"))
+
+[^7]: Rahmoun, A., Biechl, H., [Modelling of Li-ion batteries using equivalent circuit diagrams](http://pe.org.pl/articles/2012/7b/40.pdf), Przeglad Elektrotechniczny. 88. pgs. 152-156, University of Applied Sciences Kempten, 2012. 
+
+[^8]:
 $(DOI("10.3390/en12234516"))
 
-[^7]: [PowerTech Systems](https://www.powertechsystems.eu/)
-
-[^12]: 
-
+\
 """
 
-# ╔═╡ 4ec35ef3-38df-4f42-9f34-885fee05ff7b
-#ref=DOI("10.5772/52220");
-
-# ╔═╡ dc8701e0-cd72-460c-8b91-5ab24e45e759
-
-
-# ╔═╡ 7c2356d3-0474-46d4-a3a6-92768017df4c
+# ╔═╡ a3f901e7-b2c4-4212-bb65-24ff4fa6c561
 md"""
-# Setup
+# Notebook
 """
 
-# ╔═╡ 8a4a31a3-6489-441c-8777-01c52f69b73b
-TableOfContents(depth=6)
-
-# ╔═╡ c6941f77-4ef7-49ae-ac36-1502500d1b02
-md"""
-!!! info
-	In the table of contents of this notebook, the topics marked with "💻" allow user interaction. 
-"""
-
-# ╔═╡ f39519da-79a5-4fa9-923c-8c318472c539
-md"""
-## _Julia packages_
-*Links to package help*: \
-[PlutoUI](https://juliahub.com/docs/PlutoUI/abXFp/0.7.6/), [ShortCodes](https://github.com/hellemo/ShortCodes.jl), [DifferentialEquations](https://diffeq.sciml.ai/dev/index.html), [Plots](https://docs.juliaplots.org/stable/), [LinearAlgebra](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/), [CSV](https://csv.juliadata.org/stable/), [DataFrames](https://dataframes.juliadata.org/stable/).
-"""
-
-# ╔═╡ b9be702b-000a-4c8c-b7c2-627828b405fc
+# ╔═╡ 196c45b2-623f-465f-8a20-cc0de1364cdb
 md"""
 !!! info
 	## Julia programming and Pluto notebooks
 	Know more about: [_Julia_/_Pluto_](https://github.com/Ricardo-Luis/notebooks/blob/main/SAE/README.md)
 """
+
+# ╔═╡ f9b1cd16-fa32-443a-b2e3-dde8dd54245a
+md"""
+!!! info
+	In the table of contents of this notebook, the topics marked with "💻" allow user interaction. And the "🔗" means a link to a webpage.
+"""
+
+# ╔═╡ 0d00df3f-9468-4c8f-8b72-7622dbb9375e
+md"""
+Notebook made in `Julia` scientific programming language, version $(VERSION).\
+**Time to first plot**: up to 3 min.\
+**Computer**: $(Sys.cpu_info()[1].model).
+"""
+
+# ╔═╡ b22037ff-c955-4e70-bbc2-ff49e773f897
+md"""
+Documentation of used `Julia` packages: [PlutoUI](https://github.com/JuliaPluto/PlutoUI.jl), [ShortCodes](https://github.com/hellemo/ShortCodes.jl), [PlutoTeachingTools](https://github.com/JuliaPluto/PlutoTeachingTools.jl), [DifferentialEquations](https://github.com/SciML/DifferentialEquations.jl), [Plots](https://docs.juliaplots.org/stable/), [LinearAlgebra](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/), [CSV](https://github.com/JuliaData/CSV.jl), [DataFrames](https://dataframes.juliadata.org/stable/).
+
+"""
+
+# ╔═╡ 8a4a31a3-6489-441c-8777-01c52f69b73b
+TableOfContents(depth=6)
 
 # ╔═╡ e7bcc203-cced-43da-9cfd-f08c72d30f77
 begin
@@ -688,21 +670,19 @@ TwoColumnWideRight(md"$(Resource(isel_logo, :height => 95))", md"
 $\textbf{\color{green}{Master in Electrical Engineering}}$ 
 $\text{Energy Storage Systems}$")
 
-# ╔═╡ ef9a8257-f8fc-43d3-8016-777c2c9df7e2
-version=VERSION;
-
-# ╔═╡ f69e3826-c884-48e4-9e2b-a7ae88c064de
+# ╔═╡ 02676fe5-e315-4984-8507-b526513bcaee
 md"""
-## _Notebook_
-
-This notebook is designed in Julia programming language version $(version) for the Energy Storage Systems MSc. course (ISEL\MEE) \
-**Ricardo Luís** (Adjunct Professor, ISEL\DEEEA\GDME) \
-ISEL, 25/Mar/2022
+ ---
 """
 
-# ╔═╡ 46dfe20a-ebd6-4194-8d87-c15d0e744fe0
+# ╔═╡ c517cd6f-5b18-4d6a-b4e3-175b941047b7
 md"""
-This content is licensed [![](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-sa/4.0/).
+
+This notebook is designed in `Julia` programming language for the Energy Storage Systems MSc. course (ISEL\MEE) \
+**Ricardo Luís** \
+(Adjunct Professor) \
+ISEL, 16/Mar/2023
+
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -2431,20 +2411,7 @@ version = "1.4.1+0"
 # ╟─0aaa66a0-8666-47f6-8475-aaffa3651c07
 # ╟─57fc9b42-6475-4498-913e-e637917f4007
 # ╟─8d15c8ae-d993-45a0-b353-0a046a78bcdc
-# ╟─f5611798-02d3-4cb1-8f36-5c392f75b553
-# ╠═f9553c9a-fb52-45d2-b0ab-256bc7b9715b
-# ╠═fad9f54d-13e7-4277-8e4d-5f61e196dd19
-# ╠═1755f34b-6097-44b0-8c60-7222f586a5e3
-# ╠═8f4f7420-d331-43ff-8c59-0ab54a91e98d
-# ╠═f3e4b5b7-e9fb-4dd1-940a-1ffb19adb70a
-# ╠═5274375e-1b12-4b09-91c1-fa84220a0c1e
-# ╠═4bce5bb7-0c3a-46db-b30c-1a5dc0fa122b
-# ╠═3072d222-4191-41f0-a831-3c5763cf94f3
-# ╠═d122c432-d953-438d-b8b3-97bfeb3490b1
-# ╠═9bb1dbd0-72cf-443d-9c22-7e20aa3299c2
-# ╠═8ab0674d-7a86-4072-a39a-a3e9f234f81e
-# ╠═af5c7e6a-606c-4165-aedc-cbaec144fb59
-# ╟─7d8fa781-a382-43cb-b133-cc736c99bc3f
+# ╠═7d8fa781-a382-43cb-b133-cc736c99bc3f
 # ╟─160063b4-b8b9-4dbe-b9f7-8fcafd30b6fc
 # ╟─2c59c230-2ae0-4be7-aa24-d021b102d731
 # ╟─46b5fb35-eb2c-4374-af49-efa859610480
@@ -2460,43 +2427,44 @@ version = "1.4.1+0"
 # ╠═d30f450f-ec86-42f2-b73f-4a878e93a51c
 # ╟─698099a4-afa8-4708-b971-198598ddb8e7
 # ╟─1d08d441-7306-4bcd-bedb-feb5da974ead
-# ╠═5ef44540-fe82-4723-8bf8-a71fbf3592bd
-# ╟─e8443064-d700-4d19-8682-35ecbfec5d79
-# ╟─2e032d63-bda1-48cf-9662-15c3985f4753
-# ╟─af9229c1-9351-43f6-8371-1201b95bd600
-# ╟─1c27e288-76ad-4c01-82c7-81040c7c0560
-# ╟─fdad11f6-9699-49e3-a0bc-d3cf55885c6c
-# ╟─bb51b451-d77e-40af-84b4-c1c704850fc3
-# ╟─38029956-e504-4e26-af53-75756f89869f
-# ╟─710e59e4-a8ca-41b7-914a-54fd02501cfb
-# ╠═e96492ca-8042-4dcc-9a0c-1d8024070980
+# ╟─5ef44540-fe82-4723-8bf8-a71fbf3592bd
 # ╟─5b2b8287-2b8d-4b6d-804c-ac6c4aa6ec67
 # ╟─66a98728-8f86-43bf-b41e-d5db99d62ba9
 # ╟─f9e28fc0-a9ae-4dd4-b9cb-e115b5a9d489
+# ╠═780483a0-1047-4a2f-8353-c24ad2c6964d
+# ╟─d6138692-9cfc-490d-b1c6-2c0b92e143b9
+# ╠═1755f34b-6097-44b0-8c60-7222f586a5e3
+# ╠═8f4f7420-d331-43ff-8c59-0ab54a91e98d
+# ╠═f3e4b5b7-e9fb-4dd1-940a-1ffb19adb70a
+# ╠═5274375e-1b12-4b09-91c1-fa84220a0c1e
+# ╠═4bce5bb7-0c3a-46db-b30c-1a5dc0fa122b
+# ╠═3072d222-4191-41f0-a831-3c5763cf94f3
+# ╠═d122c432-d953-438d-b8b3-97bfeb3490b1
+# ╠═9bb1dbd0-72cf-443d-9c22-7e20aa3299c2
+# ╠═8ab0674d-7a86-4072-a39a-a3e9f234f81e
+# ╠═af5c7e6a-606c-4165-aedc-cbaec144fb59
+# ╟─cc7e3dfd-923c-42d9-84bd-9b1b3c8a4df8
+# ╟─036ca349-1d4e-44a0-9b14-61a9e382705f
 # ╟─69ecaf8e-2d20-4065-a19f-1b46fbbc16f7
+# ╟─58dcd61a-ee82-4f64-bb47-6800bf676c35
+# ╟─09549211-62e8-471a-a840-d9b9be4ebf99
+# ╟─9728b7b9-b011-44b7-b6b2-cb93d5c6ce4e
+# ╟─8d780a40-66ea-40d9-bae7-c1c9d5c3f63c
 # ╟─011edcbc-5af4-4a03-a35f-457c8490e6aa
 # ╠═f1f3eaff-448b-4810-9204-8627ae021f16
-# ╠═2e2fd384-ef35-4d7c-81d6-813642630d50
-# ╠═1e1bf5d8-636f-4ba7-aed8-2c5280e2fa95
 # ╟─c6c06860-239f-4d01-8d86-fe7830c286d2
-# ╟─08b11e21-0ac7-45d3-a6ea-6d75cee963ed
 # ╟─5da4c8df-e610-434d-8f94-b7d3e43302c9
-# ╟─6adb5ca4-2b13-4b8c-8bcc-f82557fdbeb0
-# ╠═817573c5-c16a-480e-a4a4-ee9d04da4af6
 # ╟─f601050c-f429-4c32-b51f-2ad851b7587a
-# ╠═31b3a973-0ba9-4d6c-9af6-0363a4f44c15
-# ╠═a1ab1557-f06c-448e-87d6-2236ef1040ad
-# ╠═4ec35ef3-38df-4f42-9f34-885fee05ff7b
-# ╟─dc8701e0-cd72-460c-8b91-5ab24e45e759
-# ╟─7c2356d3-0474-46d4-a3a6-92768017df4c
-# ╠═8a4a31a3-6489-441c-8777-01c52f69b73b
-# ╟─c6941f77-4ef7-49ae-ac36-1502500d1b02
-# ╟─f39519da-79a5-4fa9-923c-8c318472c539
+# ╟─a1ab1557-f06c-448e-87d6-2236ef1040ad
+# ╟─a3f901e7-b2c4-4212-bb65-24ff4fa6c561
+# ╟─196c45b2-623f-465f-8a20-cc0de1364cdb
+# ╟─f9b1cd16-fa32-443a-b2e3-dde8dd54245a
+# ╟─0d00df3f-9468-4c8f-8b72-7622dbb9375e
+# ╠═b22037ff-c955-4e70-bbc2-ff49e773f897
 # ╠═33762cb1-d0ea-4998-81e1-361f9d11d7c8
-# ╟─b9be702b-000a-4c8c-b7c2-627828b405fc
-# ╠═e7bcc203-cced-43da-9cfd-f08c72d30f77
-# ╟─f69e3826-c884-48e4-9e2b-a7ae88c064de
-# ╠═ef9a8257-f8fc-43d3-8016-777c2c9df7e2
-# ╟─46dfe20a-ebd6-4194-8d87-c15d0e744fe0
+# ╠═8a4a31a3-6489-441c-8777-01c52f69b73b
+# ╟─e7bcc203-cced-43da-9cfd-f08c72d30f77
+# ╟─02676fe5-e315-4984-8507-b526513bcaee
+# ╟─c517cd6f-5b18-4d6a-b4e3-175b941047b7
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
