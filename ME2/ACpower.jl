@@ -14,17 +14,18 @@ macro bind(def, element)
     end
 end
 
-# ╔═╡ f06ea9e2-b9ed-4f8f-9278-9441cd270ca5
-begin
-	using PlutoUI, PlutoTeachingTools # interface, ferramentas de edição
-	using Plots  						# gráficos 
-	using Dierckx  						# interpolação/extrapolação de dados
-end
+# ╔═╡ b411a974-d7fa-49d6-a1b7-ab32eb8bbe78
+using PlutoUI, PlutoTeachingTools, Plots, NumericalIntegration
+# Short packages description:
+  # PlutoUI.jl, package to add interactivity objects to notebook
+  # PlutoTeachingTools.jl, package to enhance the notebook
+  # Plots.jl, visualization interface and toolset to build graphics
+  # NumericalIntegration.jl, tool for numerically integrating presampled data 
 
-# ╔═╡ a4cc4ad7-04fd-41cf-b6a9-8cdede20b8af
-ThreeColumn(md"`ParallelGenerators.Ex6.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/ParallelGenerators.Ex6.jl)", md"`Last update: 11·09·2023`")
+# ╔═╡ 4726fac7-ee43-4e91-b95e-dbb1a09e1b7d
+ThreeColumn(md"`ACpower.jl`", md"[![](https://img.shields.io/badge/GitHub_URL-notebook-C09107)](https://github.com/Ricardo-Luis/notebooks/blob/main/ME2/ACpower.jl)", md"`Last update: 11·09·2023`")
 
-# ╔═╡ 7fdb306c-0729-40bb-bfc7-2ce826fe936b
+# ╔═╡ 03351597-b5fc-4755-9204-15cd3db2937e
 begin
 	html"""
 	<style>
@@ -39,181 +40,425 @@ begin
 	ChooseDisplayMode()
 end;
 
-# ╔═╡ f01a2e6c-801d-4c1e-bc60-ce30c475bdc0
+# ╔═╡ 65b1d051-b0ec-4b7b-a7e7-c3a5c3ac1a0a
 md"""
 ---
-$\textbf{MÁQUINAS ELÉTRICAS DE CORRENTE CONTÍNUA}$
-
-$\text{EXERCÍCIO 6}$ 
-
-$\textbf{Associação em paralelo de geradores DC}$
+$\textbf{Potência em sistemas de corrente alternada}$
+$\colorbox{pink}{Análise com gráficos dinâmicos}$
 ---
 """
 
-# ╔═╡ 570473a3-be60-4ff1-b6d7-269c7c3cd321
+# ╔═╡ d1de6e3c-9872-47e6-98f2-4b5c59cdfe9b
+
+
+# ╔═╡ 9cd8d54b-23ae-4586-90c5-f560ff418f73
 md"""
-# Exercício 6. Dados:
+# Âmbito
+
+Este *notebook* apresenta dois objetivos a serem concretizados em simultâneo:
+
+- serve de revisão a conceitos sobre **potência** em circuitos de corrente alternada (AC);
+- e para introduzir a construção de gráficos na linguagem de programação `Julia` usando a interface de trabalho `Pluto.jl`.
+
+Sendo um documento computacional de revisão de conceitos de base em engenharia eletrotécnica, mas fundamentais na aprendizagem e aplicação de máquinas elétricas, o estudante poderá dividir a sua atenção nos dois objetivos propostos.
 """
 
-# ╔═╡ 860e56f2-921c-4943-a31b-3c2a896ca092
+# ╔═╡ dc578ed3-d498-4c02-9b7c-2f121e4358c6
+
+
+# ╔═╡ aab928f1-2ecb-46ee-8ce9-ca146c5aad1b
 md"""
-**Conhecem-se as características exteriores de dois dínamos de excitação composta
-diferencial, ligados em paralelo, de 220V, 110kW:**
-"""
-
-# ╔═╡ f50f251e-afe1-4ae3-8607-4d325a7c6116
-begin
-	I = [0.0, 200, 400, 500, 700, 900]
-	U₁ = [229.5, 226.5, 222.5, 220.0, 213.0, 205.5]
-	U₂ = [224.0, 223.0, 221.0, 220.0, 217.5, 214.0]
-	I, U₁, U₂
-end
-
-# ╔═╡ 4a8a67ff-2145-4e5f-9b54-708ad92bc12c
-
-
-# ╔═╡ 7e536108-d92f-4e5f-bd37-e48924ff9943
-md"""
-# a) Repartição de carga 💻
-**Como repartiriam as duas máquinas uma corrente de 1500A? Qual a tensão?**
-"""
-
-# ╔═╡ 7b6d5dee-5fb8-4dc1-8557-370fc8698624
-H1=("Rcarga", @bind Rcarga PlutoUI.Slider(0.09:.0001:12, default=.143,show_value=true))
-
-# ╔═╡ d59f7a7e-10bb-43cb-9710-1a822afeeba9
-md"""
-Do gráfico, na característica $$U=f(I₁+I₂)$$, para uma carga de $$1500$$A, verifica-se: $$U\simeq215$$V, $$I₁\simeq650$$A e $$I₂\simeq850$$A.
-"""
-
-# ╔═╡ 6f29a5d9-d0b4-4057-83c6-0abbd349463e
-
-
-# ╔═╡ 16f830b5-2160-43c4-8ebb-6b5cab2d5726
-md"""
-# b) Cargas reduzidas 💻
-**O que se verifica para cargas reduzidas e próximas de zero? $$0 < I <250A$$**
-"""
-
-# ╔═╡ 10ce0429-8170-498d-b6a8-78c4d4005822
-md"""
-Analisando o funcionamento do paralelo de geradores DC para cargas reduzidas, verifica-se graficamente, que a máquina DC 2 absorve corrente (passa a motor DC). Por conseguinte, o gerador DC 1 fornece corrente para a carga e para a máquina 2.
-"""
-
-# ╔═╡ 61763b38-5700-4559-9171-d40612354f0b
-
-
-# ╔═╡ b15489fb-f0e8-4019-ab10-65a8f91ec8c5
-md"""
-# c) Complete:  💻
+# Problema 
 
 \
-**“Em sobrecarga a máquina com __________ regulação, fornece __________ corrente.”**
+Suponha uma fonte de tensão AC ideal monofásica com $U=100\rm{V}$ e frequência, $f=50\rm{Hz}$.  
+
+Esta fonte de tensão alimenta uma carga linear variável, cujo o valor de corrente poderá atingir $100\rm A$ e o seu desfasamento relativamente à tensão variar entre: $-\frac{\pi}{2}\leqslant\varphi\leqslant+\frac{\pi}{2} \:\:(\rm{rad})$.
+
+**Desafio:**
+ > **Criar um ambiente de análise das potências temporais envolvidas e das potências ativa, reativa e aparente deste circuito AC.**
 """
 
-# ╔═╡ 9de717e1-542a-4b2a-9bc1-4e4ea16fb3ee
+# ╔═╡ 165d6a97-67fc-4bbe-936b-47b33f9e0e33
+
+
+# ╔═╡ 37a9799f-a746-4754-b3f2-692665bb9abd
+md"""
+# Forma computacional do problema
+"""
+
+# ╔═╡ 9e0ea587-0459-47ab-aa35-dcb458d158df
+md"""
+Definem-se as grandezas que vão permitir caracterizar a onda temporal da tensão AC:
+"""
+
+# ╔═╡ b263485a-636d-4a57-9c4e-dd10bf217826
+U, f, θᵤ = 100.0, 50, 0.0  # AC voltage, V; frequency, Hz; initial voltage phase 								 angle, rad
+
+# ╔═╡ e628a95a-30a5-4c58-8645-f01ac434b0d3
+md"""
+Cálculo da frequência angular elétrica, $\omega$ :
+"""
+
+# ╔═╡ cdfa6084-a6e6-4205-9a25-8fbe6ef8fb53
+ω = 2π*f
+
+# ╔═╡ 90f50ad3-c86d-4e65-a338-c0fb082b1ef8
+md"""
+Definição do intervalo de tempo de análise, por exemplo, 2 períodos de onda alternada:
+"""
+
+# ╔═╡ 215762b7-272b-4749-83c9-532fed7671ef
+t=0:1e-5:0.04  					   # time range
+#t=range(0, 0.04, length=10000)    # another Julia code option    
+
+# ╔═╡ 96b48340-ec08-4d87-b1f1-46b18a12b038
+md"""
+A determinação da tensão temporal do circuito AC vem dado por:
+
+$\tag{1}
+u(t)=\sqrt2\:U\sin(\omega\:t+\theta_u) \quad\quad \rm{com}\it\quad t \in \left [\:0;\: k\:T\: \right ]$
+"""
+
+# ╔═╡ 8794c335-e5a7-4b91-b6e4-30e31eff27e9
+Foldable("Onde:",md"
+ -  $U$, valor eficaz da tensão, V
+ -  $k$, número inteiro de períodos de onda
+ -  $\theta_u$, o ângulo inicial da tensão, rad
+ -  $T$, período da onda AC, $\:T=f^{-1}$ , em segundos")
+
+# ╔═╡ 9a3db49a-5fa0-48ac-9de7-5cad998674c6
+md"""
+Computacionalmente, obtêm-se os valores de $u(t)$:
+"""
+
+# ╔═╡ 2416a6df-b494-4620-a4cb-53efc61ae202
+u = √2*U*sin.(ω*t .+ θᵤ) 
+
+# ╔═╡ f0dad876-ded8-4da1-8b4e-243dde05b386
+md"""
+!!! tip "Observações:"
+	- A linguagem Julia aceita caracteres gregos e/ou símbolos como variáveis. A lista de possibilidades vem definida em [Unicode Input](https://docs.julialang.org/en/v1/manual/unicode-input/); Exemplos: 
+      - para a raíz quadrada, escrever: `\sqrt` + premir tecla `TAB`
+      - para a letra grega ω, escrever: `\omega` + tecla `TAB`
+      - θᵤ é obtido fazendo: `\theta` + `TAB` + `\_u` + `TAB`
+
+	  Isto permite que as equações para cálculo computacional fiquem muito semelhantes à sua escrita matemática!
+
+
+	- Na equação: `u = √2*U*sin.(ω*t .+ θᵤ)`, junto dos operadores matemáticos aparece um ponto final `.`: isso é o símbolo de [*broadcasting*](https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting) e evita ter de  definir um ciclo `for` para calcular a tensão instantânea `u` para todos os valores de `t`, simplificando a escrita de código.  
+
+"""
+
+# ╔═╡ 7005e1f1-03ed-468a-bd40-c695fa2f8985
+
+
+# ╔═╡ 87bcbe0c-19e7-4c07-a1d7-bb1a83da434b
+md"""
+Uma vez que a carga é variável define-se a corrente, $I$ e o ângulo de desfasamento da corrente em relação à tensão, $\varphi$, com base em dois controlos deslizantes (*sliders*) que permitem uma análise interativa. 
+"""
+
+# ╔═╡ dc524dd6-01fe-45fc-bf89-49f07cd88c7e
+md"""
+## 💻 Controlos da corrente
+
+ $$I [A] =$$ $(@bind I Slider(0:0.1:100; default=60, show_value=true)) $$\quad\quad ; \quad\quad$$ $$\phi[\degree]$$ $(@bind ϕ Slider(-90:0.1:90; default=-30, show_value=true))  
+"""
+
+# ╔═╡ 03e2bb91-acd2-4a71-b31a-2935bfecba08
 begin
-	O1=@bind pick1 MultiSelect(["maior", "menor", "melhor", "pior"])
-	O2=@bind pick2 MultiSelect(["menos", "mais", "mais ", "menos "])
-	O1, O2
+	φ = ϕ * π/180 	# degrees to radians conversion 
+	φ = round(φ, digits=4)
+	#φ = deg2rad()  # option: Julia function to convert degrees to radians 
+	I, φ 			# the values assigned to (I, φ) change as the sliders are moved!
 end
 
-# ╔═╡ af4e9d09-cac3-4ca0-8735-70d3e358a1ad
+# ╔═╡ db25a19e-2329-42ab-8602-bcc0749385fd
 md"""
-Em sobrecarga a máquina com **$(pick1)** regulação, fornece **$(pick2)** corrente.
+A determinação da corrente temporal do circuito AC vem dado por:
+
+$\tag{2}
+i(t)=\sqrt2\:I\sin(\omega\:t+\theta_i) \quad\quad \rm{com}\it\quad t \in \left [\:0;\: k\:T\: \right ]$
+
+Em $(2)$, $I$ e $\theta_i$ são o valor eficaz e o ângulo inicial, da corrente elétrica, respectivamente.  
 """
 
-# ╔═╡ 24c80cb7-1e2e-4959-ac83-6a756749f2ec
-
-
-# ╔═╡ 2ca2baf2-8970-4566-8738-5e4ff39e9fa5
+# ╔═╡ 62075218-1518-4706-8433-87910e4e543a
 md"""
-# Cálculos 
-!!! nota
-	Nesta secção são exibidos os cálculos realizados para obter a construção gráfica apresentada neste *notebook*. Esta secção é de análise facultativa.
+Computacionalmente, calculam-se os valores de $i(t)$:
 """
 
-# ╔═╡ 7e45e4aa-b6cd-4d9a-a78d-c0a32be51fc7
-md"""
-Determinação das correntes de cada gerador, `I₁` e `I₂`, por interpolação da característica externa do respectivo gerador DC, para diferentes valores de tensão do paralelo de geradores DC, `U`.\
-Inclui também a extrapolação das características externas de cada gerador para determinação gráfica de correntes circulatórias entre as máquinas e tensão de vazio com os geradores DC em paralelo:
-"""
-
-# ╔═╡ 1e4d5035-1f17-4d8f-aaf3-0c62ec511abc
+# ╔═╡ 3446025f-e81a-450f-a5c2-517eee3e6e54
 begin
-	U = -205.5:-1:-229.5
-	I1int = Spline1D(-U₁, I, k=1, bc="extrapolate")
-	I2int = Spline1D(-U₂, I, k=1, bc="extrapolate")
-	I₁ = I1int(U)
-	I₂ = I2int(U)
-	I₁, I₂
-end;
-
-# ╔═╡ 76059231-9935-4437-bd3e-7d6b3ebcda63
-md"""
-Determinação das contribuições de carga de cada gerador DC, `Ic1` e `Ic2`, para uma dada resistência de carga, `Rcarga`, aplicada ao paralelo de geradores DC:
-"""
-
-# ╔═╡ 089dd348-6ff5-4f42-8487-bfe9e4b94d76
-begin
-	Iₜ = I₁ + I₂
-	Ic = 0:.01:2300
-	Uc = Rcarga .* Ic
-	Up_int = Spline1D(-Iₜ,U)
-	Up = (-1) .* Up_int(-Ic)
-	A = (Up-Uc)
-	a = findall(i->(-.1 < i < .1), A)
-	Itotal = .01 * a[1,1]
-	Ic1 = I1int(-Rcarga * Itotal)
-	Ic2 = I2int(-Rcarga * Itotal)
-end;
-
-# ╔═╡ 5d931a49-0a5e-4ad0-b726-9996ae7cbe7e
-begin
-	# alterar o parâmetro "ylims" para a fazer zoom ao gráfico!
-	plot(I,U₁, ylims=(00,250), markershape=:circle, markersize=3, 
-			linecolor=:blue, linewidth=0, title="U =f(I)", xlabel = "I(A)", ylabel="U(V)", framestyle = :origin, minorticks=5, label="U₁=f(I₁)")
-	
-	plot!(I,U₂, markershape=:circle, markersize=3, linecolor=:red, 
-			linewidth=0, label="U₂=f(I₂)", legend=:bottomright)
-	
-	plot!(I₁,-U, linecolor=:blue, label=:none)
-	
-	plot!(I₂,-U, linecolor=:red, label=:none)
-	
-	plot!(I₁+I₂, -U, xlims=(-500,2500), linewidth=2, markershape=:circle,
-			markersize=3, label="U=f(Iₜₒₜₐₗ)", xminorgrid=true)
-	
-	#plot!([210], seriestype = :hline, linestyle=:dash)
-	
-	plot!(I₁+I₂, Rcarga.*(I₁+I₂), linewidth=3, label="reta carga")
-	
-	plot!([Itotal], seriestype = :vline, linestyle=:dash, 
-			linecolor=:brown, label=:none)
-	
-	plot!([Rcarga*Itotal], seriestype = :hline, linestyle=:dash, label=:none)
-	
-	plot!([Ic1], seriestype = :vline, linestyle=:dashdot, 
-			linecolor=:blue, label=:none)
-	
-	plot!([Ic2], seriestype = :vline, linestyle=:dashdot, 
-			linecolor=:red, label=:none)
+	θᵢ = θᵤ + φ      
+	i= √2*I*sin.(ω*t .+ θᵢ)	
 end
 
-# ╔═╡ 41137dae-b56e-4f68-8bac-98ad72262080
+# ╔═╡ 411a6e64-52c0-498a-903d-60ae56c07aab
 
 
-# ╔═╡ 2effa5ea-4c7c-42cf-8872-91274a18b17b
+# ╔═╡ 01e4e485-c4ba-473c-9de3-d28179e147e2
+md"""
+## 💻 Gráfico: $u(t)$, $i(t)$, $p(t)$
+"""
+
+# ╔═╡ 8d7ad9b1-2233-4a3f-ad60-8c759aea65e7
+md"""
+Mostrar potência intantânea, $p(t)$? $(@bind z CheckBox())
+"""
+
+# ╔═╡ 4892078c-73aa-4eb6-851a-714a08ee050c
+
+
+# ╔═╡ ee73db77-137d-456e-970e-957dbb99a60d
+md"""
+# Potências num circuito AC (carga linear)
+"""
+
+# ╔═╡ fa0fb15d-45e4-48bf-82bf-8352c677c35b
+md"""
+A potência instantânea, $p(t)$, vem dado pelo produto da tensão e corrente instantâneas:
+
+$\tag{3}
+p(t)=u(t)\:i(t)$
+
+Computacionalmente, fica:
+"""
+
+# ╔═╡ 19bb2956-2c05-47c6-bb25-29343e82e73a
+p = u.*i 			
+
+# ╔═╡ ad4c33ec-473c-4b72-86ca-d2674d45813b
+begin
+	# Select the checkbox above the plot, to see the instantaneous power, p(t), together with voltage and current plot, with a secondary axis:
+	if z == 0
+		plot(t, u, xlabel="t (s)", label="u(t)", minorticks=5)
+		plot!(t,i, ylabel="u, i  (V, A)", label="i(t)", legend=:bottomleft)
+	else
+		plot!(twinx(), t, p/1000, ylabel="p (kVA)", lc=:green, lw=2, 										  legend=:bottomright, label="p(t)")
+	end
+end
+
+# ╔═╡ d3426bad-31ba-4123-bea7-54032004d03d
+md"""
+A potência instantânea pode ser decomposta em 2 componentes.\
+Substituindo $(1)$ e $(2)$ em $(3)$, tém-se:
+
+$\begin{align}
+p(t) &= 2\:U\:I\sin(\omega\:t+\theta_u)\:\sin(\omega\:t+\theta_i) \\
+\\
+\because\quad \varphi &= \theta_i - \theta_u  \quad\&\quad\theta_u=0\quad\therefore\\
+\\
+p(t) &= 2\:U\:I\sin(\omega\:t)\:\sin(\omega\:t+\varphi) \\
+\\
+\because\quad \sin(x)\: \sin(y) &= \frac{1}{2}\left [ \cos(x-y)-\cos(x+y) \right ] \quad\therefore\\
+\\
+\tag{4}
+p(t) &= U \: I \: \cos\varphi - U \: I \: \cos(2\:\omega\:t + \varphi)\\
+\end{align}$
+"""
+
+# ╔═╡ 7494ef14-aa3e-4d34-ad06-f39ccb7c6a0f
+md"""
+Atendendo à expressão da potência aparente, $S=U\:I$, a potência instantânea, $p(t)$, pode ser reescrita na forma, $(5)$:
+
+$\tag{5}
+p(t) = S \: \cos\varphi - S \: \cos(2\:\omega\:t + \varphi)$
+"""
+
+# ╔═╡ c1ba8a60-1211-46a0-abe8-43d9563300c2
+md"""
+De $(4)$, verifica-se a a potência instantânea, $p(t)$, depende um termo constante e de um termo alternado com o dobro de frequência angular das grandezas elétricas, $u(t)$ e $i(t)$.
+
+O termo constante tem a designação de **potência ativa**, $P$, enquanto a segunda parcela tem a designação de potência alternada, $p_{alt}(t)$, representadas em $(6)$ e $(7)$, respectivamente.
+
+$\begin{align}
+\tag{6}
+P &= U \: I \: \cos \varphi\\
+\tag{7}
+p_{alt}(t) &= U \: I \: \cos(2\:\omega\:t + \varphi)\\
+\end{align}$
+"""
+
+# ╔═╡ 940b3c87-7edd-43ae-b53c-fb0bcd40c9ed
+begin
+	P = U*I*cos(φ)				# active power, W
+	P = P/1000 					# active power, kW
+	P = round(P, digits=1)      # round P value to one decimal place, kW
+end
+
+# ╔═╡ 3cce2987-e158-4c53-b07b-5943adc1808a
+pₐₗₜ = U*I*cos.(2ω*t .+ φ)	 
+
+# ╔═╡ c3686c4c-e88d-4820-b9a1-44232d6039c9
+
+
+# ╔═╡ 3ccfdb1c-7167-4a3b-95db-34a896613d53
+md"""
+## 💻 Gráfico: $p(t)$, $p_{alt}(t)$; $P$, $S$
+"""
+
+# ╔═╡ ae4d2175-1274-40a4-b290-5fb4bd647899
+md"""
+Das expressões $(4)$ ou $(5)$ e da representação temporal de $p(t)$, verifica-se que a **potência ativa**, $P$, corresponde ao valor médio, num determinado período, da potência elétrica instantânea, ou seja, pode ser representada por:
+
+$\tag{8}
+P=\frac{1}{T}\int_0^T {p(t)} \:\rm{d}t$
+
+Computacionalmente pode-se verificar por integração numérica dos valores de $p(t)$:
+"""
+
+# ╔═╡ 307d39f1-fde6-4cf7-b165-97cb789788ba
+begin
+	Pa=integrate(t, p)/0.04 		# Active power by numerical integration, W
+	Pa=round(Pa/1000, digits=1) 	# W->kW and round to one decimal place, kW
+end
+
+# ╔═╡ 3a8003ee-71c6-42ca-859b-10651e9b1cfa
+
+
+# ╔═╡ 37aedeb7-9a81-4ae0-bad9-1e58ae356b5f
+md"""
+A parcela relativa à potência alternada, $p_{alt}$, pode ainda ser analisada do seguinte modo:
+
+Aplicando em $(7)$, a seguinte a identidade trigonométrica:
+
+$$\because \quad\cos(x+y)=\cos x \cos y - \sin x \sin y\quad\therefore$$
+
+Obtém-se, $(9)$:
+
+$\tag{9}
+p_{alt} = \underbrace{U\:I\: \cos\varphi}_{P}\:\cos(2\:\omega\:t) - \underbrace{U\:I \sin\varphi}_{Q}\:\sin(2\:\omega\:t)$
+
+Em $(9)$, $Q$ representa potência reativa, que se traduz pela amplitude do fluxo de potência que varia alternadamente entre a fonte de alimentação e a carga linear, $(10)$:
+
+$\tag{10}
+Q = U\:I\:\sin\varphi$
+
+Substituindo $(9)$, $(6)$ e $(10)$ em $(4)$, obtém-se a potência instantânea, $p(t)$, dada por $(11)$:
+
+$\tag{11}
+p(t) = \underbrace{P\:[1-\cos(2\:\omega\:t)]}_{p_1(t)} + \underbrace{Q\:\sin(2\:\omega\:t)}_{p_2(t)}$
+"""
+
+# ╔═╡ f562f00a-8779-44ec-8209-b2b23618c3a5
+begin
+	Q = U*I*sin(φ)
+	S = U*I
+	Q, S = round.((Q/1000, S/1000), digits=1)
+	md" Assim, computacionalmente obtêm-se os valores das potências ativa, reativa e aparente:\
+ $$P=$$ $P $$\rm kW\:;\:\:Q=$$ $Q $$\rm kVAr\:;\:\:S=$$ $S $$\rm kVA$$"
+end
+
+# ╔═╡ 11579602-0e0a-4800-a615-c0b13441ebf8
+begin
+	# p(t):
+	plot(t, p/1000, title="p(t) = P - pₐₗₜ(t)", 
+				legend=:topright, xlabel="t  (s)", lw=2, lc=:green, 
+				ylabel="kVA, kW",	label="p(t)", minorticks=5)
+	
+	# pₐₗₜ(t):
+	plot!(t, pₐₗₜ/1000, lc=:purple, label="pₐₗₜ(t)")
+	plot!([S], seriestype=:hline, ls=:dot, lc=:purple, label=:none)
+	plot!([-S], seriestype=:hline, ls=:dot, lc=:purple, label=:none)
+	plot!([(0.024,0), (0.024, -S)], arrow = arrow(:closed, 0.1, :both), 
+								   color = :purple, label=:none)
+	annotate!([0.025], [-S/2], ["S"], :purple)
+
+	
+	# P:
+	plot!([P], seriestype=:hline, ls=:dot, lw=2, lc=:orange, label="P")
+	plot!([0], seriestype=:hline, lc=:black, label=:none)
+	plot!([(0.006,0), (0.006, P)], arrow = arrow(:closed, 0.1, :both), 
+								   color = :orange, label=:none)
+	annotate!([0.007], [P/2], ["P"], :orange)
+	
+	# S:
+	plot!([P+S], seriestype=:hline, ls=:dot, lc=:green, label=:none)
+	plot!([(0.018,P), (0.018, P+S)], arrow = arrow(:closed, 0.1, :both), 
+								   color = :green; label=:none)
+	annotate!([0.019], [3(P+S)/4], ["S"], :green)
+end
+
+# ╔═╡ ee7e6566-9e18-4b64-acba-f21d7b2799bf
+md"""
+De $(11)$, calculam-se computacionamente as parcelas das potências oscilantes, $p_1(t)$ e $p_2(t)$, que se relacionam com as potências ativa e reativa, respectivamente: 
+"""
+
+# ╔═╡ 4c5a7341-c210-40c0-b8e4-810f2a15245b
+p₁ = P*(1 .- cos.(2ω*t));
+
+# ╔═╡ 8ee8c903-7b59-4ca9-8a20-be8edcab7e09
+p₂ = Q*sin.(2ω*t);
+
+# ╔═╡ 1b66f615-427e-4d95-9058-0e31b239b006
+
+
+# ╔═╡ 19688a6a-fbca-4eaf-8acd-25a604902c04
+md"""
+## 💻 Gráfico: $p(t)$, $p_1(t)$, $p_2(t)$; $P$, $Q$, $S$
+"""
+
+# ╔═╡ b91708f8-e434-4007-b33b-6ee4a35e082b
+begin
+	# p(t), p₁(t), p₂(t):
+	plot(t, p/1000, title="p(t)=p₁(t)+p₂(t) ;  P=$(P)kW ;  Q=$(Q)kVAr ; S=$(S)kVA", 
+				legend=:topright, xlabel="t  (s)", lw=2, lc=:green, 
+				ylabel="kW, kVAr, kVA",	label="p(t)", minorticks=5)
+	plot!(t, p₁, lc=:red, label="p₁(t)")
+	plot!(t, p₂, lc=:blue, label="p₂(t)")
+	
+	# Q:
+	plot!([Q], seriestype=:hline, ls=:dot, lc=:blue, label=:none)
+	plot!([-Q], seriestype=:hline, ls=:dot, lc=:blue, label=:none)
+	plot!([(0.015,0), (0.015, -abs(Q))], arrow = arrow(:closed, 0.1, :both), 
+										 color = :blue; label=:none)
+	annotate!([0.014], [-abs(Q)/2], ["Q"], :blue)
+	
+	# P:
+	plot!([P], seriestype=:hline, ls=:dot, lw=2, lc=:orange, label="P")
+	plot!([0], seriestype=:hline, ls=:dot, lc=:red, label=:none)
+	plot!([2P], seriestype=:hline, ls=:dot, lc=:red, label=:none)
+	plot!([(0.01,0), (0.01, 2*P)], arrow = arrow(:closed, 0.1, :both), 
+								   color = :red, label=:none)
+	annotate!([0.0088], [4P/3], ["2P"], :red)
+	
+	# S:
+	plot!([P+S], seriestype=:hline, ls=:dot, lc=:green, label=:none)
+	plot!([(0.02,P), (0.02, P+S)], arrow = arrow(:closed, 0.1, :both), 
+								   color = :green; label=:none)
+	annotate!([0.019], [3(P+S)/4], ["S"], :green)
+end
+
+# ╔═╡ 0d3f746a-4fc4-4e3f-883a-9e62e965be80
+
+
+# ╔═╡ 0c6a5503-3b58-484f-95cf-061b7d926495
+
+
+# ╔═╡ 35fdaf5c-fa96-45ac-9c06-42da2605c24f
+
+
+# ╔═╡ 84b38e0e-a51f-4ee0-b238-c224e4dd8c94
 md"""
 # *Notebook*
 """
 
-# ╔═╡ 3c605565-784f-4ee7-8ff6-0ff77eff34f8
+# ╔═╡ 6525e0c5-65ff-4c76-b17a-812dd5bdc14e
 md"""
-Documentação das bibliotecas Julia utilizadas:  [Dierckx](https://github.com/kbarbary/Dierckx.jl), [Plots](http://docs.juliaplots.org/latest/), [PlutoUI](https://juliahub.com/docs/PlutoUI/abXFp/0.7.6/).
+!!! info
+	No índice deste *notebook*, os tópicos assinalados com "💻" requerem a participação do estudante.
 """
 
-# ╔═╡ 15a21bc0-7fcf-4af9-a8f6-693e2dec05ad
+# ╔═╡ 80737353-aa05-4cb2-b721-e545774e3207
+md"""
+1.5min
+"""
+
+# ╔═╡ 9b1afa94-4b72-4958-b17d-e28b5845c517
+TableOfContents()
+
+# ╔═╡ ddb73740-1740-4139-a0cb-875a76a84e2f
 begin
 	# other stuff:
 	isel_logo="https://www.isel.pt/sites/default/files/NoPath%20-%20Copy%402x_0.png"
@@ -221,47 +466,25 @@ begin
 	version=VERSION
 end;
 
-# ╔═╡ 1dd1e360-e3d5-4137-915e-57a7669981f2
-ThreeColumn(md"$(Resource(isel_logo, :height => 75))", md"
-$\textbf{\color{green}{Lic. em Engenharia Eletrotécnica }}$", md"$\text{ Máquinas Elétricas II}$")
-
-# ╔═╡ 93f0c834-6b63-494e-829f-181066732a3b
-md"""
-*Notebook* realizado em linguagem de computação científica Julia versão $(version).
-
-**_Time to first plot_**: até cerca de 1.1 min.
-
-**Computador**: Intel® Core™ i7-7600U CPU @ 2.80GHz; 24GB RAM.
-"""
-
-# ╔═╡ 5be44370-93ed-4bd7-82eb-9dc50d78ffc6
-md"""
-!!! info
-	No índice deste *notebook*, os tópicos assinalados com "💻" requerem a participação do estudante.
-"""
-
-# ╔═╡ b15f8fa6-04c9-425c-865b-013f06113bcb
-TableOfContents(title="Índice")
-
-# ╔═╡ 6554ac49-0f3d-409e-a6a8-d0d6515087b3
+# ╔═╡ 5f6e5820-d9ad-4af3-96c9-776bd373e4fe
 md"""
 ---
 """
 
-# ╔═╡ f8b33a49-57f6-482f-87ac-36184ddb3e37
-ThreeColumn(md"Text content: [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $(Resource(julia_logo, :height => 15)) `code`: [`MIT License`](https://www.tldrlegal.com/l/mit)", md"[$$© \text{ 2022 Ricardo Luís}$$](https://ricardo-luis.github.io/me2/)")
+# ╔═╡ 4e0e6812-f55b-45e1-948d-c8f012cbcd33
+ThreeColumn(md"Text content: [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $(Resource(julia_logo, :height => 15)) `code`: [`MIT License`](https://www.tldrlegal.com/license/mit-license)", md" $$©$$ [`2023 Ricardo Luís`](https://ricardo-luis.github.io/lee-me2/)")
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
-Dierckx = "39dd38d3-220a-591b-8e3c-4c3a8c710a94"
+NumericalIntegration = "e7bfaba1-d571-5449-8927-abc22e82249b"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 PlutoTeachingTools = "661c6b06-c737-4d37-b85c-46df65de6f69"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
-Dierckx = "~0.5.3"
-Plots = "~1.39.0"
+NumericalIntegration = "~0.3.3"
+Plots = "~1.38.17"
 PlutoTeachingTools = "~0.2.13"
 PlutoUI = "~0.7.52"
 """
@@ -272,7 +495,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.9.3"
 manifest_format = "2.0"
-project_hash = "66a0ce8179a1d8427232913359683f312482ff8a"
+project_hash = "7190f7feb8021dd445e1d9b731b798761d37f5ea"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -280,12 +503,28 @@ git-tree-sha1 = "91bd53c39b9cbfb5ef4b015e8b582d344532bd0a"
 uuid = "6e696c72-6542-2067-7265-42206c756150"
 version = "1.2.0"
 
+[[deps.Adapt]]
+deps = ["LinearAlgebra", "Requires"]
+git-tree-sha1 = "76289dc51920fdc6e0013c872ba9551d54961c24"
+uuid = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
+version = "3.6.2"
+weakdeps = ["StaticArrays"]
+
+    [deps.Adapt.extensions]
+    AdaptStaticArraysExt = "StaticArrays"
+
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
 version = "1.1.1"
 
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
+
+[[deps.AxisAlgorithms]]
+deps = ["LinearAlgebra", "Random", "SparseArrays", "WoodburyMatrices"]
+git-tree-sha1 = "66771c8d21c8ff5e3a93379480a2307ac36863f7"
+uuid = "13072b0f-2c55-5437-9ae7-d433b7a33950"
+version = "1.0.1"
 
 [[deps.Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
@@ -306,6 +545,12 @@ deps = ["Artifacts", "Bzip2_jll", "CompilerSupportLibraries_jll", "Fontconfig_jl
 git-tree-sha1 = "4b859a208b2397a7a623a03449e4636bdb17bcf2"
 uuid = "83423d85-b0ee-5818-9007-b63ccbeb887a"
 version = "1.16.1+1"
+
+[[deps.ChainRulesCore]]
+deps = ["Compat", "LinearAlgebra", "SparseArrays"]
+git-tree-sha1 = "e30f2f4e20f7f186dc36529910beaedc60cfa644"
+uuid = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
+version = "1.16.0"
 
 [[deps.CodeTracking]]
 deps = ["InteractiveUtils", "UUIDs"]
@@ -395,18 +640,6 @@ deps = ["Mmap"]
 git-tree-sha1 = "9e2f36d3c96a820c678f2f1f1782582fcf685bae"
 uuid = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 version = "1.9.1"
-
-[[deps.Dierckx]]
-deps = ["Dierckx_jll"]
-git-tree-sha1 = "d1ea9f433781bb6ff504f7d3cb70c4782c504a3a"
-uuid = "39dd38d3-220a-591b-8e3c-4c3a8c710a94"
-version = "0.5.3"
-
-[[deps.Dierckx_jll]]
-deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "6596b96fe1caff3db36415eeb6e9d3b50bfe40ee"
-uuid = "cd4c43a9-7502-52ba-aa6d-59fb2a88580b"
-version = "0.1.0+0"
 
 [[deps.Distributed]]
 deps = ["Random", "Serialization", "Sockets"]
@@ -505,10 +738,10 @@ uuid = "78b55507-aeef-58d4-861c-77aaff3498b1"
 version = "0.21.0+0"
 
 [[deps.Glib_jll]]
-deps = ["Artifacts", "Gettext_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Libiconv_jll", "Libmount_jll", "PCRE2_jll", "Zlib_jll"]
-git-tree-sha1 = "e94c92c7bf4819685eb80186d51c43e71d4afa17"
+deps = ["Artifacts", "Gettext_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Libiconv_jll", "Libmount_jll", "PCRE2_jll", "Pkg", "Zlib_jll"]
+git-tree-sha1 = "d3b3624125c1474292d0d8ed0f65554ac37ddb23"
 uuid = "7746bdde-850d-59dc-9ae8-88ece973131d"
-version = "2.76.5+0"
+version = "2.74.0+2"
 
 [[deps.Graphite2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -523,9 +756,9 @@ version = "1.0.2"
 
 [[deps.HTTP]]
 deps = ["Base64", "CodecZlib", "ConcurrentUtilities", "Dates", "ExceptionUnwrapping", "Logging", "LoggingExtras", "MbedTLS", "NetworkOptions", "OpenSSL", "Random", "SimpleBufferStream", "Sockets", "URIs", "UUIDs"]
-git-tree-sha1 = "19e974eced1768fb46fd6020171f2cec06b1edb5"
+git-tree-sha1 = "cb56ccdd481c0dd7f975ad2b3b62d9eda088f7e2"
 uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
-version = "1.9.15"
+version = "1.9.14"
 
 [[deps.HarfBuzz_jll]]
 deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "Glib_jll", "Graphite2_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Pkg"]
@@ -554,6 +787,12 @@ version = "0.2.3"
 [[deps.InteractiveUtils]]
 deps = ["Markdown"]
 uuid = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
+
+[[deps.Interpolations]]
+deps = ["AxisAlgorithms", "ChainRulesCore", "LinearAlgebra", "OffsetArrays", "Random", "Ratios", "Requires", "SharedArrays", "SparseArrays", "StaticArrays", "WoodburyMatrices"]
+git-tree-sha1 = "b7bc05649af456efc75d178846f47006c2c4c3c7"
+uuid = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
+version = "0.13.6"
 
 [[deps.IrrationalConstants]]
 git-tree-sha1 = "630b497eafcc20001bba38a4651b327dcfc491d2"
@@ -680,10 +919,10 @@ uuid = "7add5ba3-2f88-524e-9cd5-f83b8a55f7b8"
 version = "1.42.0+0"
 
 [[deps.Libiconv_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "f9557a255370125b405568f9767d6d195822a175"
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
+git-tree-sha1 = "c7cb1f5d892775ba13767a87c7ada0b980ea0a71"
 uuid = "94ce4f54-9a6c-5748-9c1c-f9c7231a4531"
-version = "1.17.0+0"
+version = "1.16.1+2"
 
 [[deps.Libmount_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -728,9 +967,9 @@ uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 
 [[deps.LoggingExtras]]
 deps = ["Dates", "Logging"]
-git-tree-sha1 = "0d097476b6c381ab7906460ef1ef1638fbce1d91"
+git-tree-sha1 = "a03c77519ab45eb9a34d3cfe2ca223d79c064323"
 uuid = "e6f89c97-d47a-5376-807f-9c37f3926c36"
-version = "1.0.2"
+version = "1.0.1"
 
 [[deps.LoweredCodeUtils]]
 deps = ["JuliaInterpreter"]
@@ -791,6 +1030,18 @@ version = "1.0.2"
 [[deps.NetworkOptions]]
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
 version = "1.2.0"
+
+[[deps.NumericalIntegration]]
+deps = ["Interpolations", "LinearAlgebra", "Logging"]
+git-tree-sha1 = "2a4ef5fc235053f9747d59cfdee19bcb8ba1e833"
+uuid = "e7bfaba1-d571-5449-8927-abc22e82249b"
+version = "0.3.3"
+
+[[deps.OffsetArrays]]
+deps = ["Adapt"]
+git-tree-sha1 = "2ac17d29c523ce1cd38e27785a7d23024853a4bb"
+uuid = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
+version = "1.12.10"
 
 [[deps.Ogg_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -872,9 +1123,9 @@ version = "1.3.5"
 
 [[deps.Plots]]
 deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers", "GR", "JLFzf", "JSON", "LaTeXStrings", "Latexify", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "PrecompileTools", "Preferences", "Printf", "REPL", "Random", "RecipesBase", "RecipesPipeline", "Reexport", "RelocatableFolders", "Requires", "Scratch", "Showoff", "SparseArrays", "Statistics", "StatsBase", "UUIDs", "UnicodeFun", "UnitfulLatexify", "Unzip"]
-git-tree-sha1 = "ccee59c6e48e6f2edf8a5b64dc817b6729f99eb5"
+git-tree-sha1 = "9f8675a55b37a70aa23177ec110f6e3f4dd68466"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-version = "1.39.0"
+version = "1.38.17"
 
     [deps.Plots.extensions]
     FileIOExt = "FileIO"
@@ -944,6 +1195,16 @@ uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 deps = ["SHA", "Serialization"]
 uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
+[[deps.Ratios]]
+deps = ["Requires"]
+git-tree-sha1 = "1342a47bf3260ee108163042310d26f2be5ec90b"
+uuid = "c84ed2f1-dad5-54f0-aa8e-dbefe2724439"
+version = "0.4.5"
+weakdeps = ["FixedPointNumbers"]
+
+    [deps.Ratios.extensions]
+    RatiosFixedPointNumbersExt = "FixedPointNumbers"
+
 [[deps.RecipesBase]]
 deps = ["PrecompileTools"]
 git-tree-sha1 = "5c3d09cc4f31f5fc6af001c250bf1278733100ff"
@@ -992,6 +1253,10 @@ version = "1.2.0"
 [[deps.Serialization]]
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
 
+[[deps.SharedArrays]]
+deps = ["Distributed", "Mmap", "Random", "Serialization"]
+uuid = "1a1011a3-84de-559e-8e89-a11a2f7dc383"
+
 [[deps.Showoff]]
 deps = ["Dates", "Grisu"]
 git-tree-sha1 = "91eddf657aca81df9ae6ceb20b959ae5653ad1de"
@@ -1016,6 +1281,21 @@ version = "1.1.1"
 deps = ["Libdl", "LinearAlgebra", "Random", "Serialization", "SuiteSparse_jll"]
 uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
+[[deps.StaticArrays]]
+deps = ["LinearAlgebra", "Random", "StaticArraysCore"]
+git-tree-sha1 = "9cabadf6e7cd2349b6cf49f1915ad2028d65e881"
+uuid = "90137ffa-7385-5640-81b9-e52037218182"
+version = "1.6.2"
+weakdeps = ["Statistics"]
+
+    [deps.StaticArrays.extensions]
+    StaticArraysStatisticsExt = "Statistics"
+
+[[deps.StaticArraysCore]]
+git-tree-sha1 = "36b3d696ce6366023a0ea192b4cd442268995a0d"
+uuid = "1e83bf80-4336-4d27-bf5d-d5a4f845583c"
+version = "1.4.2"
+
 [[deps.Statistics]]
 deps = ["LinearAlgebra", "SparseArrays"]
 uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
@@ -1023,9 +1303,9 @@ version = "1.9.0"
 
 [[deps.StatsAPI]]
 deps = ["LinearAlgebra"]
-git-tree-sha1 = "1ff449ad350c9c4cbc756624d6f8a8c3ef56d3ed"
+git-tree-sha1 = "45a7769a04a3cf80da1c1c7c60caf932e6f4c9f7"
 uuid = "82ae8749-77ed-4fe6-ae5f-f523153014b0"
-version = "1.7.0"
+version = "1.6.0"
 
 [[deps.StatsBase]]
 deps = ["DataAPI", "DataStructures", "LinearAlgebra", "LogExpFunctions", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics", "StatsAPI"]
@@ -1124,11 +1404,17 @@ git-tree-sha1 = "4528479aa01ee1b3b4cd0e6faef0e04cf16466da"
 uuid = "2381bf8a-dfd0-557d-9999-79630e7b1b91"
 version = "1.25.0+0"
 
+[[deps.WoodburyMatrices]]
+deps = ["LinearAlgebra", "SparseArrays"]
+git-tree-sha1 = "de67fa59e33ad156a590055375a30b23c40299d3"
+uuid = "efce3f68-66dc-5838-9240-27a6d6f5f9b6"
+version = "0.5.5"
+
 [[deps.XML2_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Zlib_jll"]
-git-tree-sha1 = "04a51d15436a572301b5abbb9d099713327e9fc4"
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Pkg", "Zlib_jll"]
+git-tree-sha1 = "93c41695bc1c08c46c5899f4fe06d6ead504bb73"
 uuid = "02c8fc9c-b97f-50b9-bbe4-9be30ff0a78a"
-version = "2.10.4+0"
+version = "2.10.3+0"
 
 [[deps.XSLT_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libgcrypt_jll", "Libgpg_error_jll", "Libiconv_jll", "Pkg", "XML2_jll", "Zlib_jll"]
@@ -1350,40 +1636,70 @@ version = "1.4.1+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─a4cc4ad7-04fd-41cf-b6a9-8cdede20b8af
-# ╟─7fdb306c-0729-40bb-bfc7-2ce826fe936b
-# ╟─1dd1e360-e3d5-4137-915e-57a7669981f2
-# ╟─f01a2e6c-801d-4c1e-bc60-ce30c475bdc0
-# ╟─570473a3-be60-4ff1-b6d7-269c7c3cd321
-# ╟─860e56f2-921c-4943-a31b-3c2a896ca092
-# ╠═f50f251e-afe1-4ae3-8607-4d325a7c6116
-# ╟─4a8a67ff-2145-4e5f-9b54-708ad92bc12c
-# ╟─7e536108-d92f-4e5f-bd37-e48924ff9943
-# ╟─7b6d5dee-5fb8-4dc1-8557-370fc8698624
-# ╟─5d931a49-0a5e-4ad0-b726-9996ae7cbe7e
-# ╟─d59f7a7e-10bb-43cb-9710-1a822afeeba9
-# ╟─6f29a5d9-d0b4-4057-83c6-0abbd349463e
-# ╟─16f830b5-2160-43c4-8ebb-6b5cab2d5726
-# ╟─10ce0429-8170-498d-b6a8-78c4d4005822
-# ╟─61763b38-5700-4559-9171-d40612354f0b
-# ╟─b15489fb-f0e8-4019-ab10-65a8f91ec8c5
-# ╟─af4e9d09-cac3-4ca0-8735-70d3e358a1ad
-# ╟─9de717e1-542a-4b2a-9bc1-4e4ea16fb3ee
-# ╟─24c80cb7-1e2e-4959-ac83-6a756749f2ec
-# ╟─2ca2baf2-8970-4566-8738-5e4ff39e9fa5
-# ╟─7e45e4aa-b6cd-4d9a-a78d-c0a32be51fc7
-# ╠═1e4d5035-1f17-4d8f-aaf3-0c62ec511abc
-# ╟─76059231-9935-4437-bd3e-7d6b3ebcda63
-# ╠═089dd348-6ff5-4f42-8487-bfe9e4b94d76
-# ╟─41137dae-b56e-4f68-8bac-98ad72262080
-# ╟─2effa5ea-4c7c-42cf-8872-91274a18b17b
-# ╟─3c605565-784f-4ee7-8ff6-0ff77eff34f8
-# ╠═f06ea9e2-b9ed-4f8f-9278-9441cd270ca5
-# ╟─15a21bc0-7fcf-4af9-a8f6-693e2dec05ad
-# ╟─93f0c834-6b63-494e-829f-181066732a3b
-# ╟─5be44370-93ed-4bd7-82eb-9dc50d78ffc6
-# ╠═b15f8fa6-04c9-425c-865b-013f06113bcb
-# ╟─6554ac49-0f3d-409e-a6a8-d0d6515087b3
-# ╟─f8b33a49-57f6-482f-87ac-36184ddb3e37
+# ╟─4726fac7-ee43-4e91-b95e-dbb1a09e1b7d
+# ╟─03351597-b5fc-4755-9204-15cd3db2937e
+# ╟─65b1d051-b0ec-4b7b-a7e7-c3a5c3ac1a0a
+# ╠═d1de6e3c-9872-47e6-98f2-4b5c59cdfe9b
+# ╟─9cd8d54b-23ae-4586-90c5-f560ff418f73
+# ╟─dc578ed3-d498-4c02-9b7c-2f121e4358c6
+# ╟─aab928f1-2ecb-46ee-8ce9-ca146c5aad1b
+# ╟─165d6a97-67fc-4bbe-936b-47b33f9e0e33
+# ╟─37a9799f-a746-4754-b3f2-692665bb9abd
+# ╟─9e0ea587-0459-47ab-aa35-dcb458d158df
+# ╠═b263485a-636d-4a57-9c4e-dd10bf217826
+# ╟─e628a95a-30a5-4c58-8645-f01ac434b0d3
+# ╠═cdfa6084-a6e6-4205-9a25-8fbe6ef8fb53
+# ╟─90f50ad3-c86d-4e65-a338-c0fb082b1ef8
+# ╠═215762b7-272b-4749-83c9-532fed7671ef
+# ╟─96b48340-ec08-4d87-b1f1-46b18a12b038
+# ╟─8794c335-e5a7-4b91-b6e4-30e31eff27e9
+# ╟─9a3db49a-5fa0-48ac-9de7-5cad998674c6
+# ╠═2416a6df-b494-4620-a4cb-53efc61ae202
+# ╟─f0dad876-ded8-4da1-8b4e-243dde05b386
+# ╟─7005e1f1-03ed-468a-bd40-c695fa2f8985
+# ╟─87bcbe0c-19e7-4c07-a1d7-bb1a83da434b
+# ╠═03e2bb91-acd2-4a71-b31a-2935bfecba08
+# ╟─db25a19e-2329-42ab-8602-bcc0749385fd
+# ╟─62075218-1518-4706-8433-87910e4e543a
+# ╠═3446025f-e81a-450f-a5c2-517eee3e6e54
+# ╟─411a6e64-52c0-498a-903d-60ae56c07aab
+# ╟─01e4e485-c4ba-473c-9de3-d28179e147e2
+# ╟─8d7ad9b1-2233-4a3f-ad60-8c759aea65e7
+# ╠═ad4c33ec-473c-4b72-86ca-d2674d45813b
+# ╟─4892078c-73aa-4eb6-851a-714a08ee050c
+# ╟─ee73db77-137d-456e-970e-957dbb99a60d
+# ╟─fa0fb15d-45e4-48bf-82bf-8352c677c35b
+# ╠═19bb2956-2c05-47c6-bb25-29343e82e73a
+# ╟─d3426bad-31ba-4123-bea7-54032004d03d
+# ╟─7494ef14-aa3e-4d34-ad06-f39ccb7c6a0f
+# ╟─c1ba8a60-1211-46a0-abe8-43d9563300c2
+# ╠═940b3c87-7edd-43ae-b53c-fb0bcd40c9ed
+# ╠═3cce2987-e158-4c53-b07b-5943adc1808a
+# ╟─c3686c4c-e88d-4820-b9a1-44232d6039c9
+# ╟─3ccfdb1c-7167-4a3b-95db-34a896613d53
+# ╠═11579602-0e0a-4800-a615-c0b13441ebf8
+# ╟─ae4d2175-1274-40a4-b290-5fb4bd647899
+# ╠═307d39f1-fde6-4cf7-b165-97cb789788ba
+# ╟─3a8003ee-71c6-42ca-859b-10651e9b1cfa
+# ╟─37aedeb7-9a81-4ae0-bad9-1e58ae356b5f
+# ╠═f562f00a-8779-44ec-8209-b2b23618c3a5
+# ╟─ee7e6566-9e18-4b64-acba-f21d7b2799bf
+# ╠═4c5a7341-c210-40c0-b8e4-810f2a15245b
+# ╠═8ee8c903-7b59-4ca9-8a20-be8edcab7e09
+# ╟─1b66f615-427e-4d95-9058-0e31b239b006
+# ╟─19688a6a-fbca-4eaf-8acd-25a604902c04
+# ╟─dc524dd6-01fe-45fc-bf89-49f07cd88c7e
+# ╠═b91708f8-e434-4007-b33b-6ee4a35e082b
+# ╠═0d3f746a-4fc4-4e3f-883a-9e62e965be80
+# ╠═0c6a5503-3b58-484f-95cf-061b7d926495
+# ╠═35fdaf5c-fa96-45ac-9c06-42da2605c24f
+# ╟─84b38e0e-a51f-4ee0-b238-c224e4dd8c94
+# ╟─6525e0c5-65ff-4c76-b17a-812dd5bdc14e
+# ╠═80737353-aa05-4cb2-b721-e545774e3207
+# ╠═b411a974-d7fa-49d6-a1b7-ab32eb8bbe78
+# ╠═9b1afa94-4b72-4958-b17d-e28b5845c517
+# ╟─ddb73740-1740-4139-a0cb-875a76a84e2f
+# ╟─5f6e5820-d9ad-4af3-96c9-776bd373e4fe
+# ╟─4e0e6812-f55b-45e1-948d-c8f012cbcd33
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
