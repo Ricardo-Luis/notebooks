@@ -1,6 +1,14 @@
 ### A Pluto.jl notebook ###
 # v0.19.27
 
+#> [frontmatter]
+#> chapter = 1
+#> section = 1
+#> order = 1
+#> title = "✏️ Gerador: exc. separada vs. shunt"
+#> layout = "layout.jlhtml"
+#> tags = ["lecture", "module2"]
+
 using Markdown
 using InteractiveUtils
 
@@ -409,7 +417,6 @@ Documentação das bibliotecas Julia utilizadas:  [Dierckx](https://github.com/k
 begin
 	# other stuff:
 	isel_logo="https://www.isel.pt/sites/default/files/NoPath%20-%20Copy%402x_0.png"
-	julia_logo="https://github.com/JuliaLang/julia-logo-graphics/blob/master/images/julia-logo-color.png?raw=true"
 	version=VERSION
 end;
 
@@ -441,7 +448,7 @@ md"""
 """
 
 # ╔═╡ b176721c-6a68-4041-b1a7-cbb7122d4af5
-ThreeColumn(md"Text content: [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $(Resource(julia_logo, :height => 15)) `code`: [`MIT License`](https://www.tldrlegal.com/l/mit)", md"[$$© \text{ 2022 Ricardo Luís}$$](https://ricardo-luis.github.io/me2/)")
+ThreeColumn(md"Text content: [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md"`Julia code`: [`MIT License`](https://www.tldrlegal.com/license/mit-license)", md" $$©$$ [`2023 Ricardo Luís`](https://ricardo-luis.github.io/lee-me2/)")
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """

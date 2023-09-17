@@ -1,6 +1,14 @@
 ### A Pluto.jl notebook ###
 # v0.19.27
 
+#> [frontmatter]
+#> chapter = 1
+#> section = 6
+#> order = 6
+#> title = "✏️ Motor série"
+#> layout = "layout.jlhtml"
+#> tags = ["lecture", "module2"]
+
 using Markdown
 using InteractiveUtils
 
@@ -405,7 +413,7 @@ md"""
 """
 
 # ╔═╡ 4d7111e4-a70e-49f6-9e3c-0a29d48c206d
-ThreeColumn(md"Text content: [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $(Resource(julia_logo, :height => 15)) `code`: [`MIT License`](https://www.tldrlegal.com/l/mit)", md"[$$© \text{ 2022 Ricardo Luís}$$](https://ricardo-luis.github.io/me2/)")
+ThreeColumn(md"Text content: [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md"`Julia code`: [`MIT License`](https://www.tldrlegal.com/license/mit-license)", md" $$©$$ [`2023 Ricardo Luís`](https://ricardo-luis.github.io/lee-me2/)")
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """

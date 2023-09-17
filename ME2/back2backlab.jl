@@ -2,12 +2,12 @@
 # v0.19.27
 
 #> [frontmatter]
-#> URL = "https://github.com/Ricardo-Luis/me2/blob/main/notebooks/DC/back2backlab.jl"
-#> title = "Ensaio back-to-back"
-#> tags = ["DC machines"]
-#> "to cite the work, use" = "Ricardo Luís. (2022). Documentos computacionais sobre Máquinas Elétricas II [coleção de notebooks de suporte a Máquinas Elétricas II, lecionada no curso LEE do ISEL]. Disponível: https://ricardo-luis.github.io/me2"
-#> description = "Análise de potências, perdas e rendimento de máquinas DC"
-#> date = "2022-09-29"
+#> chapter = 1
+#> section = 5
+#> order = 5
+#> title = "📈 Ensaio back-to-back"
+#> layout = "layout.jlhtml"
+#> tags = ["lecture", "module2"]
 
 using Markdown
 using InteractiveUtils
@@ -953,7 +953,7 @@ md"""
 """
 
 # ╔═╡ 5e542e99-c1c3-4a7e-9556-73d752728bb5
-ThreeColumn(md"Text content: [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md" $(Resource(julia_logo, :height => 15)) `code`: [`MIT License`](https://www.tldrlegal.com/l/mit)", md"[$$© \text{ 2022 Ricardo Luís}$$](https://ricardo-luis.github.io/me2/)")
+ThreeColumn(md"Text content: [![](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)", md"`Julia code`: [`MIT License`](https://www.tldrlegal.com/license/mit-license)", md" $$©$$ [`2023 Ricardo Luís`](https://ricardo-luis.github.io/lee-me2/)")
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
