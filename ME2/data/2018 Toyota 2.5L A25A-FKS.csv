@@ -1,5 +1,9 @@
-Speed,Torque,Fuel Rate,BSFC,Efficiency
-RPM,Nm,g/sec,g/kW*hr,%
+"Speed 
+(RPM)","Torque
+(Nm)","Fuel Rate
+(g/sec)","BSFC
+g/kW*hr","Efficiency
+(%)"
 774,2.23,0.1517,3015.5,2.8
 774,10.51,0.1801,760.5,11
 774,17.7,0.2061,517.2,16.2
